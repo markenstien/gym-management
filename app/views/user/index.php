@@ -13,10 +13,10 @@
 				<table class="table table-bordered dataTable">
 					<thead>
 						<th>Name</th>
-						<th>Student Number</th>
+						<th>ID Number</th>
 						<th>Gender</th>
-						<th>Phone Number</th>
 						<th>Type</th>
+						<th>Status</th>
 						<th>Action</th>
 					</thead>
 
@@ -26,7 +26,7 @@
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
 								<td><?php echo $row->gender ?></td>
-								<td><?php echo $row->phone ?></td>
+								<td><?php echo $row->membership_status ?></td>
 								<td><?php echo $row->user_type ?></td>
 								<td>
 									<?php 

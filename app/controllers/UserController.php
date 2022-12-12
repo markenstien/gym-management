@@ -1,6 +1,8 @@
 <?php 
 	load(['UserForm'] , APPROOT.DS.'form');
 	use Form\UserForm;
+	use Services\UserService;
+
 	class UserController extends Controller
 	{
 
@@ -9,7 +11,7 @@
 			parent::__construct();
 
 			$this->model = model('UserModel');
-
+			$this->paymentModel = model('PaymentModel');
 			$this->data['page_title'] = ' Users ';
 			$this->data['user_form'] = new UserForm();
 		}
@@ -55,6 +57,47 @@
 			$this->data['user_form'] = new UserForm('userForm');
 
 			return $this->view('user/create' , $this->data);
+		}
+
+		public function members() {
+			$this->data['users'] = $this->model->getAll([
+				'where' => [
+					'user_type' => UserService::MEMBER
+				]
+			]);
+			return $this->view('user/index', $this->data);
+		}
+
+		public function addToMember($userId) {
+			$req = request()->inputs();
+			if(isSubmitted()) {
+				$post = request()->posts();
+				$isMember = $this->model->toMember($post['user_id'], $post['months']);
+				$user = $this->model->get($post['user_id']);
+
+				if ($isMember) {
+					Flash::set("User updated as member");
+					if (!upload_empty('image')) {
+						$paymentID = $this->paymentModel->createOrUpdate([
+							'order_id' => $post['user_id'],
+							'payer_name' => $user->firstname . ' ' . $user->lastname,
+							'payment_key' => 'MEMBERSHIP_PAYMENT',
+							'amount' => $post['amount'],
+							'payment_method' => $post['payment_method'],
+							'payer_name' => $user->firstname . ' '.$user->lastname
+						]);
+
+						$this->_attachmentModel->upload([
+							'display_name' => 'Membership Payment',
+							'global_key' => 'MEMBERSHIP_PAYMENT',
+							'global_id'  => $paymentID
+						], 'image');
+					}
+				}
+			}
+			$this->data['user'] = $this->model->get($userId);
+			//include payment form
+			return $this->view('user/add_to_member', $this->data);
 		}
 
 		public function edit($id)

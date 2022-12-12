@@ -15,3 +15,7 @@ CREATE TABLE `users` (
   `user_identification` varchar(50) DEFAULT NULL,
   `user_key_code` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8
+
+
+alter table users add column
+  membership_expiry_date datetime default null;

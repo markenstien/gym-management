@@ -18,7 +18,9 @@
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
-		'sendCredential' => $controller.'/sendCredential'
+		'members'   => $controller.'/members',
+		'sendCredential' => $controller.'/sendCredential',
+		'add-to-member' => $controller .'/addToMember'
 	];
 
 	$controller = '/AuthController';
@@ -38,8 +40,25 @@
 		'show'   => $controller.'/show'
 	];
 
+	$controller = '/PaymentController';
+	$routes['payment'] = [
+		'index' => $controller.'/index',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show',
+	];
+
 	$controller = '/ReceiptController';
 	$routes['receipt'] = [
+		'index' => $controller.'/index',
+		'order' => $controller.'/orderReceipt',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show',
+	];
+
+	$controller = '/SessionController';
+	$routes['session'] = [
 		'index' => $controller.'/index',
 		'order' => $controller.'/orderReceipt',
 		'create' => $controller.'/create',

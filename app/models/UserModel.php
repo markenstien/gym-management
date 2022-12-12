@@ -21,6 +21,7 @@
 			'created_by',
 			'user_type',
 			'user_identification',
+			'membership_expiry_date',
 			'profile'
 		];
 
@@ -216,8 +217,17 @@
 			if(isset($params['where']))
 				$where = " WHERE ".$this->conditionConvert($params['where']);
 
+			$date = today();
+			
 			$this->db->query(
-				"SELECT * FROM {$this->table}
+				"SELECT *, 
+				CASE 
+					WHEN membership_expiry_date is null 
+						THEN 'non_member'
+					WHEN membership_expiry_date < '{$date}' 
+						THEN 'expired_membership'
+					ELSE 'active_member' end as membership_status 
+					FROM {$this->table}
 					{$where} {$order}"
 			);
 
@@ -360,4 +370,22 @@
 
 			return $summary;
 		}
+
+		public function toMember($id, $months) {
+			$dateOfExpiry = null;
+			switch($months) {
+				case 'month_6':
+					$dateOfExpiry = date('Y-m-d', strtotime('+6 months'.today()));
+				break;
+
+				case 'year_1':
+					$dateOfExpiry = date('Y-m-d', strtotime('+1 year'.today()));
+					break;
+			}
+			return parent::update([
+				'membership_expiry_date' => $dateOfExpiry
+			], $id);
+		}
 	}
+
+	

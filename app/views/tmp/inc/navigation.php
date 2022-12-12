@@ -26,11 +26,19 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo _route('user:members', null)?>" class="nav-link">
                 <i class="link-icon" data-feather="message-square"></i>
                 <span class="link-title">Members</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="<?php echo _route('user:members', null)?>" class="nav-link">
+                <i class="link-icon" data-feather="message-square"></i>
+                <span class="link-title">Instructors</span>
+            </a>
+        </li>
+
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="link-icon" data-feather="message-square"></i>
@@ -39,14 +47,14 @@
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo _route('payment:index')?>" class="nav-link">
                 <i class="link-icon" data-feather="message-square"></i>
                 <span class="link-title">Payments</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="<?php echo _route('session:create')?>" class="nav-link">
                 <i class="link-icon" data-feather="message-square"></i>
                 <span class="link-title">Sessions</span>
             </a>
