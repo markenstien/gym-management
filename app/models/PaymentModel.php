@@ -3,6 +3,8 @@
 class PaymentModel extends Model
 {
     public $table = 'payments';
+
+    const SESSION_WITH_INSTRUCTOR = 'SESSION_PAYMENT_INSTRUCTOR';
     public $_fillables = [
         'order_id',
         'reference',

@@ -1,15 +1,15 @@
-const URL = 'http://dev.school_management';
+const _URL = 'http://dev.gym_management';
 const DS  = '/';
 
 const getURL = function(called_url = null){
 
 	if(called_url != null) {
 
-		return URL+DS+called_url;
+		return _URL+DS+called_url;
 	}
 
 	else{
-		return URL;
+		return _URL;
 	}
 
 };

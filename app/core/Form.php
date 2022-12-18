@@ -347,7 +347,11 @@
 
 				}else
 				{
-					$label_input_bundle = $this->getRow($item['name']);
+					if($inputType == 'row') {
+						$label_input_bundle = $this->getRow($item['name']);
+					}else{
+						$label_input_bundle = $this->getCol($item['name']);
+					}
 
 					$html .= <<<EOF
 						<div class='form-group mb-2'>

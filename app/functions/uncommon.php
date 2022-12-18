@@ -59,20 +59,20 @@
     }
 
 
-    function isStudent() {
-        return isEqual(whoIs('user_type'), 'student');
+    function isInstructor() {
+        return isEqual(whoIs('user_type'), 'INSTRUCTOR');
     }
 
     function isAdmin() {
         return isEqual(whoIs('user_type'), 'admin');
     }
 
-    function isTeacher() {
-        return isEqual(whoIs('user_type'), 'teacher');
+    function isMember() {
+        return isEqual(whoIs('user_type'), 'MEMBER');
     }
 
-    function isParent() {
-        return isEqual(whoIs('user_type'), 'parent');
+    function isStaff() {
+        return isEqual(whoIs('user_type'), 'STAFF');
     }
 
     function whoIs($prop = null)

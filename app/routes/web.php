@@ -19,6 +19,8 @@
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
 		'members'   => $controller.'/members',
+		'instructors'   => $controller.'/instructors',
+		'staffs'   => $controller.'/staffs',
 		'sendCredential' => $controller.'/sendCredential',
 		'add-to-member' => $controller .'/addToMember'
 	];
@@ -64,8 +66,21 @@
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
+		'with-instructor' => $controller.'/withInstructor'
 	];
-	
+
+	$controller = '/InstructorSessionController';
+	$routes['instructor-session'] = [
+		'index' => $controller.'/index',
+		'order' => $controller.'/orderReceipt',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show',
+		'add-attendee' => $controller. '/addAttendee',
+		'remove-attendee' => $controller. '/removeAttendee',
+		'cancel' => $controller. '/cancel',
+		'complete' => $controller. '/complete',
+	];
 
 	$controller = '/CategoryController';
 	$routes['category'] = [

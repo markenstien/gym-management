@@ -8,7 +8,7 @@
         }
 
         public function index() {
-            $this->data['payments'] = $this->payment->all();
+            $this->data['payments'] = $this->payment->all(null, 'id desc');
             return $this->view('payment/index', $this->data);
         }
 

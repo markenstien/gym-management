@@ -2,10 +2,30 @@
 	
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title">Users</h4>
-			<?php echo btnCreate(_route('user:create'))?>
-		</div>
+			<h4 class="card-title"><?php echo $content_title?></h4>
+			<?php 
+				if(isAdmin() || isStaff()) {
 
+					switch($content_title) {
+						case 'Members':
+							$userType = 'MEMBER';
+							break;
+
+						case 'Staffs':
+							$userType = 'STAFF';
+							break;
+
+						case 'Instructors':
+							$userType = 'INSTRUCTOR';
+							break;
+					}
+					echo wLinkDefault(_route('user:create', null, [
+						'user_type' => $userType
+					]), 'Add '.$content_title);
+				}
+			?>
+		</div>
+		
 		<div class="card-body">
 			<?php Flash::show()?>
 

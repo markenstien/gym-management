@@ -23,7 +23,7 @@
 			$this->data['whoIs'] = whoIs();
 			$this->data['_formCommon'] = $this->_formCommon;
 			$user = whoIs(); 
-			if($user && isEqual($user->user_type , 'admin'))
+			if($user && isEqual($user->user_type , ['admin', 'staff']))
 				$this->is_admin = true;
 		}
 

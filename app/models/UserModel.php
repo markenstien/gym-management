@@ -22,7 +22,8 @@
 			'user_type',
 			'user_identification',
 			'membership_expiry_date',
-			'profile'
+			'profile',
+			'available_session_count'
 		];
 
 
@@ -41,6 +42,16 @@
 			}
 		}
 
+		public function getAvailableSession($userId) {
+			$this->db->query(
+				"SELECT available_session_count
+					FROM {$this->table}
+					WHERE id = '{$userId}' "
+			);
+
+			return $this->db->single()->available_session_count ?? 0;
+		}
+
 		public function save($user_data , $id = null)
 		{
 			$user_id = $id;
@@ -53,10 +64,11 @@
 				if(empty($fillable_datas['password']))
 					unset($fillable_datas['password']);
 
-				$this->uploadProfile('profile' , $id);
 				if(!empty($fillable_datas['profile'])){
+					$this->uploadProfile('profile' , $id);
 					unset($fillable_datas['profile']);
 				}
+
 				$res = parent::update($fillable_datas , $id);
 				$user_id = $id;
 			}else
@@ -191,7 +203,8 @@
 				$this->addError("Unable to update user");
 				return false;
 			}
-			$this->addMessage("User {$user_data['firstname']} has been updated!");
+
+			$this->addMessage("User has been updated!");
 
 			return true;
 		}
@@ -236,7 +249,19 @@
 
 		public function generateCode()
 		{
-			return referenceSeries(parent::lastId() + 1, 5);
+			$code = null;
+			while(is_null($code)) {
+				$code = random_letter(5);
+				$isExist = parent::single([
+					'user_identification' => $code
+				]);
+
+				if($isExist) {
+					$code = null;
+				}
+			}
+			
+			return $code;
 		}
 
 
@@ -300,7 +325,7 @@
 		}
 
 		public function totalUser(){
-			$staff = [UserService::STAFF, UserService::SUPERVISOR];
+			$staff = [UserService::STAFF, UserService::INSTRUCTOR];
 
 			$this->db->query(
 				"SELECT count(id) as total

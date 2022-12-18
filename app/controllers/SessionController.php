@@ -1,6 +1,7 @@
 <?php
 
-use Services\UserService;
+    use Services\UserService;
+    load(['UserService'], SERVICES);
 
     class SessionController extends Controller
     {
@@ -8,9 +9,15 @@ use Services\UserService;
         {
             parent::__construct();
             $this->paymentModel = model('PaymentModel');
-            $this->userModel = model('UserModel');
+            $this->userModel = model('UserModel');  
+            $this->instructorCommissionModel = model('InstructorCommissionModel');
+            $this->instructorPackageModel = model('InstructorPackageModel');
+            $this->userProgramModel = model('UserProgramModel');
         }
 
+        /**
+         * instant session
+         */
         public function create() {
 
             if(isSubmitted()) {
@@ -52,5 +59,78 @@ use Services\UserService;
                 }
             }
             return $this->view('session/create');
+        }
+
+         /**
+         * sessions with instructor
+         * payment and membership
+         */
+
+        public function withInstructor() {
+            
+            if(isSubmitted()) {
+                $post = request()->posts();
+
+                //series of checks
+
+                /**
+                 * user identity check
+                 */
+                if($user = $this->userModel->get([
+                    'user_identification' => $post['user_identification']
+                ])) {
+                    if(!isEqual($user->user_type, UserService::MEMBER)) {
+                        Flash::set("User type not allowed");
+                        return request()->return();
+                    }
+                } else {
+                    Flash::set("User does not exists");
+                    return request()->return();
+                }
+
+                $package = $this->instructorPackageModel->get($post['package_id']);
+
+                $userProgramId = $this->userProgramModel->createOrUpdate([
+                    'user_id' => $user->id,
+                    'instructor_id' => $post['instructor_id'],
+                    'program_id' => $package->program_id,
+                    'package_id' => $package->id,
+                    'sessions' => $package->sessions,
+                ]);
+
+                $sessionTotal =  $this->userModel->getAvailableSession($user->id) + $package->sessions;
+                $isUserUpdated = $this->userModel->update([
+                    'available_session_count' => $sessionTotal
+                ], $user->id);
+
+                $isPaymentOk = $this->paymentModel->createOrUpdate([
+                    'amount' => $post['amount'],
+                    'payment_key' => $this->paymentModel::SESSION_WITH_INSTRUCTOR,
+                    'payment_method' => $post['payment_method'],
+                    'remarks' => $post['description'],
+                    'payer_name' => $user->firstname . ' '.$user->lastname,
+                    'order_id' => $user->id
+                ]);
+
+                $isInstructorCommissionOk = $this->instructorCommissionModel->createOrUpdate([
+                    'instructor_id' => $post['instructor_id'],
+                    'user_program_id' => $userProgramId,
+                    'amount' => $post['amount'] * .10,
+                    'entry_type' => 'ADD'
+                ]);
+
+                if($userProgramId && $isUserUpdated && $isPaymentOk && $isInstructorCommissionOk) {
+                    Flash::set("Session created");
+                    return redirect(_route('session:with-instructor'));
+                }
+            }
+
+            $this->data['packages'] = $this->instructorPackageModel->getAll();
+            $this->data['instructors'] = $this->userModel->getAll([
+                'where' => [
+                    'user_type' => UserService::INSTRUCTOR
+                ]
+            ]);
+            return $this->view('session/with_instructor', $this->data);
         }
     }

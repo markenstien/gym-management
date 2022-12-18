@@ -48,14 +48,118 @@
 						<label class="tx-11">Address</label>
 						<p><?php echo "$user->address"?></p>
 					</div>
-					<hr>
-					<div>
-						<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Add as Member')?>
-					</div>
+					<?php if(isStaff() || isAdmin()) :?>
+						<hr>
+						<div>
+							<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Membership')?>
+						</div>
+					<?php endif?>
 				</div>
 			</div>	
 		</div>
 
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Sessions</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered dataTable">
+							<thead>
+								<th>#</th>
+								<th>Instructor</th>
+								<th>Program</th>
+								<th>Date</th>
+								<th>Is Accepted</th>
+							</thead>
+
+							<tbody>
+								<?php foreach($sessions as $key => $row) :?>
+									<tr>
+										<td><?php echo ++$key?></td>
+										<td><?php echo $row->instructor_name?></td>
+										<td><?php echo $row->program_name?></td>
+										<td><?php echo $row->start_date . ' : ' . $row->start_time ?></td>
+										<td><?php echo $row->is_accepted?></td>
+									</tr>
+								<?php endforeach?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<?php if(isMember()):?>
+				<?php echo wDivider(30)?>
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">User Programs</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered dataTable">
+								<thead>
+									<th>#</th>
+									<th>Program</th>
+									<th>Package</th>
+									<th>Session</th>
+									<th>Start Date</th>
+								</thead>
+
+								<tbody>
+									<?php foreach($user_programs as $key => $row) :?>
+										<tr>
+											<td><?php echo ++$key?></td>
+											<td><?php echo $row->program_name?></td>
+											<td><?php echo $row->package_name?></td>
+											<td><?php echo $row->sessions?></td>
+											<td><?php echo $row->program_start_date?></td>
+										</tr>
+									<?php endforeach?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			<?php endif?>
+			
+
+			<?php echo wDivider(30)?>
+
+			<?php if(isMember()):?>
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Payments</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered dataTable">
+							<thead>
+								<th>#</th>
+								<th>Reference</th>
+								<th>Amount</th>
+								<th>Payment Key</th>
+								<th>Created At</th>
+							</thead>
+
+							<tbody>
+								<?php foreach($payments as $key => $row) :?>
+									<tr>
+										<td><?php echo ++$key?></td>
+										<td><?php echo $row->reference?></td>
+										<td><?php echo $row->amount?></td>
+										<td><?php echo $row->payment_key?></td>
+										<td><?php echo $row->created_at?></td>
+									</tr>
+								<?php endforeach?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<?php endif?>
+			
+		</div>
 	</div>
 
 

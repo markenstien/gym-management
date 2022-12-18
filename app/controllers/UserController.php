@@ -11,9 +11,14 @@
 			parent::__construct();
 
 			$this->model = model('UserModel');
-			$this->paymentModel = model('PaymentModel');
 			$this->data['page_title'] = ' Users ';
 			$this->data['user_form'] = new UserForm();
+
+			$this->paymentModel = model('PaymentModel');
+            $this->instructorCommissionModel = model('InstructorCommissionModel');
+            $this->instructorSessionModel = model('InstructorSessionModel');
+            $this->instructorPackageModel = model('InstructorPackageModel');
+            $this->userProgramModel = model('UserProgramModel');
 		}
 
 		public function index()
@@ -65,6 +70,28 @@
 					'user_type' => UserService::MEMBER
 				]
 			]);
+
+			$this->data['content_title'] = 'Members';
+			return $this->view('user/index', $this->data);
+		}
+
+		public function staffs() {
+			$this->data['users'] = $this->model->getAll([
+				'where' => [
+					'user_type' => UserService::STAFF
+				]
+			]);
+			$this->data['content_title'] = 'Staffs';
+			return $this->view('user/index', $this->data);
+		}
+
+		public function instructors() {
+			$this->data['users'] = $this->model->getAll([
+				'where' => [
+					'user_type' => UserService::INSTRUCTOR
+				]
+			]);
+			$this->data['content_title'] = 'Instructors';
 			return $this->view('user/index', $this->data);
 		}
 
@@ -93,6 +120,7 @@
 							'global_id'  => $paymentID
 						], 'image');
 					}
+					return redirect(_route('user:show', $user->id));
 				}
 			}
 			$this->data['user'] = $this->model->get($userId);
@@ -152,7 +180,32 @@
 			}
 
 			$this->data['user'] = $user;
-			
+
+			$this->data['payments'] = $this->paymentModel->all([
+				'order_id' => $user->id
+			],'id desc');
+
+			$this->data['user_programs'] = $this->userProgramModel->getAll([
+				'where' => [
+					'user_program.user_id' => $user->id
+				],
+				'order' => 'user_program.id desc'
+			]);
+
+			if(isMember()) {
+				$this->data['sessions'] = $this->instructorSessionModel->getAttendees([
+					'where' => [
+						'member.id' => $id
+					]
+				]);
+			} else {
+				$this->data['sessions'] = $this->instructorSessionModel->getAttendees([
+					'where' => [
+						'instructor_id' => $id
+					]
+				]);
+			}
+
 			return $this->view('user/show' , $this->data);
 		}
 

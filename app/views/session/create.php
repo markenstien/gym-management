@@ -4,6 +4,7 @@
             <div class="card-header">
                 <h4 class="card-title">Session Payment</h4>
                 <?php Flash::show()?>
+                <?php echo wLinkDefault(_route('session:with-instructor'), 'Create With Instructor')?>
             </div>
 
             <div class="card-body">

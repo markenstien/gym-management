@@ -19,3 +19,7 @@ CREATE TABLE `users` (
 
 alter table users add column
   membership_expiry_date datetime default null;
+
+
+alter table users add column
+  available_session_count tinyint;
