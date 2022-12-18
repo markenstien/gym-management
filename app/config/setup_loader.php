@@ -59,12 +59,12 @@
         break;
 
         case 'up':
-            define('URL' , '#');
+            define('URL' , 'https://gymmgmt.online');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
-            define('DBUSER' , '#');
-            define('DBPASS' , '#');
-            define('DBNAME' , '#');
+            define('DBUSER' , 'korpzpru_th_main');
+            define('DBPASS' , 'Y[@h=Ytz;(f}');
+            define('DBNAME' , 'korpzpru_gymm');
 
             define('BASECONTROLLER' , 'AuthController');
             define('BASEMETHOD' , 'index');
