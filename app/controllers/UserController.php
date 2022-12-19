@@ -104,16 +104,16 @@
 
 				if ($isMember) {
 					Flash::set("User updated as member");
+					$paymentID = $this->paymentModel->createOrUpdate([
+						'order_id' => $post['user_id'],
+						'payer_name' => $user->firstname . ' ' . $user->lastname,
+						'payment_key' => 'MEMBERSHIP_PAYMENT',
+						'amount' => $post['amount'],
+						'payment_method' => $post['payment_method'],
+						'payer_name' => $user->firstname . ' '.$user->lastname
+					]);
+					
 					if (!upload_empty('image')) {
-						$paymentID = $this->paymentModel->createOrUpdate([
-							'order_id' => $post['user_id'],
-							'payer_name' => $user->firstname . ' ' . $user->lastname,
-							'payment_key' => 'MEMBERSHIP_PAYMENT',
-							'amount' => $post['amount'],
-							'payment_method' => $post['payment_method'],
-							'payer_name' => $user->firstname . ' '.$user->lastname
-						]);
-
 						$this->_attachmentModel->upload([
 							'display_name' => 'Membership Payment',
 							'global_key' => 'MEMBERSHIP_PAYMENT',

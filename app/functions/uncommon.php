@@ -71,10 +71,6 @@
         return isEqual(whoIs('user_type'), 'MEMBER');
     }
 
-    function isStaff() {
-        return isEqual(whoIs('user_type'), 'STAFF');
-    }
-
     function whoIs($prop = null)
 	{
         $user = Session::get('auth');

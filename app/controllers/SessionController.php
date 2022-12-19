@@ -34,7 +34,7 @@
                 if (isEqual($post['customer_type'], 'member')) {
                     $isUserExist =$this->userModel->single([
                         'user_type' => UserService::MEMBER,
-                        'username' => trim($post['user_key_word'])
+                        'user_identification' => trim($post['user_key_word'])
                     ]);
 
                     if(!$isUserExist) {
@@ -121,7 +121,7 @@
 
                 if($userProgramId && $isUserUpdated && $isPaymentOk && $isInstructorCommissionOk) {
                     Flash::set("Session created");
-                    return redirect(_route('session:with-instructor'));
+                    return redirect(_route('user-program:index'));
                 }
             }
 

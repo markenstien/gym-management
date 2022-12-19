@@ -215,7 +215,6 @@
 				'options' => [
 					'label' => 'User Type',
 					'option_values' => [
-						UserService::STAFF,
 						UserService::INSTRUCTOR,
 						UserService::MEMBER
 					]

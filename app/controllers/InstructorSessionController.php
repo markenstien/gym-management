@@ -53,6 +53,7 @@
             
 
             $this->data['_form']->setValue('instructor_id', whoIs('id'));
+            $this->data['_form']->setValue('status', $req['status'] ?? 'pending');
 
             return $this->view('instructor_session/create', $this->data);
         }

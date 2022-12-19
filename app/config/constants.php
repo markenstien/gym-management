@@ -29,11 +29,11 @@
 
     define('GLOBALS' , APPROOT.DS.'classes/globals');
 
-    define('SITE_NAME' , 'invborrower.cloud');
+    define('SITE_NAME' , 'gymmgmt.online');
 
-    define('COMPANY_NAME' , 'GYM');
+    define('COMPANY_NAME' , 'GNG FITNESS');
 
-    define('KEY_WORDS' , 'INVENTORY BORROWER');
+    define('KEY_WORDS' , 'GNG FITNESS GYM');
 
 
     define('DESCRIPTION' , '#############');
@@ -41,6 +41,6 @@
     define('AUTHOR' , SITE_NAME);
 
 
-    define('APP_KEY' , 'INVENTORY BORROWER-5175140471');
+    define('APP_KEY' , 'GNG_FITNESS_GYM-5175140471');
     
 ?>

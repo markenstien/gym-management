@@ -36,7 +36,6 @@
 						<th>ID Number</th>
 						<th>Gender</th>
 						<th>Type</th>
-						<th>Status</th>
 						<th>Action</th>
 					</thead>
 
@@ -46,8 +45,7 @@
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
 								<td><?php echo $row->gender ?></td>
-								<td><?php echo $row->membership_status ?></td>
-								<td><?php echo $row->user_type ?></td>
+								<td><?php echo $row->user_type ?> <?php echo $userType == 'MEMBER' ? "($row->membership_status)": ''?></td>
 								<td>
 									<?php 
 										$anchor_items = [

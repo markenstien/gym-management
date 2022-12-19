@@ -79,7 +79,7 @@ use Database;
                 'type' => 'select',
                 'name' => 'program_id',
                 'options' => [
-                    'label' => 'Start Time',
+                    'label' => 'Program',
                     'option_values' => arr_layout_keypair($programs, ['id', 'program_name'])
                 ],
                 'class' => 'form-control',
@@ -92,7 +92,7 @@ use Database;
                 'type' => 'select',
                 'name' => 'status',
                 'options' => [
-                    'label' => 'Start Time',
+                    'label' => 'Status',
                     'option_values' => [
                         'pending', 'cancelled', 'completed'
                     ]

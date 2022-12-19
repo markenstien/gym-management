@@ -59,6 +59,15 @@
 		'show'   => $controller.'/show',
 	];
 
+
+	$controller ='/UserProgramController';
+	$routes['user-program'] = [
+		'index' => $controller.'/index',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show',
+	];
+
 	$controller = '/SessionController';
 	$routes['session'] = [
 		'index' => $controller.'/index',

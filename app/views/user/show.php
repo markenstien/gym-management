@@ -10,7 +10,13 @@
 
 				<div class="card-body">
 					<h4>Personal Information</h4>
-					<label for="#"><?php echo $user->membership_status?></label>
+					<label for="#">
+						<?php if(isEqual($user->user_type,'member')) :?>
+							<?php echo $user->user_type?>(<?php echo $user->membership_status?>)
+						<?php else:?>
+							<?php echo $user->user_type?>
+						<?php endif?>
+					</label>
 					<?php if(!is_null($user->membership_expiry_date)) :?>
 						<label for="#">
 							(<?php echo date_difference($user->membership_expiry_date, today())?> Before expiry)
@@ -48,7 +54,7 @@
 						<label class="tx-11">Address</label>
 						<p><?php echo "$user->address"?></p>
 					</div>
-					<?php if(isStaff() || isAdmin()) :?>
+					<?php if(isAdmin()) :?>
 						<hr>
 						<div>
 							<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Membership')?>

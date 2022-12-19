@@ -236,7 +236,7 @@
 				"SELECT *, 
 				CASE 
 					WHEN membership_expiry_date is null 
-						THEN 'non_member'
+						THEN 'Unpaid Member'
 					WHEN membership_expiry_date < '{$date}' 
 						THEN 'expired_membership'
 					ELSE 'active_member' end as membership_status 
