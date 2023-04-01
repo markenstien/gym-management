@@ -48,12 +48,4 @@
 		</div>
 	</div>
 <?php endbuild()?>
-
-<?php build('scripts')?>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			alert('test');
-		});
-	</script>
-<?php endbuild()?>
 <?php loadTo('tmp/nobs_auth')?>
