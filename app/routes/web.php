@@ -186,6 +186,16 @@
 		'show'   => $controller.'/show'
 	];
 
+	$controller = '/PagesController';
+	$routes['page'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show'
+	];
+
 
 
 	$controller = '/FormBuilderController';

@@ -1,18 +1,11 @@
 <?php 
-
+	use Form\UserForm;
+	load(['UserForm'], FORMS);
 	class TestController extends Controller
-
 	{
-
 		public function index()
 		{
-			$comparison = '<';
-
-			if( 10 $comparison 10)
-			{
-				echo 'ok!';
-			}else{
-				echo 'not ok1';
-			}
+			$this->data['form'] = new UserForm();
+			return $this->view('test/index', $this->data);		
 		}
 	}

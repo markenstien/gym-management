@@ -34,7 +34,8 @@
 				$this->data['users'] = $this->model->getAll( );
 			}
 			
-
+			$this->data['content_title'] = "TITLE";
+			
 			return $this->view('user/index' , $this->data);
 		}
 

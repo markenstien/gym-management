@@ -18,7 +18,7 @@
     {
         if(is_null($args))
             return PATH_PUBLIC.DS.'tmp/main-tmp';
-        return PATH_PUBLIC.DS.'tmp/main-tmp'.DS.$args;
+        return PATH_PUBLIC.DS.'tmp'.DS.$args;
     }
 
 

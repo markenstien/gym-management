@@ -18,7 +18,7 @@
             define('DBPASS' , '');
             define('DBNAME' , 'th_gym_mgmt');
 
-            define('BASECONTROLLER' , 'AuthController');
+            define('BASECONTROLLER' , 'PagesController');
             define('BASEMETHOD' , 'index');
 
             ini_set('display_errors', 1);
@@ -66,7 +66,7 @@
             define('DBPASS' , 'Y[@h=Ytz;(f}');
             define('DBNAME' , 'korpzpru_gymm');
 
-            define('BASECONTROLLER' , 'AuthController');
+            define('BASECONTROLLER' , 'PagesController');
             define('BASEMETHOD' , 'index');
             
             ini_set('display_errors', 1);

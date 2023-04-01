@@ -19,9 +19,6 @@
 							$userType = 'INSTRUCTOR';
 							break;
 					}
-					echo wLinkDefault(_route('user:create', null, [
-						'user_type' => $userType
-					]), 'Add '.$content_title);
 				}
 			?>
 		</div>
@@ -35,7 +32,6 @@
 						<th>Name</th>
 						<th>ID Number</th>
 						<th>Gender</th>
-						<th>Type</th>
 						<th>Action</th>
 					</thead>
 
@@ -45,24 +41,6 @@
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
 								<td><?php echo $row->gender ?></td>
-								<td><?php echo $row->user_type ?> <?php echo $userType == 'MEMBER' ? "($row->membership_status)": ''?></td>
-								<td>
-									<?php 
-										$anchor_items = [
-											[
-												'url' => _route('user:show' , $row->id),
-												'text' => 'View',
-												'icon' => 'eye'
-											],
-
-											[
-												'url' => _route('user:edit' , $row->id),
-												'text' => 'Edit',
-												'icon' => 'edit'
-											]
-										];
-									echo anchorList($anchor_items)?>
-								</td>
 							</tr>
 						<?php endforeach?>
 					</tbody>
@@ -71,4 +49,12 @@
 		</div>
 	</div>
 <?php endbuild()?>
-<?php loadTo()?>
+
+<?phph build('scripts')?>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			alert('test');
+		});
+	</script>
+<?phpe endbuild()?>
+<?php loadTo('tmp/nobs_auth')?>
