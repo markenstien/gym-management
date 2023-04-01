@@ -1,0 +1,17 @@
+creating new template set the following css
+
+1. buttons
+2. alerts
+3. cards
+4. links
+5. font
+6. navigation
+7. data-table
+8. form fields
+   :class[
+   	form-control
+   ]
+
+/*
+*javascript and jquery
+*/
