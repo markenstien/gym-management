@@ -55,5 +55,5 @@
 			alert('test');
 		});
 	</script>
-<?phpe endbuild()?>
+<?php endbuild()?>
 <?php loadTo('tmp/nobs_auth')?>
