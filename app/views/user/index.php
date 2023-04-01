@@ -1,5 +1,4 @@
 <?php build('content') ?>
-	
 	<div class="card">
 		<div class="card-header">
 			<h4 class="card-title"><?php echo $content_title?></h4>
@@ -50,7 +49,7 @@
 	</div>
 <?php endbuild()?>
 
-<?phph build('scripts')?>
+<?php build('scripts')?>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			alert('test');
