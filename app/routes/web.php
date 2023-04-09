@@ -22,7 +22,8 @@
 		'instructors'   => $controller.'/instructors',
 		'staffs'   => $controller.'/staffs',
 		'sendCredential' => $controller.'/sendCredential',
-		'add-to-member' => $controller .'/addToMember'
+		'add-to-member' => $controller .'/addToMember',
+		'accept' => $controller .'/accept'
 	];
 
 	$controller = '/AuthController';
@@ -89,6 +90,8 @@
 		'remove-attendee' => $controller. '/removeAttendee',
 		'cancel' => $controller. '/cancel',
 		'complete' => $controller. '/complete',
+		'accept' => $controller. '/accept',
+		'show-attendee' => $controller . '/showAttendee'
 	];
 
 	$controller = '/CategoryController';

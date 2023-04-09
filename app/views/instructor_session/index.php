@@ -29,7 +29,13 @@
                                 <td><?php echo $row->program_name?></td>
                                 <td><?php echo $row->status?></td>
                                 <td>
-                                    <?php echo wLinkDefault(_route('instructor-session:show', $row->id), 'Show')?>
+                                    <?php 
+                                        if(isMember()) {
+                                            echo wLinkDefault(_route('instructor-session:show-attendee', $row->id), 'Show');
+                                        } else {
+                                            echo wLinkDefault(_route('instructor-session:show', $row->instructor_session_id), 'Show');
+                                        }
+                                    ?>
                                 </td>
                             </tr>
                         <?php endforeach?>

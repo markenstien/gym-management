@@ -2,24 +2,6 @@
 	<div class="card">
 		<div class="card-header">
 			<h4 class="card-title"><?php echo $content_title?></h4>
-			<?php 
-				if(isAdmin() || isStaff()) {
-
-					switch($content_title) {
-						case 'Members':
-							$userType = 'MEMBER';
-							break;
-
-						case 'Staffs':
-							$userType = 'STAFF';
-							break;
-
-						case 'Instructors':
-							$userType = 'INSTRUCTOR';
-							break;
-					}
-				}
-			?>
 		</div>
 		
 		<div class="card-body">
@@ -40,6 +22,7 @@
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
 								<td><?php echo $row->gender ?></td>
+								<td><?php echo wLinkDefault(_route('user:show', $row->id), 'Show User'); ?></td>
 							</tr>
 						<?php endforeach?>
 					</tbody>

@@ -46,18 +46,45 @@
                     member.id as member_id
                     FROM {$this->table} as user_program
                     
-                LEFT JOIN instructor_packages as package
-                ON package.id = user_program.package_id
-                
-                LEFT JOIN instructor_programs as program
-                ON program.id = user_program.program_id
-                
-                LEFT JOIN users as instructor
-                on instructor.id = user_program.instructor_id
+                    LEFT JOIN instructor_packages as package
+                    ON package.id = user_program.package_id
+                    
+                    LEFT JOIN instructor_programs as program
+                    ON program.id = user_program.program_id
+                    
+                    LEFT JOIN users as instructor
+                    on instructor.id = user_program.instructor_id
 
-                LEFT JOIN users as member
-                on member.id = user_program.user_id
-                {$where}  {$order}"
+                    LEFT JOIN users as member
+                    on member.id = user_program.user_id
+                    {$where}  {$order}"
+            );
+
+            return $this->db->resultSet();
+        }
+        public function getAssigned($instructorID) {
+            $this->db->query(
+                "SELECT user_program.*, package_name, program_name, package.sessions as sessions,
+                    user_program.created_at as program_start_date,
+                    CONCAT(instructor.firstname, ' ',instructor.lastname) as instructor_name,
+                    CONCAT(member.firstname, ' ',member.lastname) as member_name,
+                    member.user_identification as user_identification,
+                    member.id as member_id
+                    FROM {$this->table} as user_program
+                    
+                    LEFT JOIN instructor_packages as package
+                    ON package.id = user_program.package_id
+                    
+                    LEFT JOIN instructor_programs as program
+                    ON program.id = user_program.program_id
+                    
+                    LEFT JOIN users as instructor
+                    on instructor.id = user_program.instructor_id
+
+                    LEFT JOIN users as member
+                    on member.id = user_program.user_id
+                    WHERE user_program.instructor_id = '{$instructorID}'
+                    GROUP BY user_program.user_id"
             );
 
             return $this->db->resultSet();

@@ -149,4 +149,18 @@
         public function cancel($id) {
             return parent::update(['status' => 'cancelled'], $id);
         }
+
+        /**
+         * attendee id*
+         */
+        public function accept($id) {
+
+            return $this->dbHelper->update(...[
+                'instructor_session_attendees',
+                [
+                    'user_confirmation' => nowMilitary()
+                ],
+                parent::conditionConvert(['id' => $id])
+            ]);
+        }
     }

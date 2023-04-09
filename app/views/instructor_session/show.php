@@ -7,6 +7,14 @@
             </div>
 
             <div class="card-body">
+                <?php if(isMember()) :?>
+                    <?php dd($session)?>
+                    <?php echo wLinkDefault(_route('instructor-session:accept', $session->id , [
+                        'user_id' => $session->member_id
+                    ]),'Accept', [
+                        'class' => 'btn btn-primary'
+                    ])?>
+                <?php endif?>
                 <div class="table table-responsive">
                     <table class="table table-bordered">
                         <tr>
@@ -91,4 +99,4 @@
     </div>
     
 <?php endbuild()?>
-<?php loadTo()?>
+<?php loadTo('tmp/nobs_auth')?>

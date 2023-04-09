@@ -128,7 +128,7 @@ img {
 /* Header */
 
 #header {
-	width: 740px;
+	width: 900px;
 	height: 150px;
 	margin: 0 auto;
 }
@@ -140,7 +140,7 @@ img {
 background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 82%);
 }
 #menu {
-	width: 740px;
+	width: 900px;
 	height: 90px;
 	margin: 0 auto;
 }
@@ -182,10 +182,16 @@ background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 8
 	color: #479AC6;
 }
 
+#sub_menu{
+	width: 900px;
+	height: 30px;
+	margin: 0 auto;
+}
+
 /* Logo */
 
 #logo {
-	width: 740px;
+	width: 900px;
 	height: 60px;
 	margin: 0 auto;
 }
@@ -219,7 +225,7 @@ background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 8
 /* Content */
 
 #content {
-	width: 740px;
+	width: 900px;
 	margin: 0 auto;
 }
 
@@ -337,7 +343,7 @@ background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 8
 
 #footer {
 	clear: both;
-	width: 740px;
+	width: 900px;
 	margin: 0 auto;
 	padding: 30px 0;
 	background: url(images/img08.gif) repeat-x;
@@ -376,3 +382,60 @@ background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 8
 .flex > .flex-container:last-child{
 	margin-right: 0px;
 }
+
+
+@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h3 {
+  font-family: Quicksand;
+}
+.alert {
+  padding: 30px;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0 0 15px 5px #ccc;
+}
+.close {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  opacity: 0.5;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  right: 15px;
+  top: 25px;
+  text-align: center;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.alert-danger {
+	background: #f7a7a3;
+	background-color: #f7a7a3;
+	border-left: 5px solid #f7a7a3;
+}
+
+.alert-primary {
+	color: #ffffff !important;
+	background-color: #00235b;
+	border-left: 5px solid #0060fa;
+}
+
+.alert-success {
+	background: #a8f0c6;
+	background-color: #a8f0c6;
+	border-left: 5px solid #00963e;
+}
+
+.alert-warning {
+	background: #ffd48a;
+	background-color: #ffd48a;
+	border-left: 5px solid #ffa203;
+}
+
+

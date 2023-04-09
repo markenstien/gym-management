@@ -227,4 +227,4 @@
 	</div>
 	<!-- -->
 <?php endbuild()?>
-<?php loadTo('tmp/nobs_public')?>
+<?php loadTo('tmp/nobs_auth')?>

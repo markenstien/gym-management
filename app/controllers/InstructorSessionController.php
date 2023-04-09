@@ -89,11 +89,7 @@
                     break;
                 }
             }
-            $this->data['members'] = $this->user_program_model->getAll([
-                'where' => [
-                    'user_program.instructor_id' => $instructorID
-                ]
-            ]);
+            $this->data['members'] = $this->user_program_model->getAssigned($instructorID);
 
             $this->data['sessionID'] = $id;
             $this->data['instructorID'] = $instructorID;
@@ -121,5 +117,36 @@
             $this->model->complete($id);
             Flash::set("Session Completed");
             return redirect(_route('instructor-session:show', $id));
+        }
+
+        public function accept($sessionID) {
+            $req = request()->inputs();
+            $this->model->accept($sessionID);
+        }
+
+        /**
+         * session_attendee_table_id */
+        public function showAttendee($id) {
+
+            $attendee = $this->model->getAttendees([
+                'where' => [
+                    'attendees.id' => $id
+                ]
+            ])[0] ?? false;
+
+            if(!$attendee) {
+                Flash::set("Attendee not found.");
+                return request()->return();
+            }
+
+            $attendees = $this->model->getAttendees([
+                'where' => [
+                    'instructor_session_id' => $attendee->instructor_session_id
+                ]
+            ]);
+
+            $this->data['attendee'] = $attendee;
+            $this->data['attendees'] = $attendees;
+            return $this->view('instructor_session/show_attendee', $this->data);
         }
     }
