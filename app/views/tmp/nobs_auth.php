@@ -7,16 +7,22 @@
 <link href="<?php echo _path_tmp('non_bs/assets/css/widgets.css') ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo _path_tmp('non_bs/assets/css/main.css') ?>" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+<style type="text/css">
+  .hidden{
+    display: none;
+  }
+</style>
+<?php produce('styles')?>
 </head>
 <body>
 <div class="menu-wrapper">
   <div id="menu">
     <ul>
-      <li class="active"><a href="<?php echo _route('user:members', null)?>"">Members</a></li>
+      <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
+      <li><a href="<?php echo _route('user:members', null)?>"">Members</a></li>
       <li><a href="<?php echo _route('user:instructors', null)?>">Instructors</a></li>
       <li><a href="<?php echo _route('instructor-session:index', null)?>">Instructor Sessions</a></li>
       <li><a href="<?php echo _route('payment:index')?>">Payments</a></li>
-      <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
       <li>
           <a href="#" id="nav_other_toggle">Others</a>
           
@@ -27,9 +33,9 @@
 
 <div id="sub_menu_container">
   <ul class="nav-sub-menu">
-    <li><a href="#">Something</a></li>
-    <li><a href="#">Someone</a></li>
-    <li><a href="#">360 View</a></li>
+    <li><a href="<?php echo _route('user:index')?>">User</a></li>
+    <li><a href="<?php echo _route('user-program:index')?>">My Programs</a></li>
+    <li><a href="https://panorama.gymmgmt.online/">360 View</a></li>
   </ul>
 </div>
 
@@ -40,7 +46,6 @@
       <?php echo wLinkDefault(_route('auth:logout'), 'Logout')?>
     </div>
   </div>
-  
 </div>
 <div id="content">
   <?php echo produce('content')?>
@@ -65,6 +70,15 @@
   $(document).ready(function(){
     $('#nav_other_toggle').click(function(){
       $("#sub_menu_container").toggle();
+    });
+
+    $(".btn-close").click(function(){
+      $(this).parent().remove();
+    });
+
+    $(".el-toggler").click(function() {
+      let target = $(this).data('target');
+      $(target).toggle();
     });
   });
 </script>
