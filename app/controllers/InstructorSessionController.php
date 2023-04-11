@@ -149,4 +149,15 @@
             $this->data['attendees'] = $attendees;
             return $this->view('instructor_session/show_attendee', $this->data);
         }
+
+        public function addImage() {
+
+            if(isSubmitted()) {
+                $post = request()->posts();
+                dd([
+                    $post,
+                    $_FILES['variable']
+                ]);
+            }
+        }
     }

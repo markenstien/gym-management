@@ -59,15 +59,24 @@
     }
 
 
-    function isInstructor() {
+    function isInstructor($user = null) {
+        if(!is_null($user)) {
+            return isEqual($user->user_type,'INSTRUCTOR');
+        }
         return isEqual(whoIs('user_type'), 'INSTRUCTOR');
     }
 
-    function isAdmin() {
+    function isAdmin($user = null) {
+        if(!is_null($user)) {
+            return isEqual($user->user_type,'admin');
+        }
         return isEqual(whoIs('user_type'), 'admin');
     }
 
-    function isMember() {
+    function isMember($user = null) {
+        if(!is_null($user)) {
+            return isEqual($user->user_type,'MEMBER');
+        }
         return isEqual(whoIs('user_type'), 'MEMBER');
     }
 

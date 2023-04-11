@@ -85,15 +85,37 @@
                                     <td><?php echo $row->member_name?></td>
                                     <td><?php echo $row->is_accepted?></td>
                                     <?php if(isInstructor()):?>
-                                        <td><?php echo wLinkDefault(_route('instructor-session:remove-attendee', $row->id, [
-                                            'sessionID' => seal($row->instructor_session_id)
-                                        ]),'Remove')?></td>
+                                        <td>
+                                            <?php echo wLinkDefault(_route('instructor-session:remove-attendee', $row->id, [
+                                                'sessionID' => seal($row->instructor_session_id)
+                                            ]),'Remove')?> 
+                                        </td>
                                     <?php endif?>
                                 </tr>
                             <?php endforeach?>
                        </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <div class="card col-md-7">
+            <div class="card-header">
+                <h4 class="card-title">Galleries</h4> 
+            </div>
+
+            <div class="card-body">
+                <?php Flash::show('galleries')?>
+                <?php
+                    Form::open([
+                        'method' => 'post',
+                        'enctype' => 'multipart/form-data'
+                    ]);
+                        Form::file('images[]');
+
+                    Form::submit('btn_image_upload');
+                    Form::close();
+                ?>
             </div>
         </div>
     </div>

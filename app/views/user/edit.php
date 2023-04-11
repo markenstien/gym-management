@@ -14,4 +14,4 @@
 		</div>
 	</div>
 <?php endbuild()?>
-<?php loadTo()?>
+<?php loadTo('tmp/nobs_auth')?>

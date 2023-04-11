@@ -1,7 +1,14 @@
 <?php build('content') ?>
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title"><?php echo $content_title?></h4>
+			<h4 class="card-title">User</h4>
+			<?php 
+				if(isEqual($content_title,'members')){
+					echo wLinkDefault(_route('user:create', null, [
+						'user_type' => 'MEMBER'
+					]), 'Create New Member', );
+				}
+			?>
 		</div>
 		
 		<div class="card-body">

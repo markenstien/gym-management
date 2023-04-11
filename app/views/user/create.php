@@ -2,7 +2,7 @@
 	<div class="card">
 		<div class="card-header">
 			<h4 class="card-title">Create User</h4>
-			<?php echo wLinkDefault(_route('user:index'))?>
+			<?php echo wLinkDefault(_route('user:members'), 'members')?>
 			<?php Flash::show()?>
 		</div>
 
@@ -11,4 +11,4 @@
 		</div>
 	</div>
 <?php endbuild()?>
-<?php loadTo()?>
+<?php loadTo('tmp/nobs_auth')?>

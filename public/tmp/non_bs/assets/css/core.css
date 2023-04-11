@@ -186,6 +186,7 @@ background: linear-gradient(180deg, rgba(13,164,61,1) 43%, rgba(255,255,255,1) 8
 	width: 900px;
 	height: 30px;
 	margin: 0 auto;
+	margin-bottom: 50px;
 }
 
 /* Logo */
@@ -399,11 +400,10 @@ h3 {
   border-radius: 5px;
   box-shadow: 0 0 15px 5px #ccc;
 }
-.close {
+.btn-close {
   position: absolute;
   width: 30px;
   height: 30px;
-  opacity: 0.5;
   border-width: 1px;
   border-style: solid;
   border-radius: 50%;
@@ -412,6 +412,7 @@ h3 {
   text-align: center;
   font-size: 1.6em;
   cursor: pointer;
+  color :#000;
 }
 
 .alert-danger {

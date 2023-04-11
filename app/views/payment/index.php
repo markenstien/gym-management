@@ -1,10 +1,57 @@
-<?php build('content')?>
+   <?php build('content')?>
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Payments</h4>
+            <?php echo wLinkDefault('#', 'Advance Filter', [
+                'class' => 'el-toggler',
+                'data-target' => '#page_filter'
+            ])?>
         </div>
 
         <div class="card-body">
+            <div id="page_filter" <?php echo !isset($_GET['btn_filter']) ? 'class="hidden"' : '' ?> >
+                <h2>Form Filter</h2>
+                <?php
+                    Form::open([
+                        'method' => 'get'
+                    ]);
+                ?>
+                    <div class="form-group">
+                        <?php
+                            Form::label('Date Duration');
+                        ?>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <?php
+                                    Form::label('Start Date');
+                                    Form::date('start_date', '' , [
+                                        'class' => 'form-control',
+                                        'required' => 'true'
+                                    ]);
+                                ?>
+                            </div>
+
+                            <div class="col-md-6">
+                                <?php
+                                    Form::label('End Date');
+                                    Form::date('end_date', '' , [
+                                        'class' => 'form-control',
+                                        'required' => 'true'
+                                    ]);
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <?php
+                            Form::submit('btn_filter', 'Apply Filter');
+                            echo wLinkDefault(_route('payment:index'), 'Remove Filter');
+                        ?>
+                    </div>
+                <?php Form::close()?>
+            </div>
             <?php $total = 0?>
             <div class="table-responsive">
                 <table class="table table-bordered dataTable">

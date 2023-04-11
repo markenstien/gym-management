@@ -58,6 +58,10 @@ div.card
 	background: #F5F0F0 !important;
 }
 
+div.card-header{
+	height: 300px;
+}
+
 div.card-theme-blue .card-header{
 	background: #31326f !important;
 	color: #fff !important;

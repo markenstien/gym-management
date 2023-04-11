@@ -25,8 +25,7 @@
   <?php echo produce('content')?>
 </div>
 <div id="footer">
-  <p id="legal">Copyright &copy; 2007 Criterion. All Rights Reserved. Designed by <a href="http://www.freecsstemplates.org/">Free CSS Templates</a>.</p>
-  <p id="links"><a href="#">Home</a> | <a href="#">Terms of Use</a></p>
+  <p id="legal">Copyright &copy; <?php echo date('Y')?></p>
 </div>
 </body>
 </html>

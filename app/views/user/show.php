@@ -10,6 +10,7 @@
 
 				<div class="card-body">
 					<h4>Personal Information</h4>
+					<div> <img src="<?php echo $user->profile?>" style="width: 150px;"> </div>
 					<label for="#">
 						<?php if(isEqual($user->user_type,'member')) :?>
 							<?php echo $user->user_type?>(<?php echo $user->membership_status?>)
@@ -17,49 +18,66 @@
 							<?php echo $user->user_type?>
 						<?php endif?>
 					</label>
-					<?php if(!is_null($user->membership_expiry_date)) :?>
-						<label for="#">
-							(<?php echo date_difference($user->membership_expiry_date, today())?> Before expiry)
-						</label>
-					<?php endif?>
-					<div>
-						<img src="<?php echo $user->profile?>" style="width: 150px;">
-					</div>
-					<div>
-						<label class="tx-11">User Identification</label>
-						<p><span class="badge bg-warning"><?php echo $user->user_identification?></span></p>
-					</div>
 
-					<div>
-						<label class="tx-11">Username</label>
-						<p><?php echo $user->username?></p>
-					</div>
-					
-					<div>
-						<label class="tx-11">Name</label>
-						<p><?php echo $user->lastname . ',' . $user->firstname?></p>
-					</div>
-					<div>
-						<label class="tx-11">Gender</label>
-						<p><?php echo $user->gender?></p>
-					</div>
-					<div>
-						<label class="tx-11">Email And Mobile Number</label>
-						<p><?php echo $user->email?></p>
-						<p><?php echo $user->phone?></p>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<?php if(!is_null($user->membership_expiry_date)) :?>
+								<tr>
+									<td>Membership</td>
+									<td>
+										<label for="#">
+										(<?php echo date_difference($user->membership_expiry_date, today())?> Before expiry)
+									</label>
+									</td>
+								</tr>
+							<?php endif?>
+							<tr>
+								<td width="250px">User Identification</td>
+								<td><?php echo $user->user_identification?></td>
+							</tr>
+							<tr>
+								<td width="250px">Username</td>
+								<td><?php echo $user->username?></td>
+							</tr>
+							<tr>
+								<td width="250px">Name</td>
+								<td><?php echo $user->lastname . ',' . $user->firstname?></td>
+							</tr>
+							<tr>
+								<td width="250px">Gender</td>
+								<td><?php echo $user->gender?></td>
+							</tr>
+							<tr>
+								<td width="250px">Email And Mobile Number</td>
+								<td>
+									<p><?php echo $user->email?></p>
+									<p><?php echo $user->phone?></p>
+								</td>
+							</tr>
+							<tr>
+								<td width="250px">Address</td>
+								<td><?php echo $user->address?></td>
+							</tr>
+							<?php if(isAdmin()) :?>
+							<tr>
+								<td colspan="2">
+									<div>
+										<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Membership')?>
+									</div>
+								</td>
+							</tr>
+							<?php endif?>
 
-						<!-- <span><a href="<?php echo _route('user:sendCredential' , $user->id)?>" title="Click to send the credential to the user">Send Credentials to User :</a><?php echo $user->email?></span> -->
+							<?php if(isMember($user)) :?>
+								<tr>
+									<td>Progress</td>
+									<td>
+										<?php echo wLinkDefault(_route('user:progress', $user->id), 'Show Progress')?>
+									</td>
+								</tr>
+							<?php endif?>
+						</table>
 					</div>
-					<div>
-						<label class="tx-11">Address</label>
-						<p><?php echo "$user->address"?></p>
-					</div>
-					<?php if(isAdmin()) :?>
-						<hr>
-						<div>
-							<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Membership')?>
-						</div>
-					<?php endif?>
 				</div>
 			</div>	
 		</div>
@@ -95,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-			<?php if(isMember()):?>
+			<?php if(isMember($user)):?>
 				<?php echo wDivider(30)?>
 				<div class="card">
 					<div class="card-header">
@@ -132,7 +150,7 @@
 
 			<?php echo wDivider(30)?>
 
-			<?php if(isMember()):?>
+			<?php if(isMember($user)):?>
 			<div class="card">
 				<div class="card-header">
 					<h4 class="card-title">Payments</h4>
@@ -168,63 +186,5 @@
 		</div>
 	</div>
 
-
-	<!-- SEND LAB RESULT TO EMAIL -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">EMAIL ABOUT QUARANTINE STATUS</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-	      </div>
-	      <div class="modal-body">
-	      	<form method="post" action="<?php echo _route('mailer:send')?>">
-
-	      		<input type="hidden" name="route" value="<?php echo seal( _route('user:show' , $user->id) ) ?>">
-	      		<h5 class="mb-2">Send To Email</h5>
-
-
-	      		<input type="hidden" name="lab_id" value="<?php echo $lab_result->id?>">
-
-	      		<div class="form-group">
-	      			<label>Subject</label>
-	      			<?php Form::textarea('subject' , " Hey !".$user->first_name, ['class' => 'form-control' , 
-	      			'rows' => 1 , 'placeholder' => $user->first_name . ', Enter Motivating Subject'])?>
-
-	      			<small>Seperate Emails with (,) to send on multiple recipients</small>
-	      		</div>
-
-
-	      		<div class="form-group">
-	      			<label>Email</label>
-	      			<?php Form::textarea('recipients' , $user->email , ['class' => 'form-control' , 
-	      			'rows' => 1 , 'placeholder' => 'eg.'.$user->email])?>
-
-	      			<small>Seperate Emails with (,) to send on multiple recipients</small>
-	      		</div>
-
-	      		<div class="form-group">
-	      			<label>Additional Notes</label>
-	      			<?php
-	      				$message = "Good day ".$user->first_name .',';
-	      				$message .= ' '.COMPANY_NAME . ' Would like to extend our support to your quarantine';
-	      				$message .= " We are also emailing you to update you that you are ".$number_of_days_remaining ." days away before completing your quarantine";
-	      			?>
-	      			<?php Form::textarea('body' , $message , ['class' => 'form-control' , 
-	      			'rows' => 3 , 'placeholder' => 'some-text' ])?>
-
-	      			<small>Seperate Emails with (,) to send on multiple recipients</small>
-	      		</div>
-
-	      		<input type="submit" name="" class="btn btn-primary" value="Send">
-	      	</form>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- -->
 <?php endbuild()?>
 <?php loadTo('tmp/nobs_auth')?>

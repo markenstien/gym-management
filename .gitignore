@@ -1,2 +1,3 @@
-# app/config
+ app/config/setup.php
+ app/config/setup_loader.php
 # public/
