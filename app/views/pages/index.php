@@ -14,22 +14,22 @@
 			<?php echo wDivider('20')?>
 
 			<?php
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_1.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_1.JPG',
 					'IMAGE ONE', 'abcd-efgh');
 
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_2.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_2.JPG',
 					'IMAGE TWO', 'abcd-efgh');
 
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_3.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_3.JPG',
 					'IMAGE THREE', 'abcd-efgh');
 
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_4.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_4.JPG',
 					'IMAGE FOUR', 'abcd-efgh');
 
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_5.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_5.JPG',
 					'IMAGE FIVE', 'abcd-efgh');
 
-				echo wTmpimageCard('http://dev.gym_management/public/uploads/gallery/img_6.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_6.JPG',
 					'IMAGE SIX', 'abcd-efgh');
 			?>
 		</div>

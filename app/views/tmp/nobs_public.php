@@ -34,7 +34,7 @@
 
 <div id="content">
   <div class="logo">
-    <img src="http://dev.gym_management/public/uploads/gallery/logo.jpg" style="width:70px">
+    <img src="<?php echo URL.'/'.'?>public/uploads/gallery/logo.jpg" style="width:70px">
     <a href="#" class="logo-text"><?php echo COMPANY_NAME?></a>
   </div>
   <?php echo produce('content')?>
