@@ -34,7 +34,11 @@
 					Flash::set( "Welcome Back !" . auth('firstname'));
 				}
 
-				return redirect('UserController');
+				if(isAdmin()) {
+					return redirect('UserController');
+				} else {
+					return redirect(_route('session:index'));
+				}
 			}
 
 			$form = $this->_form;

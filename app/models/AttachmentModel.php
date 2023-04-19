@@ -3,6 +3,8 @@
 	class AttachmentModel extends Model
 	{
 		public $table = 'attachments';
+		public $path;
+		public $url;
 
 		public $_fillables = [
 			'label',
@@ -23,15 +25,18 @@
 		public function __construct()
 		{
 			parent::__construct();
-
-			$this->path = PATH_UPLOAD;
-			$this->url  = GET_PATH_UPLOAD;
-
 			$this->uploader_helper = new UploaderHelper();
 		}
 
-		public function upload_multiple($file_data = [] , $file_name = '') {
+		private function _initPathAndURL() {
+			if(!isset($this->path)) {
+				$this->path = PATH_UPLOAD;
+				$this->url = GET_PATH_UPLOAD;
+			}
+		}
 
+		public function upload_multiple($file_data = [] , $file_name = '') {
+			$this->_initPathAndURL();
 			$uploadResponse = upload_multiple($file_name, $this->path);
 
 			if (!empty($uploadResponse['result']['arrNames'])) {
@@ -66,7 +71,7 @@
 		*/
 		public function upload( $file_data = [] , $file_name = '' )
 		{
-
+			$this->_initPathAndURL();
 			//get file
 			$uploader_instance = $this->uploader_helper;
 			$uploader_instance->setFile($file_name);

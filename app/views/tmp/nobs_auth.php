@@ -7,6 +7,7 @@
 <link href="<?php echo _path_tmp('non_bs/assets/css/widgets.css') ?>" rel="stylesheet" type="text/css" />
 <link href="<?php echo _path_tmp('non_bs/assets/css/main.css') ?>" rel="stylesheet" type="text/css" />
 <link href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css">
 <style type="text/css">
   .hidden{
     display: none;
@@ -18,14 +19,21 @@
 <div class="menu-wrapper">
   <div id="menu">
     <ul>
-      <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
-      <li><a href="<?php echo _route('user:members', null)?>"">Members</a></li>
-      <li><a href="<?php echo _route('user:instructors', null)?>">Instructors</a></li>
+      <?php if(isAdmin() || isInstructor()) :?>
+        <?php if(isInstructor()) :?>
+          <li><a href="<?php echo _route('session:with-instructor')?>">Sessions</a></li>
+        <?php else:?>
+          <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
+        <?php endif?>
+      <?php endif ?>
+      <?php if(isAdmin()) :?>
+        <li><a href="<?php echo _route('user:members', null)?>">Members</a></li>
+        <li><a href="<?php echo _route('user:instructors', null)?>">Instructors</a></li>
+      <?php endif?>
       <li><a href="<?php echo _route('instructor-session:index', null)?>">Instructor Sessions</a></li>
       <li><a href="<?php echo _route('payment:index')?>">Payments</a></li>
       <li>
           <a href="#" id="nav_other_toggle">Others</a>
-          
       </li>
     </ul>
   </div>
@@ -33,7 +41,9 @@
 
 <div id="sub_menu_container">
   <ul class="nav-sub-menu">
-    <li><a href="<?php echo _route('user:index')?>">User</a></li>
+    <?php if(isAdmin()) :?>
+      <li><a href="<?php echo _route('user:index')?>">User</a></li>
+    <?php endif?>
     <li><a href="<?php echo _route('user-program:index')?>">My Programs</a></li>
     <li><a href="https://panorama.gymmgmt.online/">360 View</a></li>
   </ul>

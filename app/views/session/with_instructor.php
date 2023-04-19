@@ -2,7 +2,7 @@
     <div class="card col-md-6">
         <div class="card-header">
             <h4 class="card-title">Create Session With Instructor</h4>
-            <?php echo wLinkDefault(_route('session:create'), 'ADHOC Session')?>
+            <?php if(isAdmin()) echo wLinkDefault(_route('session:create'), 'ADHOC Session')?>
             <?php Flash::show()?>
         </div>
 

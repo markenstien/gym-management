@@ -58,7 +58,7 @@
 								<td width="250px">Address</td>
 								<td><?php echo $user->address?></td>
 							</tr>
-							<?php if(isAdmin()) :?>
+							<?php if(isAdmin() && !isEqual($user->user_type, 'INSTRUCTOR')) :?>
 							<tr>
 								<td colspan="2">
 									<div>

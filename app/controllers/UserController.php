@@ -212,8 +212,6 @@
 
 		public function progress($id) {
 			$user = $this->model->get($id);
-
-			dd($user);
 		}
 
 		public function sendCredential($id)

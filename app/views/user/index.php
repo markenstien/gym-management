@@ -8,6 +8,12 @@
 						'user_type' => 'MEMBER'
 					]), 'Create New Member', );
 				}
+
+				if(isEqual($content_title,'instructors')){
+					echo wLinkDefault(_route('user:create', null, [
+						'user_type' => 'INSTRUCTOR'
+					]), 'Create New Instructor', );
+				}
 			?>
 		</div>
 		
@@ -19,6 +25,7 @@
 					<thead>
 						<th>Name</th>
 						<th>ID Number</th>
+						<th>Type</th>
 						<th>Gender</th>
 						<th>Action</th>
 					</thead>
@@ -28,6 +35,7 @@
 							<tr>
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
+								<td><?php echo $row->user_type?></td>
 								<td><?php echo $row->gender ?></td>
 								<td><?php echo wLinkDefault(_route('user:show', $row->id), 'Show User'); ?></td>
 							</tr>

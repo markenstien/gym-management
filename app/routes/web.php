@@ -194,12 +194,14 @@
 	$controller = '/PagesController';
 	$routes['page'] = [
 		'index' => $controller.'/index',
-		'edit' => $controller.'/edit',
-		'create' => $controller.'/create',
-		'delete' => $controller.'/destroy',
-		'download' => $controller.'/download',
-		'show'   => $controller.'/show'
+		'about' => $controller.'/about',
+		'contact' => $controller.'/contact',
+		'gallery' => $controller.'/gallery',
+		'faq' => $controller.'/faq'
 	];
+
+
+
 
 
 

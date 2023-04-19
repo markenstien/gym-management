@@ -17,7 +17,7 @@
 
         public function index() {
             if($this->is_admin) {
-                $this->data['sessions'] = $this->model->getAttendees();
+                $this->data['sessions'] = $this->model->getAll();
             } else {
                 if(isMember()) {
                     $this->data['sessions'] = $this->model->getAttendees([
@@ -25,7 +25,7 @@
                             'attendees.user_id' => $this->data['whoIs']->id
                         ]
                     ]);
-                }else{
+                }else if(isInstructor()){
                     $this->data['sessions'] = $this->model->getAttendees(
                         [
                             'where' => [
@@ -33,6 +33,8 @@
                             ]
                         ]
                     );
+                } else {
+                    $this->data['sessions'] = $this->model->getAll();
                 }
             }
             return $this->view('instructor_session/index', $this->data);
@@ -59,12 +61,38 @@
         }
 
         public function show($id) {
+
+            if(isSubmitted()) 
+            {
+                $post = request()->posts();
+
+                if(isset($post['btn_image_upload'])) {
+
+                    if(!upload_empty('images')) {
+                        $this->_attachmentModel->path = PATH_UPLOAD.DS.'session_images';
+                        $this->_attachmentModel->url  = GET_PATH_UPLOAD.'/session_images';
+                        $uploadAll = $this->_attachmentModel->upload_multiple([
+                            'global_id' => $post['session_id'],
+                            'global_key' => 'session_images'
+                        ], 'images');
+
+                    }else{
+                        Flash::set("There are no images to upload");
+                    }
+                }
+            }
+
             $session = $this->model->get($id);
             $this->data['session'] = $session;
             $this->data['attendees'] = $this->model->getAttendees([
                 'where' => [
                     'instructor_session_id' => $id
                 ]
+            ]);
+
+            $this->data['images'] = $this->_attachmentModel->all([
+                'global_id' => $id,
+                'global_key' => 'session_images'
             ]);
             
             return $this->view('instructor_session/show', $this->data);

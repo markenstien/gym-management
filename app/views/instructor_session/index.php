@@ -33,7 +33,7 @@
                                         if(isMember()) {
                                             echo wLinkDefault(_route('instructor-session:show-attendee', $row->id), 'Show');
                                         } else {
-                                            echo wLinkDefault(_route('instructor-session:show', $row->instructor_session_id), 'Show');
+                                            echo wLinkDefault(_route('instructor-session:show', $row->id), 'Show');
                                         }
                                     ?>
                                 </td>

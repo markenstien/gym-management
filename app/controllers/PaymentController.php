@@ -9,7 +9,6 @@
 
         public function index() {
             $req = request()->inputs();
-
             if(isset($req['btn_filter'])) {
                 $filter = [
                     'date(payment.created_at)' => [
@@ -24,5 +23,8 @@
             return $this->view('payment/index', $this->data);
         }
 
+        public function show() {
+            
+        }
         
     }

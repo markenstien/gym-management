@@ -57,7 +57,7 @@
             <div class="card-header">
                 <h4 class="card-title">Attendees</h4> 
                 <?php 
-                    if(isInstructor()) {
+                    if(isInstructor() || isAdmin()) {
                         echo wLinkDefault(_route('instructor-session:add-attendee', $session->id, [
                             'instructorID' => seal($session->instructor_id)
                         ]), 'Members Assigned to you');
@@ -111,11 +111,30 @@
                         'method' => 'post',
                         'enctype' => 'multipart/form-data'
                     ]);
-                        Form::file('images[]');
+
+                    Form::hidden('session_id', $session->id);
+                        Form::file('images[]', ['multiple' => '']);
 
                     Form::submit('btn_image_upload');
                     Form::close();
                 ?>
+
+                <?php echo wDivider(30)?>
+                <?php if($images) :?>
+                    <div class="flex">
+                        <?php foreach($images as $key => $row) :?>
+                            <div style="margin-right: 10px;">
+                                <div><a target="_blank" href="<?php echo $row->full_url?>"><img src="<?php echo $row->full_url?>" style="width:150px"></a></div>
+
+                                <?php echo wLinkDefault(_route('attachment:delete', $row->id, [
+                                    'route' => seal(_route('instructor-session:show', $session->id))
+                                ]), 'Delete', ['icon' => 'fa fa-trash'])?>
+                            </div>
+                        <?php endforeach?>
+                    </div>
+                <?php else:?>
+                    <p>No upload images.</p>
+                <?php endif?>
             </div>
         </div>
     </div>
