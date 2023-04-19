@@ -32,7 +32,14 @@
 				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_6.jpg',
 					'IMAGE SIX', 'abcd-efgh');
 			?>
-		</div>
+			<hr>
+			<?php echo wDivider('100')?>
+			<div>
+				<h4>Checkout our Virtual Tour</h4>
+				<?php echo wLinkDefault('https://panorama.gymmgmt.online/', 'Click here for better tour')?>
+			<embed src="http://localhost/thesis/gym_management_panorama" style="width:100%; height: 30vh;"></embed>
+			</div>
+		</div>	
 
 		<div class="flex-container" style="flex:1">
 			<?php Flash::show()?>
