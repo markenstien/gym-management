@@ -14,22 +14,22 @@
 			<?php echo wDivider('20')?>
 
 			<?php
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_1.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_1.jpg',
 					'IMAGE ONE', 'abcd-efgh');
 
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_2.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_2.jpg',
 					'IMAGE TWO', 'abcd-efgh');
 
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_3.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_3.jpg',
 					'IMAGE THREE', 'abcd-efgh');
 
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_4.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_4.jpg',
 					'IMAGE FOUR', 'abcd-efgh');
 
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_5.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_5.jpg',
 					'IMAGE FIVE', 'abcd-efgh');
 
-				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_6.JPG',
+				echo wTmpimageCard(URL.'/'.'public/uploads/gallery/img_6.jpg',
 					'IMAGE SIX', 'abcd-efgh');
 			?>
 		</div>
