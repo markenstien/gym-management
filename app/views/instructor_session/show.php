@@ -8,9 +8,8 @@
 
             <div class="card-body">
                 <?php if(isMember()) :?>
-                    <?php dd($session)?>
                     <?php echo wLinkDefault(_route('instructor-session:accept', $session->id , [
-                        'user_id' => $session->member_id
+                        'user_id' => $session->user_id
                     ]),'Accept', [
                         'class' => 'btn btn-primary'
                     ])?>
@@ -60,7 +59,7 @@
                     if(isInstructor() || isAdmin()) {
                         echo wLinkDefault(_route('instructor-session:add-attendee', $session->id, [
                             'instructorID' => seal($session->instructor_id)
-                        ]), 'Members Assigned to you');
+                        ]), 'Add Attendees');
                     }
                 ?>
             </div>

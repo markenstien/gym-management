@@ -11,12 +11,12 @@
     switch(SYSTEM_MODE)
     {
         case 'local':
-            define('URL' , 'http://dev.gym_management');
+            define('URL' , 'http://dev.gym_mgmt');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'root');
             define('DBPASS' , '');
-            define('DBNAME' , 'th_gym_mgmt');
+            define('DBNAME' , 'th_gym');
 
             define('BASECONTROLLER' , 'PagesController');
             define('BASEMETHOD' , 'index');

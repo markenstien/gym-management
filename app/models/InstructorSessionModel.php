@@ -41,13 +41,16 @@
             $this->db->query(
                 "SELECT ins.*,
                     concat(instructor.firstname, ' ',instructor.lastname) as instructor_name,
-                    program_name
+                    program_name, isa.user_id as user_id
                     FROM {$this->table} as ins 
                     LEFT JOIN users as instructor
                     ON instructor.id = ins.instructor_id
                     
                     LEFT JOIN instructor_programs as programs
                     ON programs.id = ins.program_id
+
+                    LEFT JOIN instructor_session_attendees as isa
+                    ON isa.instructor_session_id = ins.id
                     
                     {$where} {$order}"
             );
@@ -154,7 +157,6 @@
          * attendee id*
          */
         public function accept($id) {
-
             return $this->dbHelper->update(...[
                 'instructor_session_attendees',
                 [

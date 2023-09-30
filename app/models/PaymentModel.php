@@ -130,12 +130,14 @@ class PaymentModel extends Model
         }
     }
 
-    public function all($where = null , $order_by = null , $limit = null) {
-        if(!is_null($where)) {
+    public function all($where = '' , $order_by = '' , $limit = '') {
+        if(!empty($where)) {
             $where = " WHERE ".parent::conditionConvert($where);
+        } else {
+            $where = '';
         }
 
-        if(!is_null($order_by)) {
+        if(!empty($order_by)) {
             $order_by  = " ORDER BY {$order_by}";
         }
 

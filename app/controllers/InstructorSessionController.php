@@ -11,6 +11,7 @@
             parent::__construct();
             $this->model = model('InstructorSessionModel');
             $this->user_program_model = model('UserProgramModel');
+            $this->userModel = model('UserModel');
 
             $this->data['_form'] = new InstructorSessionForm();
         }
@@ -26,7 +27,7 @@
                         ]
                     ]);
                 }else if(isInstructor()){
-                    $this->data['sessions'] = $this->model->getAttendees(
+                    $this->data['sessions'] = $this->model->getAll(
                         [
                             'where' => [
                                 'instructor_id' => $this->data['whoIs']->id
@@ -81,7 +82,6 @@
                     }
                 }
             }
-
             $session = $this->model->get($id);
             $this->data['session'] = $session;
             $this->data['attendees'] = $this->model->getAttendees([
@@ -89,7 +89,6 @@
                     'instructor_session_id' => $id
                 ]
             ]);
-
             $this->data['images'] = $this->_attachmentModel->all([
                 'global_id' => $id,
                 'global_key' => 'session_images'
@@ -103,7 +102,6 @@
             $instructorID = unseal($req['instructorID']);
 
             if(isset($req['action'])) {
-
                 switch($req['action']) {
                     case 'addUser':
                         $response = $this->model->addAttendee($id, unseal($req['memberID']));
@@ -117,8 +115,9 @@
                     break;
                 }
             }
-            $this->data['members'] = $this->user_program_model->getAssigned($instructorID);
-
+            $this->data['members'] = $this->userModel->all([
+                'user_type' => 'member'
+            ]);
             $this->data['sessionID'] = $id;
             $this->data['instructorID'] = $instructorID;
 
@@ -150,6 +149,10 @@
         public function accept($sessionID) {
             $req = request()->inputs();
             $this->model->accept($sessionID);
+
+            Flash::set("Session Accepted");
+            dump($sessionID);
+            return redirect(_route('session:show', $sessionID));
         }
 
         /**
@@ -182,10 +185,6 @@
 
             if(isSubmitted()) {
                 $post = request()->posts();
-                dd([
-                    $post,
-                    $_FILES['variable']
-                ]);
             }
         }
     }

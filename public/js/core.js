@@ -1,4 +1,4 @@
-const _URL = 'http://dev.gym_management';
+const _URL = 'http://dev.gym_mgmt';
 const DS  = '/';
 
 const getURL = function(called_url = null){

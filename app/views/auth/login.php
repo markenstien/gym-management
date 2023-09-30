@@ -17,16 +17,10 @@
                       <div class="mb-3">
                         <?php __( $form->getCol('password') ); ?>
                       </div>
-                      <!-- <div class="form-check mb-3">
-                        <input type="checkbox" class="form-check-input" id="authCheck">
-                        <label class="form-check-label" for="authCheck">
-                          Remember me
-                        </label>
-                      </div> -->
                       <div>
                         <?php __($form->get('submit')) ?>
                       </div>
-                      <!-- <a href="<?php echo _route('auth:register')?>" class="d-block mt-3 text-muted">Not a user? Sign up</a> -->
+                      <a href="<?php echo _route('auth:register')?>" class="d-block mt-3 text-muted">Not a user? Sign up</a>
                     <?php __( $form->end() )?>
                   </div>
                 </div>

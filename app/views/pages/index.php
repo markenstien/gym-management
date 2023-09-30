@@ -54,16 +54,9 @@
 		              <div class="mb-3">
 		                <?php __( $form->getCol('password') ); ?>
 		              </div>
-		              <!-- <div class="form-check mb-3">
-		                <input type="checkbox" class="form-check-input" id="authCheck">
-		                <label class="form-check-label" for="authCheck">
-		                  Remember me
-		                </label>
-		              </div> -->
 		              <div class="mb-3">
 		                <?php __($form->get('submit', ['value' => 'Login'])) ?>
 		              </div>
-		              <a href="<?php echo _route('auth:register')?>" class="d-blocktext-muted">Not a user? Sign up</a>
 		            <?php __( $form->end() )?>
 	        	</div>
 	        </div>
