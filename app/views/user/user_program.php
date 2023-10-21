@@ -10,6 +10,7 @@
                 <table class="table table-bordered dataTable">
                     <thead>
                         <th>#</th>
+                        <th>Member ID</th>
                         <th>Member</th>
                         <th>Program</th>
                         <th>Instructor</th>
@@ -21,8 +22,9 @@
                         <?php foreach($user_programs as $key => $row) :?>
                             <tr>
                                 <td><?php echo ++$key?></td>
+                                <td><?php echo $row->user_identification?></td>
                                 <td><?php echo $row->member_name?></td>
-                                <td><?php echo $row->program_name?></td>
+                                <td><?php echo $row->package_name?></td>
                                 <td><?php echo $row->instructor_name?></td>
                                 <td><?php echo $row->sessions?></td>
                                 <td><?php echo $row->created_at?></td>

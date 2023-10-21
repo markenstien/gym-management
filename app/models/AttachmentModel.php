@@ -5,6 +5,7 @@
 		public $table = 'attachments';
 		public $path;
 		public $url;
+		public $uploader_helper;
 
 		public $_fillables = [
 			'label',
@@ -69,7 +70,7 @@
 		*label , display_name , search_key,
 		*description , global_key , global_id
 		*/
-		public function upload( $file_data = [] , $file_name = '' )
+		public function upload($file_data = [], $file_name = '')
 		{
 			$this->_initPathAndURL();
 			//get file
@@ -85,7 +86,6 @@
 				if($res)
 				{
 					$path = $uploader_instance->getPath();
-
 					$upload_name = $uploader_instance->getName();
 					
 					//push-column-after-upload-values
@@ -116,9 +116,40 @@
 			{
 				echo die($e->getMessage());
 			}
-			
 		}	
 		
+		public function uploadByHelperClass($file_data, $file) {
+			if(is_object($file) && isEqual(get_class($file), 'UploaderHelper')) {
+
+				$path = $file->getPath();
+				$upload_name = $file->getName();
+				
+				//push-column-after-upload-values
+				$file_data['file_type'] = $file->getExtension();
+				$file_data['path']      = $path ;
+				$file_data['full_path'] = $path.DS.$upload_name;
+				$file_data['url']       = $this->url;
+				$file_data['full_url']  = $this->url.DS.$upload_name;
+				$file_data['filename']  = $upload_name;
+				$file_data['display_name'] = $file_data['display_name'] ?? $file->getNameOld();
+				
+				//clean
+				$fillable_datas = $this->getFillablesOnly($file_data);
+				//upload
+				$upload_ok = parent::store($fillable_datas);
+
+				if($upload_ok){
+					$this->addMessage("File uploaded!");
+					return true;
+				}else{
+					$this->addError("Something went wrong!");
+					return false;
+				}
+				
+			} else {
+				echo die("Invalid Upload Class");
+			}
+		}
 
 		public function deleteWithFile($id)
 		{

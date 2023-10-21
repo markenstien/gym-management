@@ -407,7 +407,7 @@
 		}
 
 
-		private function checkExistKey($name){
+		public function checkExistKey($name){
 			if(!isset($this->_items[$name])) {
 				echo die("Key does not exist");
 			}
@@ -474,6 +474,18 @@
 				$name = trim($item['name']);//column_name equivalent
 				if(isset($object->$name))
 					$items[$key]['value'] = $object->$name;
+			}
+			$this->_items = $items;
+			return $items;
+		}
+
+		public function setValueArray($array)
+		{
+			$items = $this->_items;
+			foreach ($items as $key => $item) {
+				$name = trim($item['name']);//column_name equivalent
+				if(isset($array[$name]))
+					$items[$key]['value'] = $array[$name];
 			}
 			$this->_items = $items;
 			return $items;

@@ -6,7 +6,8 @@
 	class Controller
 	{	
 
-		protected $_attachmentForm = null;
+		protected $_attachmentForm = null,
+		$_attachmentModel = null;
 
 		//temporary
 		public $is_admin = false;

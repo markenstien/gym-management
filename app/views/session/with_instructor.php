@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <?php
                         Form::label('Package *');
-                        Form::select('package_id', arr_layout_keypair($packages,['id','program_name']),'' ,[
+                        Form::select('package_id', arr_layout_keypair($packages,['id','package_name']),'' ,[
                             'class' => 'form-control',
                             'id' => 'package_id',
                             'required' => true
@@ -36,7 +36,6 @@
                         <small>Package Details</small>
                         <ul class="list-unstyled">
                             <li>Price : <span id="package_price"></span></li>
-                            <li>Program : <span id="package_program"></span></li>
                             <li>Sessions : <span id="package_session"></span></li>
                         </ul>
                     </div>
@@ -105,13 +104,11 @@
 
                 if(val == '') {
                     $('#package_price').html('');
-                    $('#package_program').html('');
                     $('#package_session').html('');
                 } else {
                     $.get(packageCallURL, {packageID: $(this).val()}, function(response) {
                         response = JSON.parse(response);
                         $("#package_price").html(response.price);
-                        $("#package_program").html(response.program_name);
                         $("#package_session").html(response.sessions);
                         $("#amount").val(response.price);
                     });

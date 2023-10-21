@@ -411,6 +411,12 @@
 				'membership_expiry_date' => $dateOfExpiry
 			], $id);
 		}
+
+		public function deactivate($id) {
+			return parent::update([
+				'is_active' => false
+			], $id);
+		}
 	}
 
 	

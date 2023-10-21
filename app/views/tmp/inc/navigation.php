@@ -56,7 +56,6 @@
             </a>
         </li>
         <?php endif?>
-
         <li class="nav-item">
             <a href="<?php echo _route('user-program:index')?>" class="nav-link">
                 <i class="link-icon" data-feather="message-square"></i>

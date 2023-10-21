@@ -83,6 +83,11 @@ input[type='submit']{
   color: #fff;
 }
 
+.btn-danger{
+  background: var(--color-danger);
+  color: #fff;
+}
+
 .badge{
   padding: 3px;
   border-radius: 3px;
@@ -94,6 +99,7 @@ input[type='submit']{
   background: var(--main-color);
   color: #fff;
 }
+
 
 
 .badge-success{

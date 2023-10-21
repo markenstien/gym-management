@@ -412,3 +412,23 @@
 
         return $retVal;
     }
+
+    function wExtensionType($extension) {
+        $retVal = '';
+
+        if(isEqual($extension, [
+            'jpg','jpeg','png','bitmap',
+        ])) {
+            $retVal = 'image';
+        } elseif(isEqual($extension, [
+            'mp4','WMV','MOV','FLV'
+        ])) {
+            $retVal = 'video';
+        }
+
+        return $retVal;
+    }
+
+
+    
+                        

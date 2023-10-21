@@ -20,10 +20,10 @@
   <div id="menu">
     <ul>
       <?php if(isAdmin() || isInstructor()) :?>
-        <?php if(isInstructor()) :?>
-          <li><a href="<?php echo _route('session:with-instructor')?>">Sessions</a></li>
-        <?php else:?>
+        <?php if(isAdmin()) :?>
           <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
+        <?php else:?>
+          <li><a href="<?php echo _route('asset-management:create')?>">Assets</a></li>
         <?php endif?>
       <?php endif ?>
       <?php if(isAdmin()) :?>
@@ -44,6 +44,7 @@
     <?php if(isAdmin()) :?>
       <li><a href="<?php echo _route('user:index')?>">User</a></li>
     <?php endif?>
+    <li><a href="<?php echo _route('package:index')?>">Packages And Program</a></li>
     <li><a href="<?php echo _route('user-program:index')?>">My Programs</a></li>
     <li><a href="https://panorama.gymmgmt.online/">360 View</a></li>
   </ul>
@@ -51,10 +52,8 @@
 
 <div id="sub_menu">
   <div>
-    User : <?php echo whoIs(['firstname' ,'lastname'])?> @ <?php echo whoIs('user_type')?>
-    <div class="align-right">
-      <?php echo wLinkDefault(_route('auth:logout'), 'Logout')?>
-    </div>
+    User : <?php echo wLinkDefault(_route('user:profile'), whoIs(['firstname' ,'lastname']))?>@<?php echo whoIs('user_type')?> 
+    &nbsp; <?php echo wLinkDefault(_route('auth:logout'), 'Logout')?>
   </div>
 </div>
 <div id="content">
@@ -69,10 +68,11 @@
 <div id="footer">
   <p id="legal">Copyright &copy; <?php echo date('Y')?> All Rights Reserved</a>.</p>
 </div>
-<script src="<?php echo _path_public('js/core.js')?>"></script>
-<script src="<?php echo _path_public('js/global.js')?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha512-qzrZqY/kMVCEYeu/gCm8U2800Wz++LTGK4pitW/iswpCbjwxhsmUwleL1YXaHImptCHG0vJwU7Ly7ROw3ZQoww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+
+<script src="<?php echo _path_public('js/core.js')?>"></script>
+<script src="<?php echo _path_public('js/global.js')?>"></script>
 <?php produce('scripts')?>
 
 

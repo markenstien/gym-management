@@ -11,12 +11,19 @@
 		'send'   => $controller.'/send'
 	];
 
+	$controller = '/ViewerController';
+	$routes['viewer'] = [
+		'index' => $controller.'/index',
+		'show' => $controller.'/show',
+	];
+
 	$controller = '/UserController';
 	$routes['user'] = [
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
+		'deactivate' => $controller . '/deactivate',
 		'show'   => $controller.'/show',
 		'members'   => $controller.'/members',
 		'instructors'   => $controller.'/instructors',
@@ -24,7 +31,8 @@
 		'sendCredential' => $controller.'/sendCredential',
 		'add-to-member' => $controller .'/addToMember',
 		'accept' => $controller .'/accept',
-		'progress' => $controller . '/progress'
+		'progress' => $controller . '/progress',
+		'profile'  => $controller . '/profile'
 	];
 
 	$controller = '/AuthController';
@@ -93,7 +101,9 @@
 		'complete' => $controller. '/complete',
 		'accept' => $controller. '/accept',
 		'show-attendee' => $controller . '/showAttendee',
-		'addImage' => $controller .'/addImage'
+		'addImage' => $controller .'/addImage',
+		'addFile' => $controller .'/addFile',
+		'deleteAsset' => $controller . '/deleteAsset'
 	];
 
 	$controller = '/CategoryController';
@@ -201,10 +211,6 @@
 	];
 
 
-
-
-
-
 	$controller = '/FormBuilderController';
 	$routes['form'] = [
 		'index' => $controller.'/index',
@@ -218,5 +224,24 @@
 		'respond'   => '/FormController'.'/respond'
 	];
 
+	$controller = '/AssetManagementController';
+	$routes['asset-management'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show'
+	];
+
+	$controller = '/InstructorPackageController';
+	$routes['package'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show'
+	];
 	return $routes;
 ?>

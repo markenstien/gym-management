@@ -28,9 +28,7 @@
             }
             
             $this->db->query(
-                "SELECT package.*, program_name FROM {$this->table} as package
-                    LEFT JOIN instructor_programs as programs
-                    ON programs.id = package.program_id
+                "SELECT * FROM {$this->table} as package
                     {$where} {$order}"
             );
 

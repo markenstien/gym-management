@@ -37,7 +37,7 @@
 				if(isAdmin()) {
 					return redirect('UserController');
 				} else {
-					return redirect(_route('dashboard:index'));
+					return redirect(_route('instructor-session:index'));
 				}
 			}
 

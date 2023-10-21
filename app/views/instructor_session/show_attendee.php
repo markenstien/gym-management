@@ -1,7 +1,7 @@
 <?php build('content') ?>
 	<div class="card">
 		<div class="card-header">
-			<h4 class="card-title">Session Invitation</h4>
+			<h4 class="card-title">Session</h4>
 		</div>
 
 		<div class="card-body">
@@ -17,7 +17,7 @@
 					</tr>
 					<tr>
 						<td>Program</td>
-						<td><?php echo $attendee->program_name?></td>
+						<td><?php echo $attendee->package_name?></td>
 					</tr>
 					<tr>
 						<td>Date</td>

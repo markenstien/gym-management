@@ -27,11 +27,16 @@
 
 			if(!empty($params))
 			{
+				$params['is_active'] = true;
 				$this->data['users'] = $this->model->getAll([
 					'where' => $params
 				]);
 			}else{
-				$this->data['users'] = $this->model->getAll( );
+				$this->data['users'] = $this->model->getAll([
+					'where' => [
+						'is_active' => true
+					]
+				]);
 			}
 			
 			$this->data['content_title'] = "TITLE";
@@ -167,7 +172,7 @@
 
 			if(!isEqual(whoIs('user_type'), 'admin'))
 				$this->data['user_form']->remove('user_type');
-
+			$this->data['user'] = $user;
 			return $this->view('user/edit' , $this->data);
 		}
 
@@ -214,10 +219,21 @@
 			$user = $this->model->get($id);
 		}
 
+		public function deactivate($id) {
+			$this->model->deactivate($id);
+			Flash::set("User Deactivated successfully");
+			return redirect(_route('user:index'));
+		}
+
 		public function sendCredential($id)
 		{
 			$this->model->sendCredential($id);
 			Flash::set("Credentials has been set to the user");
 			return request()->return();
+		}
+
+		public function profile() {
+			
+			return $this->view('user/profile');
 		}
 	}

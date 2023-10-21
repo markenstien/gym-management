@@ -26,12 +26,12 @@
                                 <td><?php echo ++$key?></td>
                                 <td><?php echo $row->session_name?></td>
                                 <td><?php echo $row->start_date?></td>
-                                <td><?php echo $row->program_name?></td>
+                                <td><?php echo $row->package_name?></td>
                                 <td><?php echo $row->status?></td>
                                 <td>
                                     <?php 
                                         if(isMember()) {
-                                            echo wLinkDefault(_route('instructor-session:show-attendee', $row->id), 'Show');
+                                            echo wLinkDefault(_route('instructor-session:show-attendee', $row->instructor_session_id), 'Show');
                                         } else {
                                             echo wLinkDefault(_route('instructor-session:show', $row->id), 'Show');
                                         }

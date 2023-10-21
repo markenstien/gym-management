@@ -68,19 +68,16 @@ use Database;
         }
 
         public function addProgramId() {
-            $db = Database::getInstance();
+            $packageModel = model('InstructorPackageModel');
 
-            $db->query(
-                "SELECT * FROM instructor_programs"
-            );
-            $programs = $db->resultSet();
+            $packages = $packageModel->getAll();
 
             $this->add([
                 'type' => 'select',
                 'name' => 'program_id',
                 'options' => [
                     'label' => 'Program',
-                    'option_values' => arr_layout_keypair($programs, ['id', 'program_name'])
+                    'option_values' => arr_layout_keypair($packages, ['id', 'package_name'])
                 ],
                 'class' => 'form-control',
                 'required' => true

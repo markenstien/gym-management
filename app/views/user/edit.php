@@ -9,7 +9,13 @@
 			<?php Flash::show()?>
 			<?php echo $user_form->start()?>
 			<?php echo $user_form->getFormItems()?>
-				<input type="submit" name="" class="btn btn-primary btn-sm" value="Edit User">
+				<div class="row">
+					<div class="col-md-6"><input type="submit" name="" class="btn btn-primary btn-sm" value="Edit User"></div>
+					<div class="col-md-6"><?php echo wLinkDefault(_route('user:deactivate', $user->id), 'Delete User', [
+						'class' => 'btn btn-danger form-verify',
+						'message' => 'Are you sure want to remove this user?'
+					])?></div>
+				</div>
 			<?php echo $user_form->end()?>
 		</div>
 	</div>

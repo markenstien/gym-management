@@ -119,6 +119,10 @@
             return $this->path;
         }
 
+        public function setOnlyValidExtensions($extensions = []) {
+            $this->extensions = $extensions;
+        }
+
         /**
          * CORE PROCEESESS
          * SET ERORS , VALIDATIONS MAKE NEW NAME MOVE UPLOAD

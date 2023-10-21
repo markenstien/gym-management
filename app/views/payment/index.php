@@ -60,8 +60,10 @@
                         <th>Reference</th>
                         <th>Key</th>
                         <th>Amount</th>
+                        <th>Method</th>
                         <th>Payer</th>
                         <th>Staff</th>
+                        <th>Remarks</th>
                         <th>Date</th>
                     </thead>
 
@@ -73,8 +75,10 @@
                                 <td><?php echo $row->reference?></td>
                                 <td><?php echo $row->payment_key?></td>
                                 <td><?php echo $row->amount?></td>
+                                <td><?php echo $row->payment_method?></td>
                                 <td><?php echo $row->payer_name?></td>
                                 <td><?php echo $row->staff_name?></td>
+                                <td><?php echo $row->remarks?></td>
                                 <td><?php echo $row->created_at?></td>
                             </tr>
                         <?php endforeach?>

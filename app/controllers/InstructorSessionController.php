@@ -5,14 +5,15 @@
 
     class InstructorSessionController extends Controller
     {
-
+        public $assetManagementModel;
         public function __construct()
         {
             parent::__construct();
             $this->model = model('InstructorSessionModel');
             $this->user_program_model = model('UserProgramModel');
             $this->userModel = model('UserModel');
-
+            $this->assetManagementModel = model('AssetManagementModel');
+            $this->sessionAssetModel = model('SessionAssetModel');
             $this->data['_form'] = new InstructorSessionForm();
         }
 
@@ -31,7 +32,9 @@
                         [
                             'where' => [
                                 'instructor_id' => $this->data['whoIs']->id
-                            ]
+                            ],
+
+                            'group' => 'ins.id'
                         ]
                     );
                 } else {
@@ -82,18 +85,37 @@
                     }
                 }
             }
+
             $session = $this->model->get($id);
             $this->data['session'] = $session;
+
             $this->data['attendees'] = $this->model->getAttendees([
                 'where' => [
                     'instructor_session_id' => $id
                 ]
             ]);
+
             $this->data['images'] = $this->_attachmentModel->all([
                 'global_id' => $id,
                 'global_key' => 'session_images'
             ]);
+
+            $this->data['assets'] = $this->assetManagementModel->getAll([
+                'where' => [
+                    'asset.user_id' => [
+                        'condition' => 'in',
+                        'value' => [null, whoIs('id')]
+                    ]
+                ],
+                'order' => 'asset.id desc'
+            ]);
             
+            $this->data['sessionAssets'] = $this->sessionAssetModel->getAll([
+                'where' => [
+                    'session_id' => $id
+                ]
+            ]);
+
             return $this->view('instructor_session/show', $this->data);
         }
 
@@ -148,11 +170,15 @@
 
         public function accept($sessionID) {
             $req = request()->inputs();
-            $this->model->accept($sessionID);
+            $session = $this->model->get($sessionID);
+            $isOkay = $this->model->accept($sessionID);
+            if($isOkay) {
+                Flash::set("Session Accepted");
+                return redirect(_route('instructor-session:show-attendee', $session->id));
 
-            Flash::set("Session Accepted");
-            dump($sessionID);
-            return redirect(_route('session:show', $sessionID));
+            } else {
+                return redirect(_route('instructor-session:index'));
+            }
         }
 
         /**
@@ -181,10 +207,24 @@
             return $this->view('instructor_session/show_attendee', $this->data);
         }
 
-        public function addImage() {
-
+        public function addFile() {
             if(isSubmitted()) {
                 $post = request()->posts();
+                $res = $this->sessionAssetModel->add($post['id'],$post['asset_id']);
+
+                if($res) {
+                    Flash::set("Asset added to session");
+                    return redirect(_route('instructor-session:show', $post['id']));
+                } else {
+                    Flash::set($this->sessionAssetModel->getErrorString(), 'danger');
+                    return request()->return();
+                }
             }
+        }
+
+        public function deleteAsset($id) {
+            $sessionID = request()->input('sessionId');
+            $this->sessionAssetModel->delete($id);
+            return redirect(_route('instructor-session:show', $sessionID));
         }
     }

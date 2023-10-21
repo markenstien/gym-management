@@ -10,6 +10,7 @@
             'start_date',
             'start_time',
             'program_id',
+            'package_id',
             'status',
             'created_by'
         ];
@@ -29,30 +30,37 @@
         public function getAll($params = []) {
             $where = null;
             $order = null;
+            $group = null;
 
-            if (isset($params['where'])) {
+            if (!empty($params['where'])) {
                 $where = " WHERE ".parent::conditionConvert($params['where']);
             }
 
-            if (isset($params['order'])) {
+            if (!empty($params['order'])) {
                 $order  = " ORDER BY {$params['order']}";
             }
+
+            if (!empty($params['group'])) {
+                $group = " GROUP BY {$params['group']}";
+            }
+
+
 
             $this->db->query(
                 "SELECT ins.*,
                     concat(instructor.firstname, ' ',instructor.lastname) as instructor_name,
-                    program_name, isa.user_id as user_id
+                    package_name, isa.user_id as user_id
                     FROM {$this->table} as ins 
-                    LEFT JOIN users as instructor
-                    ON instructor.id = ins.instructor_id
+                        LEFT JOIN users as instructor
+                        ON instructor.id = ins.instructor_id
                     
-                    LEFT JOIN instructor_programs as programs
-                    ON programs.id = ins.program_id
+                        LEFT JOIN instructor_packages as package
+                        ON package.id = ins.program_id
 
-                    LEFT JOIN instructor_session_attendees as isa
-                    ON isa.instructor_session_id = ins.id
+                        LEFT JOIN instructor_session_attendees as isa
+                        ON isa.instructor_session_id = ins.id
                     
-                    {$where} {$order}"
+                    {$where} {$group} {$order}"
             );
 
             return $this->db->resultSet();
@@ -103,11 +111,11 @@
             $where = null;
             $order = null;
 
-            if(isset($params['where'])) {
+            if(!empty($params['where'])) {
                 $where = " WHERE ". parent::conditionConvert($params['where']);
             }
 
-            if(isset($params['order'])) {
+            if(!empty($params['order'])) {
                 $order = " ORDER BY {$params['order']}";
             }
 
@@ -116,7 +124,7 @@
                     member.user_identification, 
                     member.gender as member_gender,
                     instructor.gender as instructor_gender,
-                    program_name, sessions.session_name,
+                    package_name, sessions.session_name,
                     sessions.start_date,sessions.start_time,
                     sessions.status as status,
                     concat(instructor.firstname, ' ',instructor.lastname) as instructor_name,
@@ -137,8 +145,8 @@
                     LEFT JOIN users as instructor 
                     ON instructor.id = sessions.instructor_id
                     
-                    LEFT JOIN instructor_programs as programs 
-                    on programs.id = sessions.program_id
+                    LEFT JOIN instructor_packages as package 
+                    on package.id = sessions.program_id
                         {$where} {$order}"
             );
 
