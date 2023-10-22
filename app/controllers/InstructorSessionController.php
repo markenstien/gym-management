@@ -172,13 +172,11 @@
             $req = request()->inputs();
             $session = $this->model->get($sessionID);
             $isOkay = $this->model->accept($sessionID);
+
             if($isOkay) {
                 Flash::set("Session Accepted");
-                return redirect(_route('instructor-session:show-attendee', $session->id));
-
-            } else {
-                return redirect(_route('instructor-session:index'));
             }
+            return request()->return();
         }
 
         /**
