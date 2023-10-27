@@ -190,7 +190,6 @@
 			}
 
 			$this->data['user'] = $user;
-			
 			if(isEqual($user->user_type, UserService::MEMBER)) {
 				$this->data['sessions'] = $this->sessionModel->getAll([
 					'where' => [

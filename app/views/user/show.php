@@ -88,7 +88,7 @@
 			</div>	
 		</div>
 
-		<?php if(isAdmin() || isEqual($user->user_type, 'MEMBER')) :?>
+		<?php if(isEqual($user->user_type, 'MEMBER')) :?>
 		<div class="col-md-8">
 			<div class="card">
 				<div class="card-header">
@@ -195,7 +195,7 @@
 		</div>
 		<?php endif?>
 
-		<?php if(isAdmin() && isEqual($user->user_type, 'INSTRUCTOR')) :?>
+		<?php if(isEqual($user->user_type, 'INSTRUCTOR')) :?>
 			<div class="col-md-8">
 				<div class="card">
 					<div class="card-header">
