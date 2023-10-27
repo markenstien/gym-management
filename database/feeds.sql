@@ -1,3 +1,4 @@
+
 DROP TABLE IF exists feeds;
 create table feeds(
     id int(10) not null PRIMARY KEY AUTO_INCREMENT,

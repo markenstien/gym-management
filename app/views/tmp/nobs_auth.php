@@ -1,96 +1,193 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title><?php echo COMPANY_NAME?></title>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<link href="<?php echo _path_tmp('non_bs/assets/css/core.css') ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo _path_tmp('non_bs/assets/css/widgets.css') ?>" rel="stylesheet" type="text/css" />
-<link href="<?php echo _path_tmp('non_bs/assets/css/main.css') ?>" rel="stylesheet" type="text/css" />
-<link href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css">
-<style type="text/css">
-  .hidden{
-    display: none;
-  }
-</style>
-<?php produce('styles')?>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?php echo $page['title'] ?? COMPANY_NAME?></title>
+
+    <!-- Custom fonts for this template-->
+    <link href="<?php echo _path_tmp('bootstrap_a/vendor/fontawesome-free/css/all.min.css')?>" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="<?php echo _path_tmp('bootstrap_a/css/sb-admin-2.min.css')?>" rel="stylesheet">
+    <?php produce('headers')?>
+    <?php produce('styles')?>
 </head>
-<body>
-<div class="menu-wrapper">
-  <div id="menu">
-    <ul>
-      <?php if(isAdmin() || isInstructor()) :?>
-        <?php if(isAdmin()) :?>
-          <li><a href="<?php echo _route('session:create')?>">Sessions</a></li>
-        <?php else:?>
-          <li><a href="<?php echo _route('asset-management:create')?>">Assets</a></li>
-        <?php endif?>
-      <?php endif ?>
-      <?php if(isAdmin()) :?>
-        <li><a href="<?php echo _route('user:members', null)?>">Members</a></li>
-        <li><a href="<?php echo _route('user:instructors', null)?>">Instructors</a></li>
-      <?php endif?>
-      <li><a href="<?php echo _route('instructor-session:index', null)?>">Instructor Sessions</a></li>
-      <li><a href="<?php echo _route('payment:index')?>">Payments</a></li>
-      <li>
-          <a href="#" id="nav_other_toggle">Others</a>
-      </li>
-    </ul>
-  </div>
-</div>
 
-<div id="sub_menu_container">
-  <ul class="nav-sub-menu">
-    <?php if(isAdmin()) :?>
-      <li><a href="<?php echo _route('user:index')?>">User</a></li>
-    <?php endif?>
-    <li><a href="<?php echo _route('package:index')?>">Packages And Program</a></li>
-    <li><a href="<?php echo _route('user-program:index')?>">My Programs</a></li>
-    <li><a href="https://panorama.gymmgmt.online/">360 View</a></li>
-  </ul>
-</div>
+<body id="page-top">
 
-<div id="sub_menu">
-  <div>
-    User : <?php echo wLinkDefault(_route('user:profile'), whoIs(['firstname' ,'lastname']))?>@<?php echo whoIs('user_type')?> 
-    &nbsp; <?php echo wLinkDefault(_route('auth:logout'), 'Logout')?>
-  </div>
-</div>
-<div id="content">
-  <?php echo produce('content')?>
-</div>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-<div id="logo">
-  <h1><a href="#"><?php echo COMPANY_NAME?></a></h1>
-  <h2><a href="#">The fitness company</a></h2>
-</div>
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-<div id="footer">
-  <p id="legal">Copyright &copy; <?php echo date('Y')?> All Rights Reserved</a>.</p>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha512-qzrZqY/kMVCEYeu/gCm8U2800Wz++LTGK4pitW/iswpCbjwxhsmUwleL1YXaHImptCHG0vJwU7Ly7ROw3ZQoww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.4/datatables.min.js"></script>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3"><?php echo COMPANY_NAME?></div>
+            </a>
+            <?php echo grab('tmp/inc/admin_sidebar')?>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <!-- End of Sidebar -->
 
-<script src="<?php echo _path_public('js/core.js')?>"></script>
-<script src="<?php echo _path_public('js/global.js')?>"></script>
-<?php produce('scripts')?>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
+            <!-- Main Content -->
+            <div id="content">
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#nav_other_toggle').click(function(){
-      $("#sub_menu_container").toggle();
-    });
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-    $(".btn-close").click(function(){
-      $(this).parent().remove();
-    });
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-    $(".el-toggler").click(function() {
-      let target = $(this).data('target');
-      $(target).toggle();
-    });
-  });
-</script>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo whoIs(['firstname','lastname'])?></span>
+                                <img class="img-profile rounded-circle"
+                                    src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?php echo _route('user:profile')?>">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" 
+                                    data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                  <?php produce('content')?>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; <?php echo COMPANY_NAME?> <?php echo date('Y')?></span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="<?php echo _route('auth:logout')?>">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="<?php echo _path_tmp('bootstrap_a/vendor/jquery/jquery.min.js')?>"></script>
+    <script src="<?php echo _path_tmp('bootstrap_a/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="<?php echo _path_tmp('bootstrap_a/vendor/jquery-easing/jquery.easing.min.js')?>"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="<?php echo _path_tmp('bootstrap_a/js/sb-admin-2.min.js')?>"></script>
+
+    <!-- Page level plugins -->
+    <script src="<?php echo _path_tmp('bootstrap_a/vendor/chart.js/Chart.min.js')?>"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?php echo _path_tmp('bootstrap_a/js/demo/chart-area-demo.js')?>"></script>
+    <script src="<?php echo _path_tmp('bootstrap_a/js/demo/chart-pie-demo.js')?>"></script>
+
+    <script src="<?php echo _path_public('js/core.js')?>"></script>
+    <script src="<?php echo _path_public('js/global.js')?>"></script>
+
+    <?php produce('scripts')?>
 </body>
+
 </html>

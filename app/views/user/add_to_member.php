@@ -3,6 +3,7 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Add User as Member</h4>
+            <?php echo wLinkDefault(_route('user:show', $user->id), 'Back')?>
         </div>
 
         <div class="card-body">
@@ -23,7 +24,7 @@
                 <div class="form-group">
                     <?php
                         Form::label('Months');
-                        Form::select('months', ['month_6' => '6 Months', 'year_1' => '1 Year'],'', [
+                        Form::select('months', ['year_1' => '1 Year'],'', [
                             'class' => 'form-control',
                             'required' => true,
                             'id' => 'memPackage'
@@ -81,10 +82,6 @@
                 let amount = $("#amount");
 
                 switch(value) {
-                    case 'month_6':
-                        amount.val(200);
-                    break;
-
                     case 'year_1':
                         amount.val(300);
                     break;

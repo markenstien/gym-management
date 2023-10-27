@@ -8,7 +8,9 @@
             'program_id',
             'price',
             'sessions',
-            'is_active'
+            'is_active',
+            'is_member',
+            'is_instructed'
         ];
 
         public function createOrUpdate($data, $id = null) {
@@ -28,7 +30,8 @@
             }
             
             $this->db->query(
-                "SELECT * FROM {$this->table} as package
+                "SELECT *, if(is_member, 'Member', 'Non-Member') is_member_text,
+                    if(is_instructed, 'Instructed', 'Non-Instructed') is_instructed_text FROM {$this->table} as package
                     {$where} {$order}"
             );
 

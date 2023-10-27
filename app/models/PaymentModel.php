@@ -11,6 +11,8 @@ class PaymentModel extends Model
         'payment_key',
         'payer_name',
         'amount',
+        'net_amount',
+        'internal_remarks',
         'payment_method',
         'mobile_number',
         'address',
@@ -143,12 +145,16 @@ class PaymentModel extends Model
 
         $this->db->query(
             "SELECT payment.*,
-                CONCAT(staff.firstname , ' ',staff.lastname) as staff_name
+                CONCAT(staff.firstname , ' ',staff.lastname) as staff_name,
+                CONCAT(member.firstname , ' ',member.lastname) as member_name
                 FROM {$this->table} as payment
 
                 LEFT JOIN users as staff
                 ON staff.id = payment.created_by
                 
+                LEFT JOIN users as member
+                    ON member.id = payment.order_id
+                    
                 {$where}{$order_by}"
         );
 

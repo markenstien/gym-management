@@ -80,3 +80,10 @@ create table instructor_commissions(
     remarks varchar(100),
     created_at timestamp default now()
 );
+
+
+alter table instructor_packages
+    add column is_instructed boolean default false;
+
+alter table instructor_packages
+    add column is_member boolean default false;

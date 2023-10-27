@@ -85,7 +85,8 @@
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
-		'with-instructor' => $controller.'/withInstructor'
+		'students' => $controller.'/students',
+		'add-transaction'  => $controller .'/addSessionTransaction'
 	];
 
 	$controller = '/InstructorSessionController';
@@ -243,5 +244,27 @@
 		'download' => $controller.'/download',
 		'show'   => $controller.'/show'
 	];
+
+	$controller = '/ProgramController';
+	$routes['program'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show',
+		'add-participant' => $controller .'/addParticipant',
+		'start-session' => $controller .'/startSession',
+		'show-session' => $controller . '/showSession',
+		'students'    => $controller .'/students'
+	];
+
+	$controller = '/InstructorCommissionController';
+	$routes['instructor-commission'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create'
+	];
+
 	return $routes;
 ?>

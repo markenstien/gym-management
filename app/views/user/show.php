@@ -21,15 +21,30 @@
 
 					<div class="table-responsive">
 						<table class="table table-bordered">
-							<?php if(!is_null($user->membership_expiry_date)) :?>
-								<tr>
-									<td>Membership</td>
-									<td>
-										<label for="#">
-										(<?php echo date_difference($user->membership_expiry_date, today())?> Before expiry)
+							<?php if(isAdmin() || isMember()) :?>
+							<tr>
+								<td>Membership</td>
+								<td>
+									<label for="#">
+										<?php
+											$beforeExpiry = date_difference($user->membership_expiry_date, today());
+											$number = preg_match_all('!\d+!', $beforeExpiry, $matches);
+											$number = $matches[0][0];
+										?>
+										<?php
+											if(is_null($user->membership_expiry_date)) {
+												echo "Non Member";
+											} else {
+												echo date_difference($user->membership_expiry_date, today()) . ' Before expiry' ;
+											}
+										?>
 									</label>
-									</td>
-								</tr>
+									
+									<?php if(isAdmin() && $number <= 0 && isEqual($user->user_type, 'MEMBER')) :?>
+										<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Add Plan')?>
+									<?php endif?>
+								</td>
+							</tr>
 							<?php endif?>
 							<tr>
 								<td width="250px">User Identification</td>
@@ -58,15 +73,6 @@
 								<td width="250px">Address</td>
 								<td><?php echo $user->address?></td>
 							</tr>
-							<?php if(isAdmin() && !isEqual($user->user_type, 'INSTRUCTOR')) :?>
-							<tr>
-								<td colspan="2">
-									<div>
-										<?php echo wLinkDefault(_route('user:add-to-member', $user->id), 'Membership')?>
-									</div>
-								</td>
-							</tr>
-							<?php endif?>
 
 							<?php if(isMember($user)) :?>
 								<tr>
@@ -82,30 +88,41 @@
 			</div>	
 		</div>
 
+		<?php if(isAdmin() || isEqual($user->user_type, 'MEMBER')) :?>
 		<div class="col-md-8">
 			<div class="card">
 				<div class="card-header">
 					<h4 class="card-title">Sessions</h4>
 				</div>
 				<div class="card-body">
+					<?php $counter = 0?>
 					<div class="table-responsive">
 						<table class="table table-bordered dataTable">
 							<thead>
 								<th>#</th>
-								<th>Instructor</th>
 								<th>Program</th>
-								<th>Date</th>
-								<th>Is Accepted</th>
+								<th>Sessions</th>
+								<th>Start Date</th>
+								<th>Last Updated</th>
+								<th>Instructor</th>
 							</thead>
 
 							<tbody>
 								<?php foreach($sessions as $key => $row) :?>
 									<tr>
-										<td><?php echo ++$key?></td>
-										<td><?php echo $row->instructor_name?></td>
-										<td><?php echo $row->program_name?></td>
-										<td><?php echo $row->start_date . ' : ' . $row->start_time ?></td>
-										<td><?php echo $row->is_accepted?></td>
+										<td><?php echo ++$counter?></td>
+										<td><?php echo $row->package_name?></td>
+										<td><?php echo $row->session_taken?>/<?php echo $row->package_session?></td>
+										<td><?php echo $row->created_at?></td>
+										<td><?php echo time_since($row->last_update)?></td>
+										<td><?php
+												if(isEqual($row->session_type, 'INSTRUCTED')) {
+													echo strtoupper($row->instructor_firstname . ' '.$row->instructor_lastname);
+												} else {
+													echo "REGULAR SESSION";
+												}
+											?>
+										</td>
 									</tr>
 								<?php endforeach?>
 							</tbody>
@@ -117,7 +134,7 @@
 				<?php echo wDivider(30)?>
 				<div class="card">
 					<div class="card-header">
-						<h4 class="card-title">User Programs</h4>
+						<h4 class="card-title">User Progress</h4>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -131,15 +148,7 @@
 								</thead>
 
 								<tbody>
-									<?php foreach($user_programs as $key => $row) :?>
-										<tr>
-											<td><?php echo ++$key?></td>
-											<td><?php echo $row->program_name?></td>
-											<td><?php echo $row->package_name?></td>
-											<td><?php echo $row->sessions?></td>
-											<td><?php echo $row->program_start_date?></td>
-										</tr>
-									<?php endforeach?>
+									
 								</tbody>
 							</table>
 						</div>
@@ -151,39 +160,78 @@
 			<?php echo wDivider(30)?>
 
 			<?php if(isMember($user)):?>
-			<div class="card">
-				<div class="card-header">
-					<h4 class="card-title">Payments</h4>
-				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table table-bordered dataTable">
-							<thead>
-								<th>#</th>
-								<th>Reference</th>
-								<th>Amount</th>
-								<th>Payment Key</th>
-								<th>Created At</th>
-							</thead>
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Payments</h4>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered dataTable">
+								<thead>
+									<th>#</th>
+									<th>Reference</th>
+									<th>Amount</th>
+									<th>Payment Key</th>
+									<th>Created At</th>
+								</thead>
 
-							<tbody>
-								<?php foreach($payments as $key => $row) :?>
-									<tr>
-										<td><?php echo ++$key?></td>
-										<td><?php echo $row->reference?></td>
-										<td><?php echo $row->amount?></td>
-										<td><?php echo $row->payment_key?></td>
-										<td><?php echo $row->created_at?></td>
-									</tr>
-								<?php endforeach?>
-							</tbody>
-						</table>
+								<tbody>
+									<?php foreach($payments as $key => $row) :?>
+										<tr>
+											<td><?php echo ++$key?></td>
+											<td><?php echo $row->reference?></td>
+											<td><?php echo $row->amount?></td>
+											<td><?php echo $row->payment_key?></td>
+											<td><?php echo $row->created_at?></td>
+										</tr>
+									<?php endforeach?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-			</div>
 			<?php endif?>
 			
 		</div>
+		<?php endif?>
+
+		<?php if(isAdmin() && isEqual($user->user_type, 'INSTRUCTOR')) :?>
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Students</h4>
+					</div>
+
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered dataTable">
+								<thead>
+									<th>#</th>
+									<th>Program</th>
+									<th>Student</th>
+									<th>Sessions</th>
+									<th>Start Date</th>
+									<th>Last Updated</th>
+								</thead>
+
+								<tbody>
+									<?php foreach($students as $key => $row) :?>
+										<tr>
+											<td><?php echo ++$key?></td>
+											<td><?php echo $row->package_name?></td>
+											<td><?php echo $row->member_firstname . ' ' .$row->member_lastname?></td>
+											<td><?php echo $row->session_taken?>/<?php echo $row->package_session?></td>
+											<td><?php echo $row->created_at?></td>
+											<td><?php echo time_since($row->last_update)?></td>
+										</tr>
+									<?php endforeach?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		<?php endif?>
 	</div>
 
 <?php endbuild()?>

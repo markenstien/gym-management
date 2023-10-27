@@ -57,7 +57,7 @@
 		{	
 			$attributes['class'] = ' col-form-label ';
 
-			if( isset($attributes['class']) )
+			if(isset($attributes['class']) )
 			{
 				$attributes['class'] .= ' col-form-label ';
 			}else{

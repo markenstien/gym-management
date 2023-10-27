@@ -1,5 +1,16 @@
 <?php
-    
+    function isMemberShipExpired($membership = null) {
+        if(is_null($membership)) {
+            return true;
+        }
+
+        if(date('Y-m-d', strtotime($membership)) <= today()) {
+            return true;
+        }
+        //not expired
+        return false;
+    }
+
     function __($data)
     {
         if( is_array($data) )

@@ -13,6 +13,8 @@
             $this->addPackageName();
             $this->addPrice();
             $this->addSession();
+            $this->addIsInstructed();
+            $this->addIsMember();
         }
 
         public function addPackageName() {
@@ -47,6 +49,44 @@
                 'required' => true,
                 'options' => [
                     'label' => 'Number of Sessions'
+                ]
+            ]);
+        }
+
+        public function addIsInstructed() {
+            $this->add([
+                'name' => 'is_instructed',
+                'type' => 'select',
+                'options' => [
+                    'label' => 'Package Mode',
+                    'option_values' => [
+                        1 => 'Instructed',
+                        0 => 'Non-Instructed'
+                    ]
+                ],
+                'class' => 'form-control',
+                'required' => true,
+                'attributes' => [
+                    'id' => 'is_instructed'
+                ]
+            ]);
+        }
+
+        public function addIsMember() {
+            $this->add([
+                'name' => 'is_member',
+                'type' => 'select',
+                'options' => [
+                    'label' => 'Membership Status',
+                    'option_values' => [
+                        1 => 'Member',
+                        0 => 'Non Member'
+                    ]
+                ],
+                'class' => 'form-control',
+                'required' => true,
+                'attributes' => [
+                    'id' => 'is_member'
                 ]
             ]);
         }

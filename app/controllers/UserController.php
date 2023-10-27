@@ -5,7 +5,10 @@
 
 	class UserController extends Controller
 	{
-
+		public $paymentModel,$instructorCommissionModel,
+		$programModel, $programParticipantModel,
+		$sessionModel, $sessionRemarkModel;
+		
 		public function __construct()
 		{
 			parent::__construct();
@@ -16,9 +19,10 @@
 
 			$this->paymentModel = model('PaymentModel');
             $this->instructorCommissionModel = model('InstructorCommissionModel');
-            $this->instructorSessionModel = model('InstructorSessionModel');
-            $this->instructorPackageModel = model('InstructorPackageModel');
-            $this->userProgramModel = model('UserProgramModel');
+			$this->programModel = model('ProgramModel');
+			$this->programParticipantModel = model('ProgramParticipantModel');
+			$this->sessionModel = model('SessionModel');
+			$this->sessionRemarkModel = model('SessionRemarkModel');
 		}
 
 		public function index()
@@ -186,37 +190,39 @@
 			}
 
 			$this->data['user'] = $user;
-
-			$this->data['payments'] = $this->paymentModel->all([
-				'order_id' => $user->id
-			],'id desc');
-
-			$this->data['user_programs'] = $this->userProgramModel->getAll([
-				'where' => [
-					'user_program.user_id' => $user->id
-				],
-				'order' => 'user_program.id desc'
-			]);
-
-			if(isMember()) {
-				$this->data['sessions'] = $this->instructorSessionModel->getAttendees([
+			
+			if(isEqual($user->user_type, UserService::MEMBER)) {
+				$this->data['sessions'] = $this->sessionModel->getAll([
 					'where' => [
-						'member.id' => $id
+						'member_id' => $id
 					]
 				]);
-			} else {
-				$this->data['sessions'] = $this->instructorSessionModel->getAttendees([
+			}
+
+			$this->data['payments'] = $this->paymentModel->all([
+				'order_id' => $id
+			]);
+
+			if(isEqual($user->user_type, UserService::INSTRUCTOR)) {
+				$this->data['students'] =$this->sessionModel->getAll([
 					'where' => [
 						'instructor_id' => $id
 					]
 				]);
 			}
-
 			return $this->view('user/show' , $this->data);
 		}
 
 		public function progress($id) {
 			$user = $this->model->get($id);
+			$this->data['sessionRemarks'] = $this->sessionRemarkModel->getAll([
+				'where' => [
+					'sr.member_id' => $user->id
+				],
+				'order' => 'sr.id desc'
+			]);
+
+			return $this->view('user/progress', $this->data);
 		}
 
 		public function deactivate($id) {
@@ -233,7 +239,6 @@
 		}
 
 		public function profile() {
-			
-			return $this->view('user/profile');
+			return $this->show(whoIs('id'));
 		}
 	}

@@ -26,10 +26,12 @@
                 $type = empty($type) ? 'primary':$type;
 
                 $html .= <<<EOF
-                <div class="alert alert-{$type} alert-dismissible fade show" role="alert">
-                    {$message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close"></button>
-                </div>
+                    <div class="alert alert-{$type} alert-dismissible fade show" role="alert">
+                        {$message}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 EOF;
             }
 
@@ -59,7 +61,7 @@
             
         }
 
-        public static function show($name = self::NAME){
+        public static function show($name = self::NAME, $type = 'A'){
 
             if(Session::check($name) && Session::check($name.'_class')){
 
@@ -68,12 +70,30 @@
 
                 Session::remove($name); Session::remove($name.'_class');
 
-                print <<< EOF
-                <div class="alert alert-{$className} alert-dismissible fade show" role="alert">
-                    {$message}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">X</button>
-                </div>
-                EOF;
+                switch($type){
+                    case 'A':
+                        print <<< EOF
+                            <div class="alert alert-{$className} alert-dismissible fade show" role="alert">
+                                {$message}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        EOF;
+                    break;
+
+                    case 'B':
+                        print <<< EOF
+                            <div class='alert alert-{$className} alert-dismissible' role="alert"> 
+                                <p>{$message}</p>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        EOF;
+                    break;
+                }
+
             }
         }
 

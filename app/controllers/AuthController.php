@@ -20,24 +20,23 @@
 
 		public function login()
 		{
-			if( isSubmitted() )
+			if(isSubmitted())
 			{
 				$post = request()->posts();
-
 				$res = $this->user->authenticate($post['username'] , $post['password']);
 
 				if(!$res) {
-					Flash::set( $this->user->getErrorString() , 'danger');
+					Flash::set($this->user->getErrorString() , 'danger', 'flash-login-message');
 					return request()->return();
 				}else
 				{
-					Flash::set( "Welcome Back !" . auth('firstname'));
+					Flash::set("Welcome Back !" . auth('firstname'));
 				}
 
 				if(isAdmin()) {
 					return redirect('UserController');
 				} else {
-					return redirect(_route('instructor-session:index'));
+					return redirect(_route('user:profile'));
 				}
 			}
 
@@ -60,7 +59,7 @@
 		public function logout()
 		{
 			session_destroy();
-			Flash::set("Successfully logged-out");
+			Flash::set('Successfully logged-out', '', 'flash-login-message');
 			return redirect( _route('page:index') );
 		}
 	}

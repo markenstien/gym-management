@@ -399,10 +399,6 @@
 		public function toMember($id, $months) {
 			$dateOfExpiry = null;
 			switch($months) {
-				case 'month_6':
-					$dateOfExpiry = date('Y-m-d', strtotime('+6 months'.today()));
-				break;
-
 				case 'year_1':
 					$dateOfExpiry = date('Y-m-d', strtotime('+1 year'.today()));
 					break;

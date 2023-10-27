@@ -142,7 +142,6 @@
 				$labelText = $item['label_original'];
 			}
 			$form_label = $this->_form->label($labelText , $item['attributes']['id'] ?? '#');
-
 			return <<<EOF
 				<div> 
 					{$form_label}
@@ -409,7 +408,7 @@
 
 		public function checkExistKey($name){
 			if(!isset($this->_items[$name])) {
-				echo die("Key does not exist");
+				return false;
 			}
 			return true;
 		}
