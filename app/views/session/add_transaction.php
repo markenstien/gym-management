@@ -24,6 +24,8 @@
                                 'rows'  => 5
                             ]);
                         ?>
+
+                        <a href="https://tdeecalculator.net/">Use this link for calculator</a>
                     </div>
 
                     <div class="form-group">

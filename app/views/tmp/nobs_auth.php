@@ -33,9 +33,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
+                <img src="<?php echo _path_upload_get('main_logo.jpg')?>" alt=""
+                    style="width: 75px;">
                 <div class="sidebar-brand-text mx-3"><?php echo COMPANY_NAME?></div>
             </a>
             <?php echo grab('tmp/inc/admin_sidebar')?>
