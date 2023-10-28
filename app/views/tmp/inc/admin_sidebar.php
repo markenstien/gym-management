@@ -88,6 +88,13 @@
 </li>
 <?php endif?>
 
+<?php if(true) :?>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('asset-management:tutorial')?>">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Tutorial</span></a>
+    </li>
+<?php endif?>
 
 <?php if(isAdmin()) :?>
 <!-- Nav Item - Utilities Collapse Menu -->
@@ -103,6 +110,8 @@
             <a class="collapse-item" href="<?php echo _route('package:index')?>">Program Packages</a>
             <a class="collapse-item" href="<?php echo _route('payment:index')?>">Payments</a>
             <a class="collapse-item" href="<?php echo _route('instructor-commission:index')?>">Instructor Commissions</a>
+            <a class="collapse-item" href="<?php echo _route('asset-management:create')?>">Assets</a>
+            <a class="collapse-item" href="<?php echo _route('session:update-daily-session')?>">Daily Session Update</a>
         </div>
     </div>
 </li>

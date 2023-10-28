@@ -15,6 +15,7 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->model = model('ProgramModel');
             $this->programParticipantModel = model('ProgramParticipantModel');
             $this->programSessionsModel = model('ProgramSessionModel');

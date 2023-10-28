@@ -13,10 +13,6 @@
                 </div>
 
                 <div class="form-group">
-                    <?php echo $form->getRow('sessions')?>
-                </div>
-
-                <div class="form-group">
                     <?php echo $form->getRow('price')?>
                 </div>
 
@@ -26,6 +22,15 @@
 
                 <div class="form-group">
                     <?php echo $form->getRow('is_member')?>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <?php echo $form->getCol('consume_type')?>
+                    </div>
+                    <div class="col-md-6">
+                        <?php echo $form->getCol('sessions')?>
+                    </div>
                 </div>
 
                 <div class="form-group">

@@ -86,7 +86,8 @@
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
 		'students' => $controller.'/students',
-		'add-transaction'  => $controller .'/addSessionTransaction'
+		'add-transaction'  => $controller .'/addSessionTransaction',
+		'update-daily-session' => $controller . '/updateDailySessions'
 	];
 
 	$controller = '/InstructorSessionController';
@@ -228,11 +229,12 @@
 	$controller = '/AssetManagementController';
 	$routes['asset-management'] = [
 		'index' => $controller.'/index',
+		'tutorial' => $controller.'/tutorials',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
 		'download' => $controller.'/download',
-		'show'   => $controller.'/show'
+		'show'   => $controller.'/show',
 	];
 
 	$controller = '/InstructorPackageController';

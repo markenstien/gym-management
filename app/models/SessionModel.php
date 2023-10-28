@@ -54,4 +54,43 @@
                 'session_taken' => $sessionTaken
             ], $sessionId);
         }
+
+        public function updateDailySession() {
+            $dateToday = nowMilitary();
+            $dateYesterDay = date('Y-m-d H:i:s', strtotime('-1 day'.$dateToday));
+
+            $autoUpdatePackage = "SELECT id from instructor_packages
+            WHERE consume_type = 'daily'
+            AND date(auto_last_update) <= date('{$dateYesterDay}')";
+            $this->db->query($autoUpdatePackage);
+
+            $packagesToUpdate = $this->db->resultSet();
+
+            if($packagesToUpdate) {
+                $packagesId = [];
+                    foreach($packagesToUpdate as $key => $row) {
+                        $packagesId[] = $row->id;
+                    }
+
+                    $packagesId = implode(',', $packagesId);
+                    //update session
+                    $sql = "
+                        UPDATE {$this->table} 
+                            SET session_taken = (session_taken + 1),
+                            last_update = '{$dateToday}'
+                            WHERE package_id in($packagesId);
+                    ";
+                    $this->db->query($sql);
+                    $this->db->execute();
+
+
+                //update packages
+                $sql = "UPDATE instructor_packages
+                    SET auto_last_update = '{$dateToday}'";
+
+                $this->db->query($sql);
+                $this->db->execute();
+            }
+            
+        }
     }

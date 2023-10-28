@@ -65,11 +65,10 @@
 						<nav id="fh5co-menu-wrap" role="navigation">
 							<ul class="sf-menu" id="fh5co-primary-menu">
 								<li class="active">
-									<a href="index.html">Home</a>
+									<a href="#">Home</a>
 								</li>
-								<li><a href="schedule.html">Programs</a></li>
-								<li><a href="schedule.html">Gallery</a></li>
-								<li><a href="trainer.html">Contact</a></li>
+								<li><a href="#programs">Programs</a></li>
+								<li><a href="#gallery">Gallery</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -140,7 +139,7 @@
 		<div id="fh5co-schedule-section" class="fh5co-lightgray-section">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-md-8 col-md-offset-2" id="programs">
 						<div class="heading-section text-center animate-box">
 							<h2>Programs</h2>
 						</div>
@@ -201,69 +200,22 @@
 				</div>
 			</div>
 		</div>
-		<div id="fh5co-team-section" class="fh5co-lightgray-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
-						<div class="heading-section text-center animate-box">
-							<h2>Contact Form</h2>
-						</div>
-						<div class="card">
-							<div class="card-body">
-								<div class="form-group">
-									<?php
-										Form::label('Name');
-										Form::text('name','', [
-											'class' => 'form-control',
-											'required' => true
-										]);
-									?>
-								</div>
-								<div class="form-group">
-									<?php
-										Form::label('Email');
-										Form::text('email','', [
-											'class' => 'form-control',
-											'required' => true
-										]);
-									?>
-								</div>
-								<div class="form-group">
-									<?php
-										Form::label('Mobile Number');
-										Form::number('mobile','', [
-											'class' => 'form-control',
-											'required' => true
-										]);
-									?>
-								</div>
-
-								<div class="form-group">
-									<?php
-										Form::label('Message');
-										Form::textarea('message','', [
-											'class' => 'form-control',
-											'required' => true,
-											'rows' => 3
-										]);
-									?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<div id="fh5co-blog-section">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="col-md-12">
-							<div class="heading-section animate-box">
-								<h2>Galleries</h2>
+				<div class="col-md-12">
+					<div class="heading-section animate-box" id="gallery">
+						<h2>Galleries</h2>
+					</div>
+					
+					<div class="row">
+						<?php foreach($images as $key => $row) :?>
+							<div class="col-md-4">
+								<img src="<?php echo $row->full_url?>" alt=""
+								style="width: 100%;">
+								<p><?php echo $row->description?></p>
 							</div>
-						</div>
+						<?php endforeach?>
 					</div>
 				</div>
 			</div>
@@ -275,49 +227,21 @@
 					<div class="row">
 						<div class="col-md-4 animate-box">
 							<h3 class="section-title">About Us</h3>
-							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics.</p>
+							<p>Don't let your fitness journey hit a dead-end. Join GNG Fitness and keep going strong! You don't have to break your momentum. Keep moving forward with GNG Fitness</p>
 						</div>
 
 						<div class="col-md-4 animate-box">
 							<h3 class="section-title">Our Address</h3>
 							<ul class="contact-info">
-								<li><i class="icon-map-marker"></i>198 West 21th Street, Suite 721 New York NY 10016</li>
-								<li><i class="icon-phone"></i>+ 1235 2355 98</li>
-								<li><i class="icon-envelope"></i><a href="#">info@yoursite.com</a></li>
-								<li><i class="icon-globe2"></i><a href="#">www.yoursite.com</a></li>
+								<li><i class="icon-map-marker"></i>3F JMT Bldg. ML Quezon Ext., Antipolo, Philippines, 1870</li>
+								<li><i class="icon-phone"></i>09156673716</li>
+								<li><i class="icon-envelope"></i><a href="#">gngfitnessgym@gmail.com</a></li>
 							</ul>
-						</div>
-						<div class="col-md-4 animate-box">
-							<h3 class="section-title">Drop us a line</h3>
-							<form class="contact-form">
-								<div class="form-group">
-									<label for="name" class="sr-only">Name</label>
-									<input type="name" class="form-control" id="name" placeholder="Name">
-								</div>
-								<div class="form-group">
-									<label for="email" class="sr-only">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Email">
-								</div>
-								<div class="form-group">
-									<label for="message" class="sr-only">Message</label>
-									<textarea class="form-control" id="message" rows="7" placeholder="Message"></textarea>
-								</div>
-								<div class="form-group">
-									<input type="submit" id="btn-submit" class="btn btn-send-message btn-md" value="Send Message">
-								</div>
-							</form>
 						</div>
 					</div>
 					<div class="row copy-right">
 						<div class="col-md-6 col-md-offset-3 text-center">
-							<p class="fh5co-social-icons">
-								<a href="#"><i class="icon-twitter2"></i></a>
-								<a href="#"><i class="icon-facebook2"></i></a>
-								<a href="#"><i class="icon-instagram"></i></a>
-								<a href="#"><i class="icon-dribbble2"></i></a>
-								<a href="#"><i class="icon-youtube"></i></a>
-							</p>
-							<p>Copyright 2016 Free Html5 <a href="#">Fitness</a>. All Rights Reserved. <br>Made with <i class="icon-heart3"></i> by <a href="http://freehtml5.co/" target="_blank">Freehtml5.co</a> / Demo Images: <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+							<p>Copyright <?php echo date('Y')?></p>
 						</div>
 					</div>
 				</div>

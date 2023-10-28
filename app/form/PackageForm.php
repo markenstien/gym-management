@@ -15,6 +15,7 @@
             $this->addSession();
             $this->addIsInstructed();
             $this->addIsMember();
+            $this->addSessionType();
         }
 
         public function addPackageName() {
@@ -48,7 +49,23 @@
                 'class' => 'form-control',
                 'required' => true,
                 'options' => [
-                    'label' => 'Number of Sessions'
+                    'label' => 'Number'
+                ]
+            ]);
+        }
+
+        public function addSessionType() {
+            $this->add([
+                'name' => 'consume_type',
+                'type' => 'select',
+                'class' => 'form-control',
+                'required' => true,
+                'options' => [
+                    'label' => 'Type',
+                    'option_values' => [
+                        'daily' => 'Daily',
+                        'per_session' => 'Per Session'
+                    ]
                 ]
             ]);
         }

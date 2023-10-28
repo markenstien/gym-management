@@ -44,7 +44,11 @@
 
         <div class="card-body">
             <h4>Members</h4>
-            <?php echo wLinkDefault(_route('program:add-participant', $program->id), 'Add Member');?>
+            <?php
+                if(isAdmin()) {
+                    echo wLinkDefault(_route('program:add-participant', $program->id), 'Add Member');
+                }
+            ?>
             <?php echo wDivider(10)?>
             <?php if(empty($participants)) :?>
                 <?php echo wDivider()?>

@@ -1,8 +1,4 @@
 truncate instructor_commissions;
-truncate instructor_sessions;
-truncate instructor_session_attendees;
-truncate instructed_sessions;
-truncate regular_sessions;
 truncate payments;
 truncate user_programs;
 

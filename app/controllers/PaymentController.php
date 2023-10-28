@@ -4,6 +4,7 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->payment = model('PaymentModel');
             $this->whoIs = whoIs();
         }

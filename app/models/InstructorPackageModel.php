@@ -10,7 +10,8 @@
             'sessions',
             'is_active',
             'is_member',
-            'is_instructed'
+            'is_instructed',
+            'consume_type'
         ];
 
         public function createOrUpdate($data, $id = null) {
@@ -31,7 +32,9 @@
             
             $this->db->query(
                 "SELECT *, if(is_member, 'Member', 'Non-Member') is_member_text,
-                    if(is_instructed, 'Instructed', 'Non-Instructed') is_instructed_text FROM {$this->table} as package
+                    if(is_instructed, 'Instructed', 'Non-Instructed') is_instructed_text,
+                    if(consume_type = 'daily', 'Daily', 'Per Session') consume_type_text
+                    FROM {$this->table} as package
                     {$where} {$order}"
             );
 

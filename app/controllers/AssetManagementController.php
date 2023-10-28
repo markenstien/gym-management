@@ -9,8 +9,18 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->form = new AssetForm();
             $this->model = model('AssetManagementModel');
+        }
+
+        public function tutorials() {
+            $this->data['assets'] = $this->model->getAll([
+                'where' => [
+                    'asset_category' => 'tutorial'
+                ]
+            ]);
+            return $this->view('asset_management/index', $this->data);
         }
 
         public function create() {
@@ -41,7 +51,8 @@
                         'title' => $post['title'],
                         'description' => $post['description'],
                         'user_id' => $post['user_id'] ?? null,
-                        'is_active' => true
+                        'is_active' => true,
+                        'asset_category' => $post['asset_category']
                     ]);
 
                     if($assetId) {
@@ -81,9 +92,13 @@
             $this->data['form'] = $this->form;
             return $this->view('asset_management/create', $this->data);
         }
+        
 
         public function edit($id) {
-
+            $asset = $this->model->get($id);
+            dump($asset);
+            $this->form->setValueObject($asset);
+            return $this->view('asset_management/edit', $this->data);
         }
 
         public function destroy($id)

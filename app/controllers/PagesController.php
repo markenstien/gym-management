@@ -4,7 +4,10 @@
 
 	class PagesController extends Controller
 	{
-
+		public function __construct()
+		{
+			$this->assetModel = model('AssetManagementModel');
+		}
 		public function index() {
 			$this->data['form'] = new UserForm();
 
@@ -13,6 +16,11 @@
 				'url' => _route('auth:login')
 			]);
 
+			$this->data['images'] = $this->assetModel->getAll([
+				'where' => [
+					'asset_category' => 'display_gallery'
+				]
+			]);
 			return $this->view('pages/index', $this->data);
 		}
 

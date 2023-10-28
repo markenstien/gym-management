@@ -14,6 +14,7 @@
                     }
                     __([
                         $form->getRow('title'),
+                        $form->getRow('asset_category'),
                         $form->getRow('file'),
                         $form->getRow('description'),
                      ]);
@@ -35,6 +36,7 @@
                             <th style="width: 15%;">Title</th>
                             <th style="width: 30%;">Description</th>
                             <th>Type</th>
+                            <th>Asset Type</th>
                             <th>Show</th>
                             <th>Delete</th>
                         </thead>
@@ -46,6 +48,7 @@
                                     <td><?php echo $row->title?></td>
                                     <td><?php echo $row->description?></td>
                                     <td><?php echo wExtensionType($row->file_type)?></td>
+                                    <td><?php echo $row->asset_category?></td>
                                     <td><?php echo wLinkDefault(_route('viewer:show', [
                                         'file' => seal($row->full_url)
                                     ]), 'View Asset', [

@@ -12,7 +12,7 @@
 		public function __construct()
 		{
 			parent::__construct();
-
+			_requireAuth();
 			$this->model = model('UserModel');
 			$this->data['page_title'] = ' Users ';
 			$this->data['user_form'] = new UserForm();

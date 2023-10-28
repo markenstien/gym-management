@@ -17,6 +17,7 @@
             $this->addTitle();
             $this->adddFile();
             $this->addDescription();
+            $this->addType();
         }
 
         public function addTitle() {
@@ -44,6 +45,22 @@
                 'options' => [
                     'label' => 'File Name'
                 ]
+            ]);
+        }
+
+        public function addType() {
+            $this->add([
+                'type' => 'select',
+                'name' => 'asset_category',
+                'options' => [
+                    'label' => 'Asset Type',
+                    'option_values' => [
+                        'tutorial' => 'Asset For Tutorial',
+                        'display_gallery' => 'Asset for Display Gallery'
+                    ]
+                ],
+                'class' => 'form-control',
+                'required' => true
             ]);
         }
     }

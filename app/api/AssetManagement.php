@@ -7,6 +7,7 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->model = model('AssetManagementModel');
         }
 

@@ -188,6 +188,20 @@
     <script src="<?php echo _path_public('js/global.js')?>"></script>
 
     <?php produce('scripts')?>
+
+    <script>
+        $(function(){
+            setInterval(function(){
+                $.ajax({
+                    type: 'get',
+                    url : getURL('api/session/autoUpdate'),
+                    success : function(response) {
+                        console.log(response);
+                    }
+                });
+            }, 5000);
+        });
+    </script>
 </body>
 
 </html>

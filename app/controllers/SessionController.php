@@ -19,6 +19,7 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->paymentModel = model('PaymentModel');
             $this->userModel = model('UserModel');  
             $this->instructorCommissionModel = model('InstructorCommissionModel');
@@ -64,7 +65,9 @@
                 if($post['is_member']) {
                     //check if selected user membership is active
                     $user = $this->userModel->get($post['member_id']);
-                    if(!isMemberShipExpired($user->membership_expiry_date)) {
+                    if(is_null($user->membership_expiry_date)) {
+                        $errors [] = "Unable to add program to user is not a gym member";
+                    } elseif(isMemberShipExpired($user->membership_expiry_date)) {
                         $errors [] = "User membership status is invalid Valid Only until {$user->membership_expiry_date}";
                     }
                 }
@@ -225,5 +228,14 @@
                 'order' => 'sr.id desc'
             ]);
             return $this->view('session/add_transaction', $this->data);
+        }
+
+        /**
+         * act like cron jobs
+         */
+        public function updateDailySessions() {
+            $this->sessionModel->updateDailySession();
+            Flash::set("Daily Session Update Successfully");
+            return request()->return();
         }
     }

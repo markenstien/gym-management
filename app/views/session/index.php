@@ -5,6 +5,7 @@
         </div>
 
         <div class="card-body">
+            <?php Flash::show()?>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
@@ -13,7 +14,7 @@
                         <th>Member</th>
                         <th>Instructor</th>
                         <th>Session</th>
-                        <th>DateTime</th>
+                        <th>Last Update</th>
                     </thead>
 
                     <tbody>

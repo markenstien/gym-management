@@ -13,9 +13,11 @@
                         <th>#</th>
                         <th><?php echo $form->getLabel('package_name')?></th>
                         <th><?php echo $form->getLabel('price')?></th>
+                        <th><?php echo $form->getLabel('consume_type')?></th>
                         <th><?php echo $form->getLabel('sessions')?></th>
                         <th><?php echo $form->getLabel('is_member')?></th>
                         <th><?php echo $form->getLabel('is_instructed')?></th>
+                        <th>Auto Update</th>
                         <th>Action</th>
                     </thead>
 
@@ -25,9 +27,11 @@
                                 <td><?php echo ++$key?></td>
                                 <td><?php echo $row->package_name?></td>
                                 <td><?php echo $row->price?></td>
+                                <td><?php echo $row->consume_type_text?></td>
                                 <td><?php echo $row->sessions?></td>
                                 <td><?php echo $row->is_member_text?></td>
                                 <td><?php echo $row->is_instructed_text?></td>
+                                <td><?php echo $row->auto_last_update?></td>
                                 <td><?php echo wLinkDefault(_route('package:edit', $row->id), 'Edit')?></td>
                             </tr>
                         <?php endforeach?>

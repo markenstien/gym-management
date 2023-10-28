@@ -11,6 +11,7 @@
         public function __construct()
         {
             parent::__construct();
+            _requireAuth();
             $this->instructorPackageModel = model('InstructorPackageModel');
             $this->form = new PackageForm();
             $this->data['form'] = $this->form;
