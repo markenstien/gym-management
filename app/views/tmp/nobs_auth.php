@@ -104,6 +104,14 @@
                                     Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
+                                
+                                <?php if(isAdmin()) :?>
+                                    <a class="dropdown-item" href="https://panorama.gymmgmt.online/home/html/index.php">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Panorama Login
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                <?php endif?>
                                 <a class="dropdown-item" href="#" data-toggle="modal" 
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
