@@ -86,7 +86,8 @@
 
                 //update packages
                 $sql = "UPDATE instructor_packages
-                    SET auto_last_update = '{$dateToday}'";
+                    SET auto_last_update = '{$dateToday}'
+                    WHERE id in($packagesId) ";
 
                 $this->db->query($sql);
                 $this->db->execute();

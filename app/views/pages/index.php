@@ -200,14 +200,12 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="fh5co-blog-section">
 			<div class="container">
 				<div class="col-md-12">
 					<div class="heading-section animate-box" id="gallery">
 						<h2>Galleries</h2>
 					</div>
-					
 					<div class="row">
 						<?php foreach($images as $key => $row) :?>
 							<div class="col-md-4">
@@ -217,6 +215,17 @@
 							</div>
 						<?php endforeach?>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div id="fh5co-blog-section">
+			<div class="container">
+				<div class="col-md-12">
+					<div class="heading-section animate-box" id="gallery">
+						<h2>Gym Preview</h2>
+					</div>
+					<p>for better experience visit the <a href="https://panorama.gymmgmt.online/">tour page</a>.</p>
+					<iframe src="https://panorama.gymmgmt.online/" frameborder="0" style="width: 100%; height:50vh"></iframe>
 				</div>
 			</div>
 		</div>
