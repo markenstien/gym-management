@@ -1,0 +1,50 @@
+{
+    "packages": [
+        {
+            "name": "isfonzar/tdee-calculator",
+            "version": "v1.2",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/isfonzar/tdee-calculator.git",
+                "reference": "33b4e0d2625dbbaed4f76345b468efc810cc77a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/isfonzar/tdee-calculator/zipball/33b4e0d2625dbbaed4f76345b468efc810cc77a5",
+                "reference": "33b4e0d2625dbbaed4f76345b468efc810cc77a5",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "5.5.*"
+            },
+            "time": "2020-10-08T12:30:03+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "isfonzar\\TDEECalculator\\": "src/",
+                    "isfonzar\\TDEECalculator\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "isfonzar",
+                    "email": "icaro.isf@gmail.com"
+                }
+            ],
+            "description": "Total Daily Energy Expenditure (TDEE) Calculator",
+            "support": {
+                "issues": "https://github.com/isfonzar/tdee-calculator/issues",
+                "source": "https://github.com/isfonzar/tdee-calculator/tree/v1.2"
+            },
+            "install-path": "../isfonzar/tdee-calculator"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

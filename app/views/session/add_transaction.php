@@ -25,7 +25,13 @@
                             ]);
                         ?>
 
-                        <a href="https://tdeecalculator.net/">Use this link for calculator</a>
+                        <a href="<?php echo _route('tool:tdee', [
+                            'q' => seal([
+                                'session_id' => $session->id,
+                                'instructor_id' => $session->instructor_id,
+                                'member_id' => $session->member_id,
+                            ])
+                        ])?>">Use this link for calculator</a>
                     </div>
 
                     <div class="form-group">

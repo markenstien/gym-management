@@ -1,15 +1,21 @@
  <!-- Divider -->
  <hr class="sidebar-divider my-0">
 
-<!-- Nav Item - Dashboard -->
-<li class="nav-item active">
-    <a class="nav-link" href="<?php echo _route('user:profile')?>">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-</li>
+<?php
+    if(isInstructor() || isMember()) {
+        ?>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="<?php echo _route('user:profile')?>">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
 
-<!-- Divider -->
-<hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+        <?php
+    }
+?>
 
 <!-- Heading -->
 <div class="sidebar-heading" style="display: none;">

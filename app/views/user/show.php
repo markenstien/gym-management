@@ -192,6 +192,71 @@
 				</div>
 			<?php endif?>
 			
+			<?php echo wDivider(30)?>
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Files</h4>
+				</div>
+
+				<div class="card-body">
+					<div class="col-md-5 mb-4">
+						<?php if(isInstructor() || isMember()) :?>
+							<?php echo wLinkDefault('javascript:void(null)', 'Add File', [
+								'class' => 'mb-2',
+								'id'    => 'addFile'
+							])?>
+							<section id="fileUploadSection">
+								<?php echo $attachmentForm->start();?>
+									<?php
+										echo $attachmentForm->get('global_id');
+										echo $attachmentForm->get('global_key');
+									?>
+									<div class="form-group">
+										<?php echo $attachmentForm->getRow('display_name')?>
+									</div>
+
+									<div class="form-group">
+										<?php echo $attachmentForm->getRow('file')?>
+									</div>
+
+									<div class="form-group">
+										<?php echo Form::submit('', 'Upload File')?>
+									</div>
+								<?php echo $attachmentForm->end();?>
+							</section>
+						<?php endif?>
+					</div>
+
+					<div class="col-md-12">
+						<div class="row">
+							<?php foreach($user_files as $key => $row) :?>
+								<?php $fileType = wExtensionType($row->file_type)?>
+								<div class="col-md-2">
+									<?php if(isEqual($fileType,'image')) :?>
+										<a href="<?php echo _route('viewer:show', [
+											'file' => seal($row->full_url)
+										])?>">
+											<img src="<?php echo $row->full_url?>" alt=""
+											style="width:100px">
+										</a>
+									<?php else:?>
+										<a href="<?php echo _route('viewer:show', [
+											'file' => seal($row->full_url)
+										])?>">
+											<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlY1a47Kg9RDR9bvhMYCPb3Hfe3U4GA4cwBA&usqp=CAU" 
+											alt="" style="width:100px">
+										</a>
+									<?php endif?>
+									<div>
+										<?php echo $row->display_name?> <?php echo wLinkDefault(_route('attachment:delete', $row->id), 
+										'Delete')?>
+									</div>
+								</div>
+							<?php endforeach?>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<?php endif?>
 
@@ -234,5 +299,17 @@
 		<?php endif?>
 	</div>
 
+<?php endbuild()?>
+
+<?php build('scripts')?>
+<script>
+	$(function(){
+		$('#fileUploadSection').hide();
+
+		$('#addFile').click(function(){
+			$('#fileUploadSection').toggle();
+		});
+	});
+</script>
 <?php endbuild()?>
 <?php loadTo('tmp/nobs_auth')?>

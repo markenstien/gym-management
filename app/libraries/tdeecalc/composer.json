@@ -1,0 +1,5 @@
+{
+    "require": {
+        "isfonzar/tdee-calculator": "^1.2"
+    }
+}

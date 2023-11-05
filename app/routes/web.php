@@ -32,7 +32,8 @@
 		'add-to-member' => $controller .'/addToMember',
 		'accept' => $controller .'/accept',
 		'progress' => $controller . '/progress',
-		'profile'  => $controller . '/profile'
+		'profile'  => $controller . '/profile',
+		'file-upload' => $controller . '/fileUpload'
 	];
 
 	$controller = '/AuthController';
@@ -266,6 +267,12 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create'
+	];
+
+	$controller = '/ToolController';
+	$routes['tool'] = [
+		'index' => $controller.'/index',
+		'tdee' => $controller.'/tdeeCalculator'
 	];
 
 	return $routes;

@@ -209,6 +209,16 @@
 					]
 				]);
 			}
+
+			$this->_attachmentForm->setValue('global_id', $user->id);
+			$this->_attachmentForm->setValue('global_key', 'user_files');
+			$this->data['attachmentForm'] = $this->_attachmentForm;
+
+			$this->data['user_files'] = $this->_attachmentModel->all([
+				'global_id' => $user->id,
+				'global_key' => 'user_files'
+			]);
+
 			return $this->view('user/show' , $this->data);
 		}
 
@@ -239,5 +249,17 @@
 
 		public function profile() {
 			return $this->show(whoIs('id'));
+		}
+
+		public function fileUpload() {
+			$req = request()->inputs();
+			if(isSubmitted()) {
+				$post = request()->posts();
+
+				dump([
+					$post,
+					$_FILES
+				]);
+			}
 		}
 	}

@@ -20,8 +20,7 @@
 				'enctype' => true
 			]);
 
-			// $this->addName();
-
+			$this->addName();
 			$this->addLabel();
 			$this->addSearchKey();
 			$this->addDescription();

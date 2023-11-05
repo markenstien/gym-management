@@ -1,0 +1,22 @@
+{
+    "name": "isfonzar/tdee-calculator",
+    "description": "Total Daily Energy Expenditure (TDEE) Calculator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "isfonzar",
+            "email": "icaro.isf@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "isfonzar\\TDEECalculator\\": "src/",
+            "isfonzar\\TDEECalculator\\Tests\\": "tests/"
+        }
+    }
+}

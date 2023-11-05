@@ -167,17 +167,17 @@
 								</div>
 								<div class="col-md-3 col-sm-6">
 									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/fit-cycling.svg')?>" alt="">
+										<img src="<?php echo _path_tmp('landing/images/cross_fit.png')?>" alt="">
 										<small>06AM-7AM</small>
-										<h3>Cycling Program</h3>
+										<h3>Crossfit Program</h3>
 										<span>Rita Doe</span>
 									</div>
 								</div>
 								<div class="col-md-3 col-sm-6">
 									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/fit-boxing.svg')?>" alt="Cycling">
+										<img src="<?php echo _path_tmp('landing/images/power_lifting.png')?>" alt="Cycling">
 										<small>06AM-7AM</small>
-										<h3>Boxing Fitness</h3>
+										<h3>Power lifting</h3>
 										<span>John Dose</span>
 									</div>
 								</div>

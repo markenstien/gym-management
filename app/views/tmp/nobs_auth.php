@@ -32,7 +32,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo _route('user:profile')?>">
                 <img src="<?php echo _path_upload_get('main_logo.jpg')?>" alt=""
                     style="width: 75px;">
                 <div class="sidebar-brand-text mx-3"><?php echo COMPANY_NAME?></div>
