@@ -86,7 +86,6 @@
 						<div class="row">
 							<div class="col-md-7">
 								<h2>Fitness &amp; Health <br>is a <b>Mentality</b></h2>
-								<span><a class="btn btn-primary" href="#">Start Your Journey</a></span>
 							</div>
 
 							<div class="col-md-5">
