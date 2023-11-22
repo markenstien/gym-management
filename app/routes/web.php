@@ -274,6 +274,14 @@
 		'index' => $controller.'/index',
 		'tdee' => $controller.'/tdeeCalculator'
 	];
+	
+	_routeInstance('workout', 'WorkoutController', $routes);
+	_routeInstance('workout-set-builder', 'WorkoutSetBuilderController', $routes, [
+		'add-workout' => 'addWorkout',
+		'edit-workout' => 'editWorkout',
+		'delete-workout' => 'deleteWorkout'
+	]);
+	_routeInstance('workout-session-builder', 'WorkoutSessionBuilder', $routes);
 
 	return $routes;
 ?>

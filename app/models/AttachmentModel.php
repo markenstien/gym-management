@@ -39,7 +39,6 @@
 		public function upload_multiple($file_data = [] , $file_name = '') {
 			$this->_initPathAndURL();
 			$uploadResponse = upload_multiple($file_name, $this->path);
-
 			if (!empty($uploadResponse['result']['arrNames'])) {
 				$uploadedItems = $uploadResponse['result']['arrNames'];
 				$oldNames = $uploadResponse['result']['arrNamesOld'];

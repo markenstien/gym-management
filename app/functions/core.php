@@ -124,3 +124,23 @@
 
         return $user;
     }
+
+    function _routeInstance($key, $controller, &$routes, $namedRoutes = []) {
+        $controller = '/'.$controller;
+        $defeaultNamedRoutes = [
+            'index' => $controller.'/index',
+            'edit' => $controller.'/edit',
+            'create' => $controller.'/create',
+            'delete' => $controller.'/destroy',
+            'show'   => $controller .'/show'
+        ];
+
+        if(!empty($namedRoutes)) {
+            foreach($namedRoutes as $routeKey => $row) {
+                $namedRoutes[$routeKey] = $controller.'/'.$row;
+            }
+            $routes[$key] = array_merge($defeaultNamedRoutes, $namedRoutes);
+        } else {
+            $routes[$key] = $defeaultNamedRoutes;
+        }
+    }

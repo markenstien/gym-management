@@ -18,7 +18,31 @@
     //     return $diff . " " . $strTime[$i] . "(s) ago ";
     //    }
     // }
+
+    /**
+     * 2:30:30
+     */
     
+    function convertTimeToSeconds($hours, $minutes, $seconds) {
+        if(empty($seconds)) {
+            $seconds = 0;
+        }
+
+        if(empty($minutes)) {
+            $minutes = 0;
+        } else {
+            $minutes  = $minutes * 60;
+        }
+
+        if(empty($hours)) {
+            $hours = 0;
+        }else{
+            $hours = ($hours * 60) * 60;
+        }
+        
+        return $seconds + $minutes + $hours;
+    }
+
     function nowMilitary()
     {
         return date('Y-m-d H:i:s');
