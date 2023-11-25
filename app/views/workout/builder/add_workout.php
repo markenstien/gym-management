@@ -34,11 +34,11 @@
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col">
-                                        <?php Form::text('work_time_min', '', ['placeholder' => 'Minute', 'class' => 'form-control'])?>
+                                        <?php echo $formSetItem->get('work_time_min')?>
                                     </div>
 
                                     <div class="col">
-                                        <?php Form::text('work_time_sec', '', ['placeholder' => 'Seconds', 'class' => 'form-control'])?>
+                                        <?php echo $formSetItem->get('work_time_sec')?>
                                     </div>
                                 </div>
                             </div>
@@ -54,11 +54,11 @@
                             <div class="col-md-9">
                                 <div class="row">
                                     <div class="col">
-                                        <?php Form::text('rest_time_min', '', ['placeholder' => 'Minute', 'class' => 'form-control'])?>
+                                        <?php echo $formSetItem->get('rest_time_min')?>
                                     </div>
 
                                     <div class="col">
-                                        <?php Form::text('rest_time_sec', '', ['placeholder' => 'Seconds', 'class' => 'form-control'])?>
+                                        <?php echo $formSetItem->get('rest_time_sec')?>
                                     </div>
                                 </div>
                             </div>

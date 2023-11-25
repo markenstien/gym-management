@@ -21,6 +21,16 @@
                         <td><?php echo $form->getLabel('set_tag')?></td>
                         <td><?php echo $setBuilder->set_tag?></td>
                     </tr>
+                    <tr>
+                        <td>Completion</td>
+                        <td>
+                            <?php if($setBuilder->is_set_complete && date('Y-m-d', strtotime($setBuilder->last_set_taken)) == today()) :?>
+                                <span class="badge bg-success">Completed</span>
+                            <?php else:?>
+                                <span class="badge bg-warning">InComplete</span>
+                            <?php endif?>
+                        </td>
+                    </tr>
                 </table>
             </div>
 

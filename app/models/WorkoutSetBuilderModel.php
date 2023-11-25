@@ -13,9 +13,32 @@
 
         public function add($setBuilderData) {
             $_fillables = parent::getFillablesOnly($setBuilderData);
+
+            $workout = $this->get([
+                'schedule' => $setBuilderData['schedule'],
+                'user_id' => $setBuilderData['user_id']
+            ]);
+
+            if($workout) {
+                $this->addError("Workout for that schedule is already created.");
+                return false;
+            }
             return parent::store($_fillables);
         }
 
+        public function get($id){
+            if(is_array($id)) {
+                return $this->getAll([
+                    'where' => $id
+                ])[0] ?? false;
+            } else {
+                return $this->getAll([
+                    'where' => [
+                        'ws.id' => $id
+                    ]
+                ])[0] ?? false;
+            }
+        }
         public function getAll($params = []) {
             $where = null;
             $order = null;
@@ -29,6 +52,8 @@
 
             if(!empty($params['order'])) {
                 $order = " ORDER BY {$params['order']} ";
+            } else {
+                $order = " ORDER BY FIELD(schedule, 'Sun','Mon','Tue','Wed','Thu','Fri','Sat')";
             }
 
             if(!empty($params['limit'])) {
@@ -36,7 +61,8 @@
             }
             $this->db->query(
                 "SELECT ws.*, concat(user.firstname, ' ', user.lastname) as user_fullname,
-                    if(ws.schedule = '{$dayName}', 'yes', 'no') as schedule_text
+                    if(ws.schedule = '{$dayName}', 'yes', 'no') as schedule_text,
+                    if((ws.is_set_complete = true) && (ws.schedule = '{$dayName}'), 'Completed', 'Pending') as is_complete_text
                     FROM {$this->table} as ws
                     LEFT JOIN users as user 
                         ON user.id = ws.user_id
@@ -44,5 +70,12 @@
             );
 
             return $this->db->resultSet();
+        }
+
+        public function complete($id) {
+            return parent::update([
+                'is_set_complete' => true,
+                'last_set_taken'  => today()
+            ], $id);
         }
     }

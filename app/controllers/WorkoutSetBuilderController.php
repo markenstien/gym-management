@@ -46,11 +46,16 @@ use Form\WorkoutSetItemForm;
             $req = request()->inputs();
             
             if(isSubmitted()) {
-                $post['user_id'] = whoIs('id');
                 $post = request()->posts();
+                $post['user_id'] = whoIs('id');
 
                 $id = $this->model->add($post);
-                Flash::set("Workout set Created");
+
+                if(!$id) {
+                    Flash::set($this->model->getErrorString(), 'danger');
+                    return request()->return();
+                }
+                Flash::set("Workout set Created, Add workout to your set");
                 return redirect(_route('workout-set-builder:add-workout', $id));
             }
             return $this->view('workout/builder/create', $this->data);

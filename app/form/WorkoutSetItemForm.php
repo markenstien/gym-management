@@ -14,8 +14,12 @@
 
             $this->addWorkout();
             $this->addRepcount();
-            $this->addWorkTime();
-            $this->addRestTime();
+
+            $this->addWorkTimeMin();
+            $this->addWorkTimeSec();
+            
+            $this->addRestTimeMin();
+            $this->addRestTimeSec();
         }
 
         public function addWorkout($workoutTags = '') {
@@ -84,28 +88,61 @@
             ]);
         }
 
-        public function addWorkTime() {
+        public function addWorkTimeMin() {
             $this->add([
-                'name' => 'work_time',
-                'type' => 'number',
+                'name' => 'work_time_min',
+                'type' => 'select',
                 'class' => 'form-control',
-                'required' => true,
                 'options' => [
-                    'label' => 'Work Time'
+                    'label' => 'Work Time Minutes',
+                    'option_values' => $this->timeOptions()
                 ]
             ]);
         }
 
-        public function addRestTime() {
+        public function addWorkTimeSec() {
             $this->add([
-                'name' => 'rest_time',
-                'type' => 'number',
+                'name' => 'work_time_sec',
+                'type' => 'select',
                 'class' => 'form-control',
                 'required' => true,
                 'options' => [
-                    'label' => 'Rest Time'
+                    'label' => 'Work Time Seconds',
+                    'option_values' => $this->timeOptions()
                 ]
             ]);
         }
 
+        public function addRestTimeMin() {
+            $this->add([
+                'name' => 'rest_time_min',
+                'type' => 'select',
+                'class' => 'form-control',
+                'options' => [
+                    'label' => 'Rest Time Minutes',
+                    'option_values' => $this->timeOptions()
+                ]
+            ]);
+        }
+
+        public function addRestTimeSec() {
+            $this->add([
+                'name' => 'rest_time_sec',
+                'type' => 'select',
+                'class' => 'form-control',
+                'required' => true,
+                'options' => [
+                    'label' => 'Rest Time Seconds',
+                    'option_values' => $this->timeOptions()
+                ]
+            ]);
+        }
+
+        private function timeOptions(){
+            $retVal = [];
+            for($i = 1; $i <= 59; $i++) {
+                $retVal[] = $i;
+            }
+            return $retVal;
+        }
     }

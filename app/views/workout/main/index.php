@@ -4,6 +4,7 @@
         <div class="card-header">
             <h4 class="card-title">Workouts</h4>
             <?php echo wLinkDefault(_route('workout:create'), 'Create Workout')?>
+            <?php Flash::show()?>
         </div>
 
         <div class="card-body">

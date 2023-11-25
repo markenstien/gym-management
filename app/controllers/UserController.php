@@ -7,7 +7,7 @@
 	{
 		public $paymentModel,$instructorCommissionModel,
 		$programModel, $programParticipantModel,
-		$sessionModel, $sessionRemarkModel;
+		$sessionModel, $sessionRemarkModel,$workoutSetBuilder;
 		
 		public function __construct()
 		{
@@ -23,6 +23,8 @@
 			$this->programParticipantModel = model('ProgramParticipantModel');
 			$this->sessionModel = model('SessionModel');
 			$this->sessionRemarkModel = model('SessionRemarkModel');
+
+			$this->workoutSetBuilder = model('WorkoutSetBuilderModel');
 		}
 
 		public function index()
@@ -146,8 +148,8 @@
 				$res = $this->model->update($post , $post['id']);
 
 				if($res) {
-					Flash::set( $this->model->getMessageString());
-					return redirect( _route('user:show' , $id) );
+					Flash::set($this->model->getMessageString());
+					return redirect(_route('user:show' , $id) );
 				}else
 				{
 					Flash::set( $this->model->getErrorString() , 'danger');
@@ -231,6 +233,42 @@
 				'order' => 'sr.id desc'
 			]);
 
+			$this->data['progress'] = [
+				'Sun' => $this->workoutSetBuilder->get([
+					'schedule' => 'Sun',
+					'user_id'  => whoIs('id')
+				]),
+				'Mon' => $this->workoutSetBuilder->get([
+					'schedule' => 'Mon',
+					'user_id'  => whoIs('id')
+				]),
+				'Tue' => $this->workoutSetBuilder->get([
+					'schedule' => 'Tue',
+					'user_id'  => whoIs('id')
+				]),
+				'Wed' => $this->workoutSetBuilder->get([
+					'schedule' => 'Wed',
+					'user_id'  => whoIs('id')
+				]),
+				'Thu' => $this->workoutSetBuilder->get([
+					'schedule' => 'Thu',
+					'user_id'  => whoIs('id')
+				]),
+				'Fri' => $this->workoutSetBuilder->get([
+					'schedule' => 'Fri',
+					'user_id'  => whoIs('id')
+				]),
+				'Sat' => $this->workoutSetBuilder->get([
+					'schedule' => 'Sat',
+					'user_id'  => whoIs('id')
+				]),
+				'Today' => $this->workoutSetBuilder->get([
+					'schedule' => date('D')
+				])
+			];
+
+			$this->data['user'] = $user;
+			
 			return $this->view('user/progress', $this->data);
 		}
 

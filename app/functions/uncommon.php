@@ -472,3 +472,15 @@
             return 45.5 + (0.91 * ($height - 152.4));
         }
     }
+
+    function dayHierarchy() {
+        return [
+            1 => 'SUN',
+            2 => 'MON',
+            3 => 'TUE',
+            4 => 'WED',
+            5 => 'THU',
+            6 => 'FRI',
+            7 => 'SAT'
+        ];
+    }

@@ -20,6 +20,9 @@ create table workout_sets(
     updated_at timestamp DEFAULT now() ON UPDATE now()
 );
 
+alter table workout_sets
+    add column is_set_complete boolean default false;
+
 drop table if exists workout_set_items;
 create table workout_set_items(
     id int(10) not null PRIMARY KEY AUTO_INCREMENT,
@@ -36,4 +39,16 @@ create table workout_set_items(
     
     is_completed boolean default false,
     last_set_item_taken datetime
+);
+
+
+/*
+*Completed Sessions Only
+*/
+create table workout_sessions(
+    id int(10) not null PRIMARY KEY AUTO_INCREMENT,
+    user_id int(10) not null,
+    schedule enum('Sun','Mon','Tue','Wed','Thu','Fri','Sat'),
+    session_date date,
+    created_at time default now() 
 );

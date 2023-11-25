@@ -66,4 +66,20 @@
                 ])[0] ?? false;
             }
         }
+
+        public function isAllComplete($workOutSetId) {
+            $items = $this->getAll([
+                'where' => [
+                    'workout_set_id' => $workOutSetId
+                ]
+            ]);
+            $retVal = true;
+            foreach($items as $key => $row) {
+                if(!$row->is_completed && date('Y-m-d', strtotime($row->last_set_item_taken)) == today()) {
+                    $retVal = false;
+                    break;
+                }
+            }
+            return $retVal;
+        }
     }

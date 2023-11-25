@@ -1,5 +1,5 @@
 <?php build('content') ?>
-<div class="col-md-6 mx-auto">
+<div class="mx-auto">
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Workout Sets</h4>
@@ -15,6 +15,8 @@
                         <th>Tag</th>
                         <th>User</th>
                         <th>Schedule</th>
+                        <th>Day</th>
+                        <th>Completion</th>
                         <th>Action</th>
                     </thead>
 
@@ -31,6 +33,16 @@
                                     <?php else :?>
                                         <?php echo $row->schedule_text?>
                                     <?php endif?>
+                                </td>
+                                <td><?php echo $row->schedule?></td>
+                                <td>
+                                    <?php
+                                        if($row->is_set_complete) {
+                                            echo "<span class='badge bg-success' style='color:#fff'>{$row->is_complete_text}</span>";
+                                        } else {
+                                            echo "<span class='badge bg-warning' style='color:#fff'>{$row->is_complete_text}</span>";
+                                        }
+                                    ?>
                                 </td>
                                 <td>
                                     <?php echo wLinkDefault(_route('workout-set-builder:show', $row->id), 'Show')?>

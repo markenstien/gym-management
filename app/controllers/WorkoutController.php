@@ -33,6 +33,9 @@
                         'global_id' => $id
                     ], 'workout_images');
                 }
+
+                Flash::set("Work out added");
+                return redirect(_route('workout:index'));
             }
             return $this->view('workout/main/create', $this->data);
         }
