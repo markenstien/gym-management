@@ -7,16 +7,19 @@
         </div>
 
         <div class="card-body">
+            <?php Flash::show() ?>
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <th>#</th>
                         <th>Workout</th>
                         <th>Tag</th>
-                        <th>User</th>
+                        <th>Created By</th>
+                        <th>Assigned To</th>
                         <th>Schedule</th>
                         <th>Day</th>
                         <th>Completion</th>
+                        <th>Visibility</th>
                         <th>Action</th>
                     </thead>
 
@@ -27,6 +30,7 @@
                                 <td><?php echo $row->set_name?></td>
                                 <td><?php echo $row->set_tag?></td>
                                 <td><?php echo $row->user_fullname?></td>
+                                <td><?php echo !empty($row->assigned_to_full_name) ? $row->assigned_to_full_name : 'N/A'?></td>
                                 <td>
                                     <?php if(isEqual($row->schedule_text, 'Yes')) :?>
                                         <span class="badge badge-primary"><?php echo $row->schedule_text?></span>
@@ -44,6 +48,7 @@
                                         }
                                     ?>
                                 </td>
+                                <td><?php echo $row->is_public == true ? 'Public' : 'Private'?></td>
                                 <td>
                                     <?php echo wLinkDefault(_route('workout-set-builder:show', $row->id), 'Show')?>
                                 </td>

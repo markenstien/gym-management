@@ -8,12 +8,13 @@
             'set_tag',
             'schedule',
             'user_id',
-            'last_set_taken'
+            'last_set_taken',
+            'is_public',
+            'is_assigned_to'
         ];
 
         public function add($setBuilderData) {
             $_fillables = parent::getFillablesOnly($setBuilderData);
-
             $workout = $this->get([
                 'schedule' => $setBuilderData['schedule'],
                 'user_id' => $setBuilderData['user_id']
@@ -61,11 +62,15 @@
             }
             $this->db->query(
                 "SELECT ws.*, concat(user.firstname, ' ', user.lastname) as user_fullname,
+                    concat(assigned_to_user.firstname, ' ', assigned_to_user.lastname) as assigned_to_full_name,
                     if(ws.schedule = '{$dayName}', 'yes', 'no') as schedule_text,
                     if((ws.is_set_complete = true) && (ws.schedule = '{$dayName}'), 'Completed', 'Pending') as is_complete_text
                     FROM {$this->table} as ws
                     LEFT JOIN users as user 
                         ON user.id = ws.user_id
+                    LEFT JOIN users as assigned_to_user
+                        ON assigned_to_user.id = ws.is_assigned_to
+                        
                     {$where} {$order} {$limit}"
             );
 

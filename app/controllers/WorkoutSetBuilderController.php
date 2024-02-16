@@ -31,7 +31,17 @@ use Form\WorkoutSetItemForm;
             if(isMember()) {
                 $this->data['workoutsets'] = $this->model->getAll([
                     'where' => [
-                        'user_id' => whoIs('id')
+                        'is_public' => [
+                            'condition' => 'equal',
+                            'value' => true,
+                            'concatinator' => 'OR'
+                        ],
+
+                        'is_assigned_to' => [
+                            'condition' => 'equal',
+                            'value' => whoIs('id'),
+                            'concatinator' => 'OR'
+                        ]
                     ]
                 ]);
             } else {

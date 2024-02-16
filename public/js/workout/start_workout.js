@@ -55,6 +55,8 @@ $(document).ready(function(){
 
                 $("#workoutName").html(responseData.workout_name);
 
+                console.log(responseData);
+                
                 if(responseData.images) {
                     buildImageToHTML(responseData.images);
                 }

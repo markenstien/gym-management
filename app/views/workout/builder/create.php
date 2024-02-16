@@ -18,6 +18,14 @@
                 <div class="form-group">
                     <?php echo $form->getRow('schedule')?>
                 </div>
+
+                <div class="form-group">
+                    <?php echo $form->getRow('is_public')?>
+                </div>
+
+                <div class="form-group">
+                    <?php echo $form->getRow('is_assigned_to')?>
+                </div>
                 
                 <div class="form-group">
                     <?php Form::submit('', 'Save Workout')?>

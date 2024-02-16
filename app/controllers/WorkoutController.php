@@ -1,6 +1,8 @@
 <?php
 
     use Form\WorkoutForm;
+use Services\UserService;
+
     load(['WorkoutForm'], FORMS);
 
     class WorkoutController extends Controller
@@ -21,6 +23,11 @@
         }
 
         public function create() {
+            if(isEqual(whoIs('user_type'), UserService::MEMBER)) {
+                Flash::set("Members are not allowed to add their own workouts");
+                return redirect(_route('workout-set-builder:index'));
+            }
+            
             $req = request()->inputs();
 
             if(isSubmitted()) {
