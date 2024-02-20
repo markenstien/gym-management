@@ -105,7 +105,7 @@
                                 <div class="dropdown-divider"></div>
                                 
                                 <?php if(isAdmin()) :?>
-                                    <a class="dropdown-item" href="https://panorama.gymmgmt.online/home/html/index.php">
+                                    <a class="dropdown-item" href="https://vividoptical.online/home/html/index.php">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Panorama Login
                                     </a>
