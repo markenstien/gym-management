@@ -223,8 +223,8 @@
 					<div class="heading-section animate-box" id="gallery">
 						<h2>Gym Preview</h2>
 					</div>
-					<p>for better experience visit the <a href="https://panorama.gymmgmt.online/">tour page</a>.</p>
-					<iframe src="https://panorama.gymmgmt.online/" frameborder="0" style="width: 100%; height:50vh"></iframe>
+					<p>for better experience visit the <a href="https://vividoptical.online/">tour page</a>.</p>
+					<iframe src="https://vividoptical.online/" frameborder="0" style="width: 100%; height:50vh"></iframe>
 				</div>
 			</div>
 		</div>
