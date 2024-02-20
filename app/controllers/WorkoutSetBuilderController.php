@@ -1,10 +1,12 @@
 <?php
 
-use Form\WorkoutForm;
-use Form\WorkoutSetForm;
-use Form\WorkoutSetItemForm;
+    use Form\WorkoutForm;
+    use Form\WorkoutSetForm;
+    use Form\WorkoutSetItemForm;
+    use Services\UserService;
 
     load(['WorkoutSetForm', 'WorkoutForm', 'WorkoutSetItemForm'], FORMS);
+    load(['UserService'], SERVICES);
     
     class WorkoutSetBuilderController extends Controller
     {
@@ -53,6 +55,11 @@ use Form\WorkoutSetItemForm;
         }
 
         public function create() {
+            if(isEqual(whoIs('user_type'), UserService::MEMBER)) {
+                Flash::set("Members are not allowed to add their own workout sets");
+                return redirect(_route('workout-set-builder:index'));
+            }
+
             $req = request()->inputs();
             
             if(isSubmitted()) {
