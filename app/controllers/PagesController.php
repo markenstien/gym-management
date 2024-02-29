@@ -7,6 +7,7 @@
 		public function __construct()
 		{
 			$this->assetModel = model('AssetManagementModel');
+			$this->userModel = model('UserModel');
 		}
 		public function index() {
 			$this->data['form'] = new UserForm();
@@ -21,6 +22,8 @@
 					'asset_category' => 'display_gallery'
 				]
 			]);
+
+			$this->data['instructors'] = $this->userModel->getInstructorData();
 			return $this->view('pages/index', $this->data);
 		}
 

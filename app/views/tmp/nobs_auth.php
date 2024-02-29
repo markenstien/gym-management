@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<?php echo _path_tmp('bootstrap_a/css/sb-admin-2.min.css')?>" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css">
     <?php produce('headers')?>
     <?php produce('styles')?>
 </head>
@@ -174,7 +175,7 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="<?php echo _path_tmp('bootstrap_a/vendor/jquery/jquery.min.js')?>"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="<?php echo _path_tmp('bootstrap_a/vendor/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 
     <!-- Core plugin JavaScript-->
@@ -186,9 +187,7 @@
     <!-- Page level plugins -->
     <script src="<?php echo _path_tmp('bootstrap_a/vendor/chart.js/Chart.min.js')?>"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="<?php echo _path_tmp('bootstrap_a/js/demo/chart-area-demo.js')?>"></script>
-    <script src="<?php echo _path_tmp('bootstrap_a/js/demo/chart-pie-demo.js')?>"></script>
+    <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
 
     <script src="<?php echo _path_public('js/core.js')?>"></script>
     <script src="<?php echo _path_public('js/global.js')?>"></script>
@@ -197,6 +196,7 @@
 
     <script>
         $(function(){
+            $('.dataTable').DataTable();
             setInterval(function(){
                 $.ajax({
                     type: 'get',

@@ -140,7 +140,7 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2" id="programs">
 						<div class="heading-section text-center animate-box">
-							<h2>Programs</h2>
+							<h2>Instructors</h2>
 						</div>
 					</div>
 				</div>
@@ -148,38 +148,16 @@
 					<div class="row text-center">
 						<div class="col-md-12 schedule-container">
 							<div class="schedule-content active" data-day="sunday">
-								<div class="col-md-3 col-sm-6">
-									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/fit-dumbell.svg')?>" alt="Cycling">
-										<small>06AM-7AM</small>
-										<h3>Body Building</h3>
-										<span>John Doe</span>
+								<?php foreach($instructors as $key => $row) :?>
+									<div class="col-md-3 col-sm-6">
+										<div class="program program-schedule">
+											<img src="<?php echo $row->profile ?? _path_tmp('landing/images/fit-dumbell.svg')?>" alt="Cycling">
+											<small>06AM-7AM</small>
+											<h3><?php echo strtoupper($row->firstname . ' '.$row->lastname) ?></h3>
+											<h1 style="margin-top: 10px;" title="Number of Students"><?php echo $row->total_students?></h1>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/fit-yoga.svg')?>" alt="">
-										<small>06AM-7AM</small>
-										<h3>Yoga Programs</h3>
-										<span>James Smith</span>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/cross_fit.png')?>" alt="">
-										<small>06AM-7AM</small>
-										<h3>Crossfit Program</h3>
-										<span>Rita Doe</span>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="program program-schedule">
-										<img src="<?php echo _path_tmp('landing/images/power_lifting.png')?>" alt="Cycling">
-										<small>06AM-7AM</small>
-										<h3>Power lifting</h3>
-										<span>John Dose</span>
-									</div>
-								</div>
+								<?php endforeach?>
 							</div>
 						</div>
 					</div>

@@ -8,7 +8,7 @@
             <?php echo wLinkDefault(_route('package:create'), 'Add Package')?>
             <?php Flash::show()?>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered dataTable">
                     <thead>
                         <th>#</th>
                         <th><?php echo $form->getLabel('package_name')?></th>
@@ -41,4 +41,5 @@
         </div>
     </div>
 <?php endbuild()?>
+
 <?php loadTo('tmp/nobs_auth')?>

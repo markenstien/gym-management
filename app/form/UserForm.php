@@ -30,6 +30,7 @@
 			/*end*/
 			$this->addPhoneNumber();
 			$this->addEmail();
+			$this->addSpecialization();
 			$this->addAddress();
 
 			
@@ -205,15 +206,30 @@
 			]);
 		}
 
+		public function addSpecialization()
+		{
+			$this->add([
+				'type' => 'text',
+				'name' => 'specialization',
+				'class' => 'form-control',
+				'options' => [
+					'label' => 'Specialization',
+				],
+
+				'attributes' => [
+					'placeholder' => 'Add Instructor Specialization'
+				]
+			]);
+		}
+
 		public function addUserType()
 		{
 			$this->add([
-				'type' => 'select',
+				'type' => 'hidden',
 				'name' => 'user_type',
 				'class' => 'form-control',
 				'required' => true,
 				'options' => [
-					'label' => 'User Type',
 					'option_values' => [
 						UserService::INSTRUCTOR,
 						UserService::MEMBER

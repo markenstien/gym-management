@@ -1,7 +1,8 @@
 <?php 
-	load(['UserForm'] , APPROOT.DS.'form');
 	use Form\UserForm;
 	use Services\UserService;
+	load(['UserService'], SERVICES);
+	load(['UserForm'] , APPROOT.DS.'form');
 
 	class UserController extends Controller
 	{
@@ -53,7 +54,12 @@
 		public function create()
 		{
 			$req = request()->inputs();
+			$userType = !empty($req['user_type']) ? $req['user_type'] : UserService::MEMBER;
 
+			if(!isEqual($userType, [UserService::MEMBER, UserService::INSTRUCTOR])) {
+				Flash::set('Invalid User type', 'danger');
+				return redirect(_route('user:instructors'));
+			}
 			if(isSubmitted()) {
 				$post = request()->posts();
 				$user_id = $this->model->create($post , 'profile');
@@ -72,6 +78,8 @@
 				return redirect( _route('user:show' , $user_id , ['user_id' => $user_id]) );
 			}
 			$this->data['user_form'] = new UserForm('userForm');
+			$this->data['user_form']->setValue('user_type', $userType);
+			$this->data['req'] = $req;
 
 			return $this->view('user/create' , $this->data);
 		}
@@ -179,6 +187,7 @@
 			if(!isEqual(whoIs('user_type'), 'admin'))
 				$this->data['user_form']->remove('user_type');
 			$this->data['user'] = $user;
+
 			return $this->view('user/edit' , $this->data);
 		}
 

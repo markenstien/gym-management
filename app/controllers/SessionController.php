@@ -273,9 +273,17 @@
                  * find user
                  */
                 $user = $this->userModel->get([
-                    'username' => $post['username']
+                    'username' => [
+                        'condition' => 'equal',
+                        'value' => $post['username'],
+                        'concatinator' => 'OR'
+                    ],
+                    'user_identification' => [
+                        'condition' => 'equal',
+                        'value' => $post['username'],
+                    ]
                 ]);
-
+                
                 if(!$user) {
                     Flash::set("User not found", 'danger');
                     return request()->return();

@@ -25,6 +25,7 @@
 					<thead>
 						<th>Name</th>
 						<th>ID Number</th>
+						<th>Username</th>
 						<th>Type</th>
 						<th>Gender</th>
 						<th>Action</th>
@@ -35,6 +36,7 @@
 							<tr>
 								<td><?php echo $row->lastname . ' , ' .$row->firstname?></td>
 								<td><?php echo $row->user_identification?></td>
+								<td><?php echo $row->username?></td>
 								<td><?php echo $row->user_type?></td>
 								<td><?php echo $row->gender ?></td>
 								<td><?php echo wLinkDefault(_route('user:show', $row->id), 'Show User'); ?></td>

@@ -23,7 +23,8 @@
 			'user_identification',
 			'membership_expiry_date',
 			'profile',
-			'available_session_count'
+			'available_session_count',
+			'specialization',
 		];
 
 
@@ -68,14 +69,13 @@
 					$this->uploadProfile('profile' , $id);
 					unset($fillable_datas['profile']);
 				}
-
+				
 				$res = parent::update($fillable_datas , $id);
 				$user_id = $id;
 			}else
 			{
 				$fillable_datas['user_identification'] = $this->generateCode();
 				$user_id = parent::store($fillable_datas);
-				// $this->sendCredential($user_id);
 			}
 			
 			return $user_id;
@@ -414,6 +414,27 @@
 			return parent::update([
 				'is_active' => false
 			], $id);
+		}
+
+		/**
+		 * total students
+		 * images
+		 * and specialty
+		 */
+		public function getInstructorData() {
+			$this->db->query(
+				"SELECT user.*, students.total_students as total_students
+					FROM users as user
+					INNER JOIN (
+						SELECT count(*) as total_students, instructor_id
+							FROM sessions
+							GROUP BY instructor_id
+					) as students
+					ON students.instructor_id = user.id
+				"
+			);
+
+			return $this->db->resultSet();
 		}
 	}
 

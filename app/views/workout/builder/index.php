@@ -9,7 +9,7 @@
         <div class="card-body">
             <?php Flash::show() ?>
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered dataTable">
                     <thead>
                         <th>#</th>
                         <th>Workout</th>

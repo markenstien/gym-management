@@ -58,6 +58,13 @@
 								<td width="250px">Name</td>
 								<td><?php echo $user->lastname . ',' . $user->firstname?></td>
 							</tr>
+
+							<?php if(isEqual($user->user_type, 'INSTRUCTOR')) :?>
+							<tr>
+								<td width="250px"><?php echo $user_form->label('specialization')?></td>
+								<td><?php echo $user->specialization?></td>
+							</tr>
+							<?php endif?>
 							<tr>
 								<td width="250px">Gender</td>
 								<td><?php echo $user->gender?></td>

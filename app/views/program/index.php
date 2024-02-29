@@ -12,7 +12,7 @@
             ?>
             <div class="table-responsive">
                 <?php if(isMember()) :?>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered dataTable">
                         <thead>
                             <th>#</th>
                             <th>Code</th>
@@ -69,5 +69,12 @@
             </div>
         </div>
     </div>
+<?php endbuild()?>
+<?php build('scripts') ?>
+<script>
+    $(document).ready(function(){
+        $('.dataTable').DataTable();
+    })
+</script>
 <?php endbuild()?>
 <?php loadTo('tmp/nobs_auth')?>
