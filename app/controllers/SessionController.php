@@ -260,8 +260,8 @@
          */
         public function updateDailySessions() {
             $this->sessionModel->updateDailySession();
-            // Flash::set("Daily Session Update Successfully");
-            // return request()->return();
+            Flash::set("Daily Session Update Successfully");
+            return request()->return();
         }
 
         public function useSession() {
