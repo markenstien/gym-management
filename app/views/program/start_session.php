@@ -37,7 +37,7 @@
                     ?>
                 </div>
                 <?php 
-                    if(isEqual($session->status, 'ongoing') && isInstructor()) {
+                if(isEqual($session->status, 'ongoing') && isInstructor()) {
                         Form::submit('', 'Complete Session');
                     }
                 ?>

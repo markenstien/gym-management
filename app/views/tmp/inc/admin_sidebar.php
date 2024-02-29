@@ -64,7 +64,7 @@
     <div id="programSessionCollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo _route('session:create')?>">Program</a>
-            <a class="collapse-item" href="<?php echo _route('session:index')?>">Seessions</a>
+            <a class="collapse-item" href="<?php echo _route('session:index')?>">Sessions</a>
         </div>
     </div>
 </li>

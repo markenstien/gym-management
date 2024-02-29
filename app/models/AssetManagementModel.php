@@ -26,21 +26,28 @@
             if(!empty($params['limit'])) {
                 $limit = " LIMIT {$params['order']}";
             }
-
+            
             $this->db->query(
                 "SELECT asset.*,
-                    filename,file_type,
-                    display_name,
-                    global_key, global_id,
+                    att.filename,att.file_type,
+                    att.display_name,
+                    att.global_key, att.global_id,
                     att.id as attachment_id,
-                    path, url,
-                    full_path,
-                    full_url, att.description as attachment_description 
+                    att.path, att.url,
+                    att.full_path as att_full_path,
+                    att.full_url as att_full_url, att.description as att_description,
                     
+                    atticon_.full_path as atticon_full_path,
+                    atticon_.full_url as atticon_full_url, atticon_.description as atticon_icondescription
+
                     FROM {$this->table} as asset
                     LEFT JOIN attachments as att 
                         ON att.global_id = asset.id
                         AND att.global_key = 'ASSET_FILE'
+
+                    LEFT JOIN attachments as atticon_
+                        ON atticon_.global_id = asset.id
+                        AND atticon_.global_key = 'ASSET_FILE_ICON'
                         
                 {$where} {$order} {$limit}"
             );

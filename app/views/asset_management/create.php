@@ -16,6 +16,7 @@
                         $form->getRow('title'),
                         $form->getRow('asset_category'),
                         $form->getRow('file'),
+                        $form->getRow('default_picture'),
                         $form->getRow('description'),
                      ]);
                 ?>
@@ -50,7 +51,7 @@
                                     <td><?php echo wExtensionType($row->file_type)?></td>
                                     <td><?php echo $row->asset_category?></td>
                                     <td><?php echo wLinkDefault(_route('viewer:show', [
-                                        'file' => seal($row->full_url)
+                                        'file' => seal($row->att_full_url)
                                     ]), 'View Asset', [
                                         'target' => '_blank'
                                     ])?></td>

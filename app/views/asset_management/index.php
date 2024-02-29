@@ -10,13 +10,13 @@
                 <?php foreach($assets as $key => $row) :?>
                     <div class="box col-md-2 text-center">
                         <div><h5><?php echo $row->title?></h5></div>
-                            <a href="#" data-title="<?php echo $row->title?>" data-url="<?php echo $row->full_url?>" class="viewAsset">
+                            <a href="#" data-title="<?php echo $row->title?>" data-url="<?php echo $row->att_full_url?>" class="viewAsset">
                                 <div style="width: 100%; border:1px solid #000;">
                                     <?php if(isEqual(wExtensionType($row->file_type), 'image')) :?>
-                                        <img src="<?php echo $row->full_url?>" 
+                                        <img src="<?php echo $row->atticon_full_url ?? $row->att_full_url?>" 
                                             alt="" style="width: 100%; height:300px">
                                     <?php else:?>
-                                        <img src="https://images.assetsdelivery.com/compings_v2/rahultiwari3190/rahultiwari31901905/rahultiwari3190190500234.jpg" 
+                                        <img src="<?php echo $row->atticon_full_url ?? 'https://static.thenounproject.com/png/118627-200.png'?>" 
                                             alt="" style="width: 100%; height:300px">
                                     <?php endif?>
                                 </div>
@@ -39,13 +39,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe id="modalIframe" frameborder="0" 
-                style="overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:1000px;width:100%;" 
-                height="100%" width="100%"></iframe>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <embed id="modalIframe" frameborder="0" 
+                style="overflow:hidden;overflow-x:hidden;overflow-y:hidden; height:300px; width:400px" 
+                height="300px" width="400px">
             </div>
             </div>
         </div>

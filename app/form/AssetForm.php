@@ -16,6 +16,7 @@
             ]);
             $this->addTitle();
             $this->adddFile();
+            $this->addDefaultPicture();
             $this->addDescription();
             $this->addType();
         }
@@ -44,6 +45,16 @@
                 'name' => 'file',
                 'options' => [
                     'label' => 'File Name'
+                ]
+            ]);
+        }
+
+        public function addDefaultPicture() {
+            $this->add([
+                'type' => 'file',
+                'name' => 'default_picture',
+                'options' => [
+                    'label' => 'Default Picture'
                 ]
             ]);
         }

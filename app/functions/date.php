@@ -68,11 +68,12 @@
          $strTime = array("second", "minute", "hour", "day", "month", "year");
          $length = array("60","60","24","30","12","10");
 
-         $currentTime = strtotime(now());
+         $currentTime = strtotime(nowMilitary());
          
-         if($currentTime >= $timestamp) {
-
-            $diff     = time()- $timestamp;
+         if(($currentTime - $timestamp) < 200) {
+            return "Few second(s) ago ";
+         } else if($currentTime >= $timestamp) {
+            $diff     = time() - $timestamp;
 
             for($i = 0; $diff >= $length[$i] && $i < count($length)-1; $i++) 
             {

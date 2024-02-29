@@ -36,7 +36,32 @@
         }
 
         public function index() {
-            $this->data['sessions'] = $this->sessionModel->getAll();
+            $req = request()->inputs();
+
+            if(!empty($req['display']) && isEqual($req['display'], 'today')) {
+                $this->data['sessions'] = $this->sessionModel->getAll([
+                    'order' => 'id desc',
+                    'where' => [
+                        'date(last_update)' => today()
+                    ]
+                ]);
+            } else if(!empty($req['advance_filter'])) {
+                $this->data['sessions'] = $this->sessionModel->getAll([
+                    'order' => 'id desc',
+                    'where' => [
+                        'date(last_update)' => [
+                            'condition' => 'between',
+                            'value' => [$req['start_date'], $req['end_date']]
+                        ]
+                    ]
+                ]);
+            } else {
+                $this->data['sessions'] = $this->sessionModel->getAll([
+                    'order' => 'id desc'
+                ]);
+            }
+
+            $this->data['req'] = $req;
             return $this->view('session/index', $this->data);
         }
 
@@ -237,5 +262,56 @@
             $this->sessionModel->updateDailySession();
             Flash::set("Daily Session Update Successfully");
             return request()->return();
+        }
+
+        public function useSession() {
+            $data = [];
+
+            if(isSubmitted()) {
+                $post = request()->posts();
+                /**
+                 * find user
+                 */
+                $user = $this->userModel->get([
+                    'username' => $post['username']
+                ]);
+
+                if(!$user) {
+                    Flash::set("User not found", 'danger');
+                    return request()->return();
+                }
+
+                //search session
+                
+                $sessions = $this->sessionModel->getAll([
+                    'where' => [
+                        'member_id' => $user->id
+                    ],
+                    'order' => 'id desc'
+                ]);
+                
+                if(count($sessions) > 1) {
+                    $data = [
+                        'sessions' =>  $sessions
+                    ];
+                } else {
+                    if($sessions) {
+                        $this->usePackage($sessions[0]->id);
+                    }
+                }
+            }
+            return $this->view('session/use_session', $data);
+        }
+
+        public function usePackage($sessionId) {
+
+            $resp = $this->sessionModel->addSessionTaken($sessionId);
+            if($resp) {
+                Flash::set("Session Used");
+                return redirect(_route('session:use-session'));
+            } else {
+                Flash::set($this->sessionModel->getErrorString(), 'danger');
+                return request()->return();
+            }
         }
     }

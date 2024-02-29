@@ -20,6 +20,7 @@
                     'asset_category' => 'tutorial'
                 ]
             ]);
+            
             return $this->view('asset_management/index', $this->data);
         }
 
@@ -47,6 +48,23 @@
                         Flash::set(implode(',', $uploaderHelper->getErrors()), 'danger');
                         return request()->return();
                     }
+
+                    if(!upload_empty('default_picture')) {
+                        $uploaderHelper1 = new UploaderHelper();
+                        $uploaderHelper1->setPath(PATH_UPLOAD);
+                        $uploaderHelper1->setOnlyValidExtensions([
+                            'jpg','jpeg','png','bitmap',
+                            'mp4','WMV','MOV','FLV'
+                        ]);
+
+                        $uploaderHelper1->setFile('default_picture');
+                        $uploadOkay = $uploaderHelper1->upload();
+
+                        if(!$uploadOkay) {
+                            Flash::set(implode(',', $uploaderHelper1->getErrors()), 'danger');
+                            return request()->return();
+                        }
+                    }
                     $assetId = $this->model->store([
                         'title' => $post['title'],
                         'description' => $post['description'],
@@ -64,6 +82,14 @@
                             'global_id'  => $assetId,
                             'created_by' => whoIs('id')
                         ], $uploaderHelper);
+
+                        if(isset($uploaderHelper1)) {
+                            $this->_attachmentModel->uploadByHelperClass([
+                                'global_key' => 'ASSET_FILE_ICON',
+                                'global_id'  => $assetId,
+                                'created_by' => whoIs('id')
+                            ], $uploaderHelper1);
+                        }
                     }
                 }
                 Flash::set('Management Uploaded');
@@ -90,13 +116,14 @@
             ]);
 
             $this->data['form'] = $this->form;
+            $this->data['req'] = $req;
+
             return $this->view('asset_management/create', $this->data);
         }
         
 
         public function edit($id) {
             $asset = $this->model->get($id);
-            dump($asset);
             $this->form->setValueObject($asset);
             return $this->view('asset_management/edit', $this->data);
         }

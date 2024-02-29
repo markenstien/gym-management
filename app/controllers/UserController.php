@@ -215,7 +215,12 @@
 			$this->_attachmentForm->setValue('global_id', $user->id);
 			$this->_attachmentForm->setValue('global_key', 'user_files');
 			$this->data['attachmentForm'] = $this->_attachmentForm;
-
+			$this->data['scheduledPrograms'] = $this->programParticipantModel->getAll([
+				'where' => [
+					'member_id' => $user->id
+				]
+			]);
+			
 			$this->data['user_files'] = $this->_attachmentModel->all([
 				'global_id' => $user->id,
 				'global_key' => 'user_files'

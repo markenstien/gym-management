@@ -88,7 +88,9 @@
 		'show'   => $controller.'/show',
 		'students' => $controller.'/students',
 		'add-transaction'  => $controller .'/addSessionTransaction',
-		'update-daily-session' => $controller . '/updateDailySessions'
+		'update-daily-session' => $controller . '/updateDailySessions',
+		'use-session' => $controller . '/useSession',
+		'use-package' => $controller . '/usePackage',
 	];
 
 	$controller = '/InstructorSessionController';

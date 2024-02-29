@@ -130,6 +130,37 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Scheduled Programs</h4>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+								<th>#</th>
+								<th>Program</th>
+								<th>Session</th>
+								<th>Instructor</th>
+								<th>Date Started</th>
+							</thead>
+
+							<tbody>
+								<?php foreach($scheduledPrograms as $key => $row) :?>
+									<tr>
+										<td><?php echo ++$key?></td>
+										<td><?php echo $row->program_name?></td>
+										<td><?php echo $row->sessions_taken . '/'. $row->program_session?></td>
+										<td><?php echo $row->instructor_firstname . ' '.$row->instructor_lastname?></td>
+										<td><?php echo $row->start_date?></td>
+									</tr>
+								<?php endforeach?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 			<?php if(isMember($user)):?>
 				<?php echo wDivider(30)?>
 				<div class="card">

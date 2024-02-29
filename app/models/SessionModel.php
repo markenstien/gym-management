@@ -43,15 +43,17 @@
 
         public function addSessionTaken($sessionId) {
             $session = parent::get($sessionId);
-            $sessionTaken = $session->session_taken + 1;
-
-            if($session->package_session <=  $sessionTaken){
+            
+            if($session->package_session <=  $session->session_taken){
                 $this->addError("Session already completed!");
                 return false;
             }
+
+            $sessionTaken = $session->session_taken + 1;
             
             return parent::update([
-                'session_taken' => $sessionTaken
+                'session_taken' => $sessionTaken,
+                'last_update' => nowMilitary()
             ], $sessionId);
         }
 
