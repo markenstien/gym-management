@@ -152,9 +152,9 @@
 									<div class="col-md-3 col-sm-6">
 										<div class="program program-schedule">
 											<img src="<?php echo $row->profile ?? _path_tmp('landing/images/fit-dumbell.svg')?>" alt="Cycling">
-											<small>06AM-7AM</small>
+											<small><?php echo $row->specialization?></small>
 											<h3><?php echo strtoupper($row->firstname . ' '.$row->lastname) ?></h3>
-											<h1 style="margin-top: 10px;" title="Number of Students"><?php echo $row->total_students?></h1>
+										<h1 style="margin-top: 10px;" title="Number of Students{"><?php echo $row->total_students?></h1>
 										</div>
 									</div>
 								<?php endforeach?>
