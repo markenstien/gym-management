@@ -6,8 +6,6 @@
 		{
 			$file = request()->input('file');
 			$file = unseal($file);
-
-			dump($file);
 			
 			return $this->view('viewer/show' , [
 				'file' => $file

@@ -3,11 +3,12 @@
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">Use Session</h4>
+            <?php Flash::show()?>
+
         </div>
 
         <div class="card-body">
             <a href="<?php echo _route('session:index')?>" class="btn btn-primary mb-4">Sessions</a>
-            <?php Flash::show()?>
             <?php
                 Form::open([
                     'method' => 'post'

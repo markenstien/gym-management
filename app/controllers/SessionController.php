@@ -40,14 +40,14 @@
 
             if(!empty($req['display']) && isEqual($req['display'], 'today')) {
                 $this->data['sessions'] = $this->sessionModel->getAll([
-                    'order' => 'id desc',
+                    'order' => 'last_update desc',
                     'where' => [
                         'date(last_update)' => today()
                     ]
                 ]);
             } else if(!empty($req['advance_filter'])) {
                 $this->data['sessions'] = $this->sessionModel->getAll([
-                    'order' => 'id desc',
+                    'order' => 'last_update desc',
                     'where' => [
                         'date(last_update)' => [
                             'condition' => 'between',
@@ -57,7 +57,7 @@
                 ]);
             } else {
                 $this->data['sessions'] = $this->sessionModel->getAll([
-                    'order' => 'id desc'
+                    'order' => 'last_update desc'
                 ]);
             }
 
@@ -260,8 +260,8 @@
          */
         public function updateDailySessions() {
             $this->sessionModel->updateDailySession();
-            Flash::set("Daily Session Update Successfully");
-            return request()->return();
+            // Flash::set("Daily Session Update Successfully");
+            // return request()->return();
         }
 
         public function useSession() {
@@ -281,22 +281,29 @@
                     return request()->return();
                 }
 
-                //search session
-                
                 $sessions = $this->sessionModel->getAll([
                     'where' => [
-                        'member_id' => $user->id
+                        'member_id' => $user->id,
+                        'consume_type' => 'per_session',
+                        'package_session' => [
+                            'condition' => '>',
+                            'value' => 'session_taken',
+                            'is_field' => true
+                        ]
                     ],
                     'order' => 'id desc'
                 ]);
-                
+
                 if(count($sessions) > 1) {
                     $data = [
                         'sessions' =>  $sessions
                     ];
                 } else {
                     if($sessions) {
-                        $this->usePackage($sessions[0]->id);
+                        return $this->usePackage($sessions[0]->id);
+                    } else {
+                        Flash::set("No sessions left", 'danger');
+                        return request()->return();
                     }
                 }
             }
@@ -308,7 +315,7 @@
             $resp = $this->sessionModel->addSessionTaken($sessionId);
             if($resp) {
                 Flash::set("Session Used");
-                return redirect(_route('session:use-session'));
+                return redirect(_route('session:index'));
             } else {
                 Flash::set($this->sessionModel->getErrorString(), 'danger');
                 return request()->return();

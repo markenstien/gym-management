@@ -8,18 +8,30 @@
             <?php Flash::show()?>
             <p>Upload your assets and include it on your sessions</p>
             <?php echo $form->start()?>
-                <?php
-                    if($form->checkExistKey('user_id')) {
-                        echo $form->get('user_id');
-                    }
-                    __([
-                        $form->getRow('title'),
-                        $form->getRow('asset_category'),
-                        $form->getRow('file'),
-                        $form->getRow('default_picture'),
-                        $form->getRow('description'),
-                     ]);
-                ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php
+                            if($form->checkExistKey('user_id')) {
+                                echo $form->get('user_id');
+                            }
+                            __([
+                                $form->getRow('title'),
+                                $form->getRow('asset_category'),
+                                $form->getRow('description'),
+                             ]);
+                        ?>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <?php echo $form->getRow('file')?>
+                            <img src="<?php echo $asset->att_full_url?>" alt="" style="width: 150px;">
+                        </div>
+                        <div class="form-group">
+                            <?php echo $form->getRow('default_picture')?>
+                            <img src="<?php echo $asset->atticon_full_url?>" alt="" style="width: 150px;">
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <?php
                         Form::submit('', 'Save Asset');

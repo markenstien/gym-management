@@ -123,8 +123,106 @@
         
 
         public function edit($id) {
-            $asset = $this->model->get($id);
+            $req = request()->inputs();
+
+            if(isSubmitted()) {
+                $post = request()->posts();
+
+                if(!upload_empty('file')) {
+                    $uploaderHelper1 = new UploaderHelper();
+                    $uploaderHelper1->setPath(PATH_UPLOAD);
+                    $uploaderHelper1->setOnlyValidExtensions([
+                        'jpg','jpeg','png','bitmap',
+                        'mp4','WMV','MOV','FLV'
+                    ]);
+
+                    $uploaderHelper1->setFile('file');
+                    $uploadOkay = $uploaderHelper1->upload();
+
+                    if(!$uploadOkay) {
+                        Flash::set(implode(',', $uploaderHelper1->getErrors()), 'danger');
+                        return request()->return();
+                    }
+                }
+
+                if(!upload_empty('default_picture')) {
+                    $uploaderHelper2 = new UploaderHelper();
+                    $uploaderHelper2->setPath(PATH_UPLOAD);
+                    $uploaderHelper2->setOnlyValidExtensions([
+                        'jpg','jpeg','png','bitmap',
+                        'mp4','WMV','MOV','FLV'
+                    ]);
+
+                    $uploaderHelper2->setFile('default_picture');
+                    $uploadOkay = $uploaderHelper2->upload();
+
+                    if(!$uploadOkay) {
+                        Flash::set(implode(',', $uploaderHelper2->getErrors()), 'danger');
+                        return request()->return();
+                    }
+                }
+
+                $resp = $this->model->update([
+                    'title' => $post['title'],
+                    'description' => $post['description'],
+                    'is_active' => true,
+                    'asset_category' => $post['asset_category']
+                ], $id);
+
+                if($resp) {
+                    Flash::set("File Updated");
+                    $this->_attachmentModel->path = PATH_UPLOAD;
+                    $this->_attachmentModel->url  = GET_PATH_UPLOAD;
+
+                    if(isset($uploaderHelper1)) {
+                        $resp = $this->_attachmentModel->deleteWithFile([
+                            'global_id' => $id,
+                            'global_key' => 'ASSET_FILE'
+                        ]);
+
+                        $this->_attachmentModel->uploadByHelperClass([
+                            'global_key' => 'ASSET_FILE',
+                            'global_id'  => $id,
+                            'created_by' => whoIs('id')
+                        ], $uploaderHelper1);
+                    }
+                    
+
+                    if(isset($uploaderHelper2)) {
+                        $this->_attachmentModel->deleteWithFile([
+                            'global_id' => $id,
+                            'global_key' => 'ASSET_FILE_ICON'
+                        ]);
+
+                        $this->_attachmentModel->uploadByHelperClass([
+                            'global_key' => 'ASSET_FILE_ICON',
+                            'global_id'  => $id,
+                            'created_by' => whoIs('id')
+                        ], $uploaderHelper2);
+                    }
+                }
+            }
+
+            $asset = $this->model->get([
+                'asset.id' => $id
+            ]);
+            
             $this->form->setValueObject($asset);
+
+            $this->data['assets'] = $this->model->getAll([
+                'where' => [
+                    'asset.user_id' => [
+                        'condition' => 'in',
+                        'value' => [null, whoIs('id')]
+                    ]
+                ],
+
+                'order' => 'asset.id desc'
+            ]);
+
+            $this->data['form'] = $this->form;
+            $this->data['req'] = $req;
+            $this->data['asset'] = $asset;
             return $this->view('asset_management/edit', $this->data);
         }
 

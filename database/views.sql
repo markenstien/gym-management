@@ -49,6 +49,7 @@ CREATE VIEW v_sessions AS SELECT
     u_session.session_type,
     session_taken, package_session,
     package_name,price,
+    consume_type,
 
     instructor.firstname as instructor_firstname,
     instructor.lastname as instructor_lastname,

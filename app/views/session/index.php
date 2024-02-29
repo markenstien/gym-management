@@ -30,6 +30,7 @@
                         <th>Member</th>
                         <th>Instructor</th>
                         <th>Session</th>
+                        <th>Type</th>
                         <th>Last Update</th>
                     </thead>
 
@@ -49,6 +50,7 @@
                                     ?>
                                 </td>
                                 <td><?php echo $row->session_taken?> / <?php echo $row->package_session?></td>
+                                <td><?php echo $row->consume_type?></td>
                                 <td><?php echo time_since($row->last_update)?></td>
                             </tr>
                         <?php endforeach?>

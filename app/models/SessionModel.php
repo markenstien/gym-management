@@ -35,7 +35,7 @@
             } else {
                 $id = " id = {$id}";
             }
-
+            
             return $this->getAll([
                 'where' => $id
             ])[0] ?? false;
@@ -44,6 +44,10 @@
         public function addSessionTaken($sessionId) {
             $session = parent::get($sessionId);
             
+            if(timeDifference($session->last_update, today()) <= 24) {
+                $this->addError("Session is already used a while ago!");
+                return false;
+            }
             if($session->package_session <=  $session->session_taken){
                 $this->addError("Session already completed!");
                 return false;
@@ -61,39 +65,48 @@
             $dateToday = nowMilitary();
             $dateYesterDay = date('Y-m-d H:i:s', strtotime('-1 day'.$dateToday));
 
-            $autoUpdatePackage = "SELECT id from instructor_packages
-            WHERE consume_type = 'daily'
-            AND date(auto_last_update) <= date('{$dateYesterDay}')";
-            $this->db->query($autoUpdatePackage);
+            /**
+             * get daily packages
+             * search sessions with daily package which are not updated within 24 hours
+             * update each session
+             * update daily packages
+             */
+            $dailyPackages = "SELECT id,auto_last_update from instructor_packages
+            WHERE consume_type = 'daily'";
 
-            $packagesToUpdate = $this->db->resultSet();
+            $this->db->query($dailyPackages);
 
-            if($packagesToUpdate) {
+            $dailyPackages = $this->db->resultSet();
+
+            if($dailyPackages) {
                 $packagesId = [];
-                    foreach($packagesToUpdate as $key => $row) {
-                        $packagesId[] = $row->id;
+                foreach($dailyPackages as $key => $row) {
+                    $packagesId[] = $row->id;
+                }
+
+                //select sessions within 24 hours
+                $sql = "SELECT * FROM {$this->table}
+                    WHERE package_id in (".implode(',', $packagesId).")
+                        AND package_session > session_taken";
+
+                $this->db->query($sql);
+                $sessions = $this->db->resultSet();
+
+                foreach($sessions as $key => $row) {
+                    if(timeDifference($row->last_update, $dateToday) >= 24) {
+                        parent::update([
+                            'session_taken' => ($row->session_taken + 1),
+                            'last_update'   =>  $dateToday,
+                        ], $row->id);
                     }
+                }
 
-                    $packagesId = implode(',', $packagesId);
-                    //update session
-                    $sql = "
-                        UPDATE {$this->table} 
-                            SET session_taken = (session_taken + 1),
-                            last_update = '{$dateToday}'
-                            WHERE package_id in($packagesId);
-                    ";
-                    $this->db->query($sql);
-                    $this->db->execute();
-
-
-                //update packages
                 $sql = "UPDATE instructor_packages
                     SET auto_last_update = '{$dateToday}'
-                    WHERE id in($packagesId) ";
+                    WHERE id in(".implode(',', $packagesId).") ";
 
                 $this->db->query($sql);
                 $this->db->execute();
             }
-            
         }
     }
