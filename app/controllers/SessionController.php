@@ -231,7 +231,7 @@
                 $isOkay = $this->sessionModel->addSessionTaken($session->id);
 
                 if(!$isOkay) {
-                    Flash::set($this->sessionModel->getErrorMessage(), 'danger');
+                    Flash::set($this->sessionModel->getErrorString(), 'danger');
                     return request()->return();
                 }
                 $this->sessionRemarkModel->store([
