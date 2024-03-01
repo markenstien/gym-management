@@ -186,9 +186,9 @@
 					<div class="row">
 						<?php foreach($images as $key => $row) :?>
 							<div class="col-md-4">
-								<img src="<?php echo $row->full_url?>" alt=""
+								<img src="<?php echo $row->att_full_url?>" alt=""
 								style="width: 100%;">
-								<p><?php echo $row->description?></p>
+								<p><?php echo $row->att_description?></p>
 							</div>
 						<?php endforeach?>
 					</div>
