@@ -188,7 +188,7 @@
 							<div class="col-md-4">
 								<img src="<?php echo $row->att_full_url?>" alt=""
 								style="width: 100%;">
-								<p><?php echo $row->att_description?></p>
+								<p><?php echo $row->description?></p>
 							</div>
 						<?php endforeach?>
 					</div>
