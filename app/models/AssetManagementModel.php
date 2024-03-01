@@ -35,7 +35,7 @@
                     att.id as attachment_id,
                     att.path, att.url,
                     att.full_path as att_full_path,
-                    att.full_url as att_full_url, att.description as att_description,
+                    att.full_url as att_full_url, att.description as att_description ,
                     
                     atticon_.full_path as atticon_full_path,
                     atticon_.full_url as atticon_full_url, atticon_.description as atticon_icondescription
